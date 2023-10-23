@@ -3,8 +3,8 @@ using API.Data;
 using API.Models;
 
 namespace API.Repositories;
-public class AccountRepository : GeneralRepository<Account>, IAccountRepository
+public class ProjectRepository : GeneralRepository<Project>, IProjectRepository
 {
-    public AccountRepository(HotlineCenterDbContext context) : base(context) { }
+    public ProjectRepository(HotlineCenterDbContext context) : base(context) { }
 
 }
