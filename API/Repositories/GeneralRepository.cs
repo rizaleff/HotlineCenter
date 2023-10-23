@@ -6,7 +6,7 @@ namespace API.Repositories;
 public class GeneralRepository<TEntity> : IGeneralRepository<TEntity> where TEntity : class
 {
     protected readonly HotlineCenterDbContext _context;
-
+        
     public GeneralRepository(HotlineCenterDbContext context)
     {
         _context = context;
