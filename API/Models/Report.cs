@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Models;
 [Table("tb_reports")]
-public class Reports : BaseEntity
+public class Report : BaseEntity
 {
     [Column("title", TypeName = "nvarchar(100)")]
     public string Title { get; set; }
@@ -14,7 +14,7 @@ public class Reports : BaseEntity
     [Column("employee_guid")]
     public Guid EmployeeGuid { get; set; }
 
-    [Column("gender")]
+    [Column("status)")]
     public StatusLevel Status { get; set; }
 
     [Column("photo_url", TypeName = "nvarchar(max)")]

@@ -10,5 +10,5 @@ public class Role : BaseEntity
 
 
     //Cardinality
-    public ICollection<AccountRole>? AccountRoles { get; set; }
+    /*public ICollection<AccountRole>? AccountRoles { get; set; }*/
 }

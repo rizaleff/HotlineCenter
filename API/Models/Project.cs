@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Models;
-public class Projects : BaseEntity
+public class Project : BaseEntity
 {
     [Column("report_guid")]
     public Guid ReportGuid { get; set; }

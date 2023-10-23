@@ -3,7 +3,7 @@
 namespace API.Models;
 
 [Table("tb_cs_tasks")]
-public class CsTasks : BaseEntity
+public class CsTask : BaseEntity
 {
     [Column("cs_guid", TypeName = "uniqueidentifier")]
     public Guid CsGuid { get; set; }
@@ -12,6 +12,6 @@ public class CsTasks : BaseEntity
     public Guid TaskGuid { get; set; }
 
     // Cardinality
-    public Employees? Employee { get; set; }
-    public Tasks? Task { get; set; }
+/*    public Employee? Employee { get; set; }
+    public Task? Task { get; set; }*/
 }

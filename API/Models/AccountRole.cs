@@ -14,6 +14,6 @@ public class AccountRole : BaseEntity
     public Role? Role { get; set; }
 
     //Cardinality
-    public Employee? Employee { get; set; }
-    public ICollection<AccountRole>? AccountRoles { get; set; }
+/*    public Employee? Employee { get; set; }
+    public ICollection<AccountRole>? AccountRoles { get; set; }*/
 }
