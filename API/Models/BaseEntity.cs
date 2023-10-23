@@ -1,5 +1,5 @@
 ﻿namespace API.Models;
-public class GeneralModel
+public class BaseEntity
 {
     [Key, Column("guid")]
     public Guid Guid { get; set; }
