@@ -3,7 +3,7 @@
 namespace API.Models;
 
 [Table("tb_task_reports")]
-public class TaskReports : BaseEntity
+public class TaskReport : BaseEntity
 {
     [Column("is_finish")]
     public bool IsFinish { get; set; }
@@ -15,5 +15,5 @@ public class TaskReports : BaseEntity
     public int Photo { get; set; }
 
     // Cardinality
-    public Tasks? Task { get; set; }
+    public Task? Task { get; set; }
 }

@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Models;
-
 [Table("tb_m_employees")]
-public class Employees : BaseEntity
+public class Employee : BaseEntity
 {
     [Column("nik", TypeName = "nchar(6)")]
     public string Nik { get; set; }

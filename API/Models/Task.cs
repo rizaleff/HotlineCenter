@@ -3,7 +3,7 @@
 namespace API.Models;
 
 [Table("tb_tasks")]
-public class Tasks : BaseEntity
+public class Task : BaseEntity
 {
     [Column("report_guid")]
     public Guid ReportGuid { get; set; }
@@ -21,7 +21,7 @@ public class Tasks : BaseEntity
     public bool IsApproved { get; set; }
 
     // Cardinality
-    public Reports? Report { get; set; }
-    public TaskReports? TaskReport { get; set; }
-    public CsTasks? CsTask { get; set; }
+/*    public Report? Report { get; set; }
+    public TaskReport? TaskReport { get; set; }
+    public CsTask? CsTask { get; set; }*/
 }
