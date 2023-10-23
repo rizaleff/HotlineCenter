@@ -1,7 +1,6 @@
 ﻿using API.Models;
 
 namespace API.Contracts;
-public interface IEmployeeRepository : IGeneralRepository<Employee>
+public interface ICsTaskRepository : IGeneralRepository<CsTask>
 {
-
 }

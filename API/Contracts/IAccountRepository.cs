@@ -1,4 +1,4 @@
 ﻿namespace API.Contracts;
-public interface IAccountRepository
+public interface IAccountRepository : IGeneralRepository<Acco>
 {
 }
