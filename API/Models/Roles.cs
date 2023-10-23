@@ -3,9 +3,11 @@
 namespace API.Models;
 
 [Table("tb_roles")]
-public class Role : GeneralModel
+public class Roles : BaseEntity
 {
     [Column("name", TypeName = "nvarchar(100)")]
     public string Name { get; set; }
 
+    // Cardinality
+    public AccountRoles? AccountRole { get; set; }
 }

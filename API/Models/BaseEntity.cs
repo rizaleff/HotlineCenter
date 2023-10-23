@@ -1,4 +1,7 @@
-﻿namespace API.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace API.Models;
 public class BaseEntity
 {
     [Key, Column("guid")]
