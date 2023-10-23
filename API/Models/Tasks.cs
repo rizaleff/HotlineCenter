@@ -5,6 +5,9 @@ namespace API.Models;
 [Table("tb_tasks")]
 public class Tasks : BaseEntity
 {
+    [Column("report_guid")]
+    public Guid ReportGuid { get; set; }
+
     [Column("title", TypeName = "nvarchar(100)")]
     public string Title { get; set; }
 
