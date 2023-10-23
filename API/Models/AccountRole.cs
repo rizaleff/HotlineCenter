@@ -3,7 +3,7 @@ using System.Data;
 
 namespace API.Models;
 [Table("tb_account_roles")]
-public class AccountRole : GeneralModel
+public class AccountRole : BaseEntity
 {
     [Column("account_guid", TypeName = "uniqueidentifier")]
     public Guid AccountGuid { get; set; }
@@ -12,4 +12,8 @@ public class AccountRole : GeneralModel
 
     public Account? Account { get; set; }
     public Role? Role { get; set; }
+
+    //Cardinality
+    public Employee? Employee { get; set; }
+    public ICollection<AccountRole>? AccountRoles { get; set; }
 }

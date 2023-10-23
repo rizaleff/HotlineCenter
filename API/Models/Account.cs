@@ -2,7 +2,7 @@
 
 namespace API.Models;
 [Table("tb_accounts")]
-public class Account : GeneralModel
+public class Account : BaseEntity
 {
     [Column("password", TypeName = "nvarchar(max)")]
     public string Password { get; set; }
@@ -12,4 +12,8 @@ public class Account : GeneralModel
     public bool IsUsed { get; set; }
     [Column("expired_time")]
     public DateTime ExpiredTime { get; set; }
+
+    //Cardinality
+    public Employee? Employee { get; set; }
+    public ICollection<AccountRole>? AccountRoles { get; set; }
 }
