@@ -19,4 +19,12 @@ public class Report : BaseEntity
 
     [Column("photo_url", TypeName = "nvarchar(max)")]
     public string PhotoUrl { get; set; }
+
+    [Column("note", TypeName = "nvarchar(max)")]
+    public string Note {  get; set; }
+
+    //Cardinality
+    public WorkOrder? WorkOrder {  get; set; }
+    public Project? Project { get; set; }
+    public Employee? Employee{ get; set; }
 }

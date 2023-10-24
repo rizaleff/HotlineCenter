@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Models;
-public class Projects : BaseEntity
+[Table("tb_projects")]
+public class Project : BaseEntity
 {
     [Column("report_guid")]
     public Guid ReportGuid { get; set; }
@@ -17,4 +18,10 @@ public class Projects : BaseEntity
 
     [Column("budget")]
     public float Budget { get; set; }
+
+    [Column("note", TypeName = "nvarchar(max)")]
+    public string Note { get; set; }
+    //Cardinality
+    public Report? Report { get; set; }
+
 }
