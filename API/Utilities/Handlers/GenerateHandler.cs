@@ -1,4 +1,5 @@
 ﻿namespace API.Utilities.Handlers;
+
 public class GenerateHandler
 {
     public static string GenerateNik(string lastNik)
