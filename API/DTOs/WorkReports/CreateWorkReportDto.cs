@@ -3,14 +3,14 @@ using API.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Dtos.WorkReports;
-public class CreatedWorkReportDto
+public class CreateWorkReportDto
 {
     public bool IsFinish { get; set; }
     public string Description { get; set; }
     public int Photo { get; set; }
 
 
-    public static implicit operator WorkReport(CreatedWorkReportDto createdWorkReportDto)
+    public static implicit operator WorkReport(CreateWorkReportDto createdWorkReportDto)
     {
         return new WorkReport
         {
