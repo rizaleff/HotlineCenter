@@ -2,18 +2,22 @@
 
 public class GenerateHandler
 {
-    public static string GenerateNik(string lastNik)
+    public static string Nik(string? lastNik = null)
     {
-        if (lastNik == "") return "111111";
-        int nik = Convert.ToInt32(lastNik);
-        nik += 1;
-        return nik.ToString();
+        if (lastNik is null)
+        {
+            return "111111"; // First employee
+        }
+
+        var generateNik = Convert.ToInt32(lastNik) + 1;
+
+        return generateNik.ToString();
     }
 
-    public static int GenerateOtp()
-    {
-        Random random = new Random();
-        int otp = random.Next(100000, 999999);
-        return otp;
-    }
+    // public static int GenerateOtp()
+    // {
+    //     Random random = new Random();
+    //     int otp = random.Next(100000, 999999);
+    //     return otp;
+    // }
 }
