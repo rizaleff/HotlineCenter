@@ -1,5 +1,5 @@
 ﻿using API.Contracts;
-using API.Dtos.AccountRoles;
+using API.Dtos.Tasks;
 using API.Models;
 using API.Utilities.Handlers;
 using Microsoft.AspNetCore.Mvc;
@@ -9,20 +9,20 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AccountRoleController : ControllerBase
+public class WorkOrderController : ControllerBase
 {
-    private readonly IAccountRoleRepository _accountRoleRepository;
+    private readonly IWorkOrderRepository _workOrderRepository;
 
-    public AccountRoleController(IAccountRoleRepository accountRoleRepository)
+    public WorkOrderController(IWorkOrderRepository workOrderRepository)
     {
-        _accountRoleRepository = accountRoleRepository;
+        _workOrderRepository = workOrderRepository;
     }
 
 
     [HttpGet]
     public IActionResult GetAll()
     {
-        var result = _accountRoleRepository.GetAll();
+        var result = _workOrderRepository.GetAll();
 
         if (!result.Any())
         {
@@ -34,27 +34,27 @@ public class AccountRoleController : ControllerBase
             });
         }
 
-        var data = result.Select(x => (AccountRoleDto)x);
+        var data = result.Select(x => (WorkOrderDto)x);
 
-        return Ok(new ResponseOKHandler<IEnumerable<AccountRoleDto>>(data));
+        return Ok(new ResponseOKHandler<IEnumerable<WorkOrderDto>>(data));
     }
 
 
     //[HttpGet("{guid}")]
     //public IActionResult GetByGuid(Guid guid)
     //{
-
+       
     //}
 
 
     [HttpPost]
-    public IActionResult Create(CreateAccountRoleDto accountRoleDto)
+    public IActionResult Create(CreateWorkOrderDto workOrderDto)
     {
         try
         {
-            var result = _accountRoleRepository.Create(accountRoleDto);
+            var result = _workOrderRepository.Create(workOrderDto);
 
-            return Ok(new ResponseOKHandler<AccountRoleDto>((AccountRoleDto)result));
+            return Ok(new ResponseOKHandler<WorkOrderDto>((WorkOrderDto)result));
         }
         catch (ExceptionHandler ex)
         {
@@ -70,11 +70,11 @@ public class AccountRoleController : ControllerBase
 
 
     [HttpPut]
-    public IActionResult Update(AccountRoleDto accountRoleDto)
+    public IActionResult Update(WorkOrderDto workOrderDto)
     {
         try
         {
-            var entity = _accountRoleRepository.GetByGuid(accountRoleDto.Guid);
+            var entity = _workOrderRepository.GetByGuid(workOrderDto.Guid);
 
             if (entity is null)
             {
@@ -82,14 +82,14 @@ public class AccountRoleController : ControllerBase
                 {
                     Code = StatusCodes.Status404NotFound,
                     Status = HttpStatusCode.NotFound.ToString(),
-                    Message = "Data Not Found"
+                    Message = "Id Not Found"
                 });
             }
 
-            AccountRole toUpdate = accountRoleDto;
+            WorkOrder toUpdate = workOrderDto;
             toUpdate.CreatedDate = entity.CreatedDate;
 
-            _accountRoleRepository.Update(toUpdate);
+            _workOrderRepository.Update(toUpdate);
 
             return Ok(new ResponseOKHandler<string>("Data Updated"));
         }
@@ -111,7 +111,7 @@ public class AccountRoleController : ControllerBase
     {
         try
         {
-            var entity = _accountRoleRepository.GetByGuid(guid);
+            var entity = _workOrderRepository.GetByGuid(guid);
 
             if (entity is null)
             {
@@ -119,11 +119,11 @@ public class AccountRoleController : ControllerBase
                 {
                     Code = StatusCodes.Status404NotFound,
                     Status = HttpStatusCode.NotFound.ToString(),
-                    Message = "Data Not Found"
+                    Message = "Id Not Found"
                 });
             }
 
-            _accountRoleRepository.Delete(entity);
+            _workOrderRepository.Delete(entity);
 
             return Ok(new ResponseOKHandler<string>("Data Deleted"));
         }

@@ -1,6 +1,9 @@
 ﻿using API.Contracts;
-using API.Dtos.AccountRoles;
+using API.Dtos.TaskReports;
+using API.Dtos.Tasks;
+using API.Dtos.WorkReports;
 using API.Models;
+using API.Repositories;
 using API.Utilities.Handlers;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -9,20 +12,20 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AccountRoleController : ControllerBase
+public class WorkReportController : ControllerBase
 {
-    private readonly IAccountRoleRepository _accountRoleRepository;
+    private readonly IWorkReportRepository _workReportRepository;
 
-    public AccountRoleController(IAccountRoleRepository accountRoleRepository)
+    public WorkReportController(IWorkReportRepository workReportRepository)
     {
-        _accountRoleRepository = accountRoleRepository;
+        _workReportRepository = workReportRepository;
     }
 
 
     [HttpGet]
     public IActionResult GetAll()
     {
-        var result = _accountRoleRepository.GetAll();
+        var result = _workReportRepository.GetAll();
 
         if (!result.Any())
         {
@@ -34,27 +37,27 @@ public class AccountRoleController : ControllerBase
             });
         }
 
-        var data = result.Select(x => (AccountRoleDto)x);
+        var data = result.Select(x => (WorkReportDto)x);
 
-        return Ok(new ResponseOKHandler<IEnumerable<AccountRoleDto>>(data));
+        return Ok(new ResponseOKHandler<IEnumerable<WorkReportDto>>(data));
     }
 
 
     //[HttpGet("{guid}")]
     //public IActionResult GetByGuid(Guid guid)
     //{
-
+       
     //}
 
 
     [HttpPost]
-    public IActionResult Create(CreateAccountRoleDto accountRoleDto)
+    public IActionResult Create(CreateWorkReportDto workReportDto)
     {
         try
         {
-            var result = _accountRoleRepository.Create(accountRoleDto);
+            var result = _workReportRepository.Create(workReportDto);
 
-            return Ok(new ResponseOKHandler<AccountRoleDto>((AccountRoleDto)result));
+            return Ok(new ResponseOKHandler<WorkReportDto>((WorkReportDto)result));
         }
         catch (ExceptionHandler ex)
         {
@@ -70,11 +73,11 @@ public class AccountRoleController : ControllerBase
 
 
     [HttpPut]
-    public IActionResult Update(AccountRoleDto accountRoleDto)
+    public IActionResult Update(WorkReportDto workReportDto)
     {
         try
         {
-            var entity = _accountRoleRepository.GetByGuid(accountRoleDto.Guid);
+            var entity = _workReportRepository.GetByGuid(workReportDto.Guid);
 
             if (entity is null)
             {
@@ -82,14 +85,14 @@ public class AccountRoleController : ControllerBase
                 {
                     Code = StatusCodes.Status404NotFound,
                     Status = HttpStatusCode.NotFound.ToString(),
-                    Message = "Data Not Found"
+                    Message = "Id Not Found"
                 });
             }
 
-            AccountRole toUpdate = accountRoleDto;
+            WorkReport toUpdate = workReportDto;
             toUpdate.CreatedDate = entity.CreatedDate;
 
-            _accountRoleRepository.Update(toUpdate);
+            _workReportRepository.Update(toUpdate);
 
             return Ok(new ResponseOKHandler<string>("Data Updated"));
         }
@@ -111,7 +114,7 @@ public class AccountRoleController : ControllerBase
     {
         try
         {
-            var entity = _accountRoleRepository.GetByGuid(guid);
+            var entity = _workReportRepository.GetByGuid(guid);
 
             if (entity is null)
             {
@@ -119,11 +122,11 @@ public class AccountRoleController : ControllerBase
                 {
                     Code = StatusCodes.Status404NotFound,
                     Status = HttpStatusCode.NotFound.ToString(),
-                    Message = "Data Not Found"
+                    Message = "Id Not Found"
                 });
             }
 
-            _accountRoleRepository.Delete(entity);
+            _workReportRepository.Delete(entity);
 
             return Ok(new ResponseOKHandler<string>("Data Deleted"));
         }
