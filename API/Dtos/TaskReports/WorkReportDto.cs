@@ -1,7 +1,7 @@
 ﻿using API.Models;
 
 namespace API.Dtos.TaskReports;
-public class TaskReportDto
+public class WorkReportDto
 {
     Guid Guid { get; set; }
     public bool IsFinish { get; set; }
@@ -9,9 +9,9 @@ public class TaskReportDto
     public int Photo { get; set; }
 
 
-    public static implicit operator TaskReport(TaskReportDto taskReportDto)
+    public static implicit operator WorkReport(WorkReportDto taskReportDto)
     {
-        return new TaskReport
+        return new WorkReport
         {
             Guid = taskReportDto.Guid,
             Description = taskReportDto.Description,
@@ -22,9 +22,9 @@ public class TaskReportDto
     }
 
 
-    public static explicit operator TaskReportDto(TaskReport taskReport)
+    public static explicit operator WorkReportDto(WorkReport taskReport)
     {
-        return new TaskReportDto
+        return new WorkReportDto
         {
             Guid = taskReport.Guid,
             Description = taskReport.Description,

@@ -1,10 +1,10 @@
 ﻿using API.Dtos.Roles;
 using API.Models;
 using System.ComponentModel.DataAnnotations.Schema;
-using Task = API.Models.Task;
+using WorkOrder = API.Models.WorkOrder;
 
 namespace API.Dtos.Tasks;
-public class CreateTaskDto
+public class CreateWorkOrderDto
 {
     public Guid ReportGuid { get; set; }
     public string Title { get; set; }
@@ -12,9 +12,9 @@ public class CreateTaskDto
     public DateTime TaskEstimate { get; set; }
     public bool IsApproved { get; set; }
 
-    public static implicit operator Task(CreateTaskDto createTaskDto)
+    public static implicit operator WorkOrder(CreateWorkOrderDto createTaskDto)
     {
-        return new Task
+        return new WorkOrder
         {
             ReportGuid = createTaskDto.ReportGuid,
             Title = createTaskDto.Title,

@@ -15,7 +15,7 @@ public class CsTaskDto
         {
             Guid = csTaskDto.Guid,
             CsGuid = csTaskDto.CsGuid,
-            TaskGuid = csTaskDto.TaskGuid,
+            WorkOrderGuid = csTaskDto.TaskGuid,
             ModifiedDate = DateTime.Now
         };
     }
@@ -25,7 +25,7 @@ public class CsTaskDto
         {
             Guid = csTask.Guid,
             CsGuid = csTask.Guid,
-            TaskGuid = csTask.TaskGuid,
+            TaskGuid = csTask.WorkOrderGuid,
         };
     }
 }

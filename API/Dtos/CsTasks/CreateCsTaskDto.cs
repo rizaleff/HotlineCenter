@@ -12,7 +12,7 @@ public class CreateCsTaskDto
         return new CsTask
         {
             CsGuid = createCsTaskDto.CsGuid,
-            TaskGuid = createCsTaskDto.TaskGuid,
+            WorkOrderGuid = createCsTaskDto.TaskGuid,
             CreatedDate = DateTime.Now,
             ModifiedDate = DateTime.Now
         };

@@ -1,8 +1,8 @@
 ﻿namespace API.Dtos.Tasks;
 
 using API.Dtos.CsTasks;
-using Task = Models.Task;
-public class TaskDto
+using WorkOrder = Models.WorkOrder;
+public class WorkOrderDto
 {
     public Guid Guid { get; set; }
     public Guid ReportGuid { get; set; }
@@ -11,9 +11,9 @@ public class TaskDto
     public DateTime TaskEstimate { get; set; }
     public bool IsApproved { get; set; }
 
-    public static implicit operator Task(TaskDto taskDto)
+    public static implicit operator WorkOrder(WorkOrderDto taskDto)
     {
-        return new Task
+        return new WorkOrder
         {
             Guid = taskDto.Guid,
             ReportGuid = taskDto.ReportGuid,
@@ -26,9 +26,9 @@ public class TaskDto
         };
     }
 
-    public static explicit operator TaskDto(Task task)
+    public static explicit operator WorkOrderDto(WorkOrder task)
     {
-        return new TaskDto
+        return new WorkOrderDto
         {
             Guid = task.Guid,
             ReportGuid = task.ReportGuid,

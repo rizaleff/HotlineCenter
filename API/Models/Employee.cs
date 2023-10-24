@@ -24,7 +24,12 @@ public class Employee : BaseEntity
     [Column("phone_number", TypeName = "nvarchar(50)")]
     public string PhoneNumber { get; set; }
 
-    [Column("guid")]
+    [Column("division_guid")]
     public Guid DivisionGuid{ get; set; }
-
+    
+    //Cardinality
+    public Account? Account { get; set; }
+    public Division? Division { get; set; }
+    public ICollection<CsTask>? CsTasks { get; set; }
+    public ICollection<Report>? Reports { get; set; }
 }

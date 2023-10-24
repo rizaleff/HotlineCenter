@@ -3,7 +3,7 @@
 namespace API.Models;
 
 [Table("tb_tasks")]
-public class Task : BaseEntity
+public class WorkOrder : BaseEntity
 {
     [Column("report_guid")]
     public Guid ReportGuid { get; set; }
@@ -20,8 +20,11 @@ public class Task : BaseEntity
     [Column("is_approved")]
     public bool IsApproved { get; set; }
 
+    [Column("note", TypeName = "nvarchar(max)")]
+    public string Note { get; set; }
+
     // Cardinality
-/*    public Report? Report { get; set; }
-    public TaskReport? TaskReport { get; set; }
-    public CsTask? CsTask { get; set; }*/
+    public Report? Report { get; set; }
+    public WorkReport? WorkReport { get; set; }
+    public ICollection<CsTask>? CsTasks { get; set; }
 }
