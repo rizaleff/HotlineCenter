@@ -1,7 +1,6 @@
 ﻿using API.Utilities.Handlers;
 using Client.Contracts;
 using Newtonsoft.Json;
-using System.Net.Http.Headers;
 using System.Text;
 
 namespace Client.Repositories;
@@ -22,7 +21,7 @@ public class GeneralRepository<Entity, TId> : IRepository<Entity, TId>
         };
         contextAccessor = new HttpContextAccessor();
         // Ini yg bawah skip dulu
-        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", contextAccessor.HttpContext?.Session.GetString("JWToken"));
+        //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", contextAccessor.HttpContext?.Session.GetString("JWToken"));
     }
 
     public async Task<ResponseOKHandler<Entity>> Delete(TId id)
