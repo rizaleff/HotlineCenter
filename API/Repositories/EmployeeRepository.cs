@@ -11,4 +11,11 @@ public class EmployeeRepository : GeneralRepository<Employee>, IEmployeeReposito
         Employee? employee = _context.Employees.OrderByDescending(e => e.Nik).FirstOrDefault();
         return employee?.Nik ?? "";
     }
+
+    public Employee GetEmail(string email)
+    {
+        var entity = _context.Set<Employee>().FirstOrDefault(e => e.Email == email);
+        _context.ChangeTracker.Clear();
+        return entity;
+    }
 }
