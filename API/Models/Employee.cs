@@ -18,6 +18,7 @@ public class Employee : BaseEntity
     public GenderLevel Gender { get; set; }
     [Column("hiring_date")]
     public DateTime HiringDate { get; set; }
+
     [Column("email", TypeName = "nvarchar(100)")]
     public string Email { get; set; }
 
@@ -27,7 +28,7 @@ public class Employee : BaseEntity
     [Column("division_guid")]
     public Guid DivisionGuid{ get; set; }
 
-    [Column("photo_url")]
+    [Column("photo_url", TypeName = "nvarchar(max)")]
     public string PhotoUrl { get; set; }
     
     //Cardinality
