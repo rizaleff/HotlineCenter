@@ -115,7 +115,7 @@ public class ProjectController : ControllerBase
         }
     }
 
-
+    [HttpPut("verify")]
     public IActionResult Verify(VerifyProjectDto verifyProjectDto)
     {
         try

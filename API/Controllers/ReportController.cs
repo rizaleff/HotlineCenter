@@ -151,7 +151,7 @@ public class ReportController : ControllerBase
         }
     }
 
-    [HttpPut]
+    [HttpPut("status")]
     public IActionResult UpdateStatus(EditStatusReportDto editStatusReportDto)
     {
         try
