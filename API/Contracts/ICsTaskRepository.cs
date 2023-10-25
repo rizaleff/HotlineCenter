@@ -1,6 +1,6 @@
 ﻿using API.Models;
 
 namespace API.Contracts;
-public interface ICsTaskRepository : IGeneralRepository<CsTask>
+public interface ICsTaskRepository : IGeneralRepository<CsWorkOrder>
 {
 }

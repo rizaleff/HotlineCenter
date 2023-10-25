@@ -7,9 +7,9 @@ public class CreateCsTaskDto
     public Guid CsGuid { get; set; }
     public Guid TaskGuid { get; set; }
 
-    public static implicit operator CsTask(CreateCsTaskDto createCsTaskDto)
+    public static implicit operator CsWorkOrder(CreateCsTaskDto createCsTaskDto)
     {
-        return new CsTask
+        return new CsWorkOrder
         {
             CsGuid = createCsTaskDto.CsGuid,
             WorkOrderGuid = createCsTaskDto.TaskGuid,

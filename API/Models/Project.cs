@@ -24,5 +24,6 @@ public class Project : BaseEntity
 
     //Cardinality
     public Report? Report { get; set; }
+    public WorkOrder? WorkOrder { get; set; }
 
 }

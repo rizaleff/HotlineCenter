@@ -87,7 +87,7 @@ public class CsTaskController : ControllerBase
                 });
             }
 
-            CsTask toUpdate = csTaskDto;
+            CsWorkOrder toUpdate = csTaskDto;
             toUpdate.CreatedDate = entity.CreatedDate;
 
             _csTaskRepository.Update(toUpdate);

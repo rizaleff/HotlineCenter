@@ -13,7 +13,6 @@ public class EmployeeDto
     public DateTime HiringDate { get; set; }
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
-    public Guid DivisionGuid { get; set; }
 
     public static implicit operator Employee(EmployeeDto employeeDto)
     {
@@ -28,7 +27,6 @@ public class EmployeeDto
             HiringDate = employeeDto.HiringDate,
             Email = employeeDto.Email,
             PhoneNumber = employeeDto.PhoneNumber,
-            DivisionGuid = employeeDto.DivisionGuid,
             ModifiedDate = DateTime.Now
         };
     }
@@ -45,8 +43,7 @@ public class EmployeeDto
             Gender = employee.Gender,
             HiringDate = employee.HiringDate,
             Email = employee.Email,
-            PhoneNumber = employee.PhoneNumber,
-            DivisionGuid = employee.DivisionGuid
+            PhoneNumber = employee.PhoneNumber
         };
     }
 

@@ -2,8 +2,8 @@
 
 namespace API.Models;
 
-[Table("tb_cs_tasks")]
-public class CsTask : BaseEntity
+[Table("tb_cs_work_orders")]
+public class CsWorkOrder : BaseEntity
 {
     [Column("cs_guid")]
     public Guid CsGuid { get; set; }
@@ -13,5 +13,5 @@ public class CsTask : BaseEntity
 
     // Cardinality
     public Employee? Employee { get; set; }
-    public WorkOrder? Task { get; set; }
+    public WorkOrder? WorkOrder { get; set; }
 }

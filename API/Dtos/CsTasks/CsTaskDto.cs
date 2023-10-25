@@ -9,9 +9,9 @@ public class CsTaskDto
     public Guid CsGuid { get; set; }
     public Guid TaskGuid { get; set; }
 
-    public static implicit operator CsTask(CsTaskDto csTaskDto)
+    public static implicit operator CsWorkOrder(CsTaskDto csTaskDto)
     {
-        return new CsTask
+        return new CsWorkOrder
         {
             Guid = csTaskDto.Guid,
             CsGuid = csTaskDto.CsGuid,
@@ -19,7 +19,7 @@ public class CsTaskDto
             ModifiedDate = DateTime.Now
         };
     }
-    public static explicit operator CsTaskDto(CsTask csTask)
+    public static explicit operator CsTaskDto(CsWorkOrder csTask)
     {
         return new CsTaskDto
         {

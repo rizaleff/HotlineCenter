@@ -7,8 +7,7 @@ public class HotlineCenterDbContext : DbContext
 
     public DbSet<Account> Accounts { get; set; }
     public DbSet<AccountRole> AccountRoles { get; set; }
-    public DbSet<CsTask> CsTasks { get; set; }
-    public DbSet<Division> Divisions { get; set; }
+    public DbSet<CsWorkOrder> CsWorkOders { get; set; }
     public DbSet<Employee> Employees { get; set; }
     public DbSet<Project> Projects { get; set; }
     public DbSet<Report> Reports { get; set; }
@@ -42,11 +41,6 @@ public class HotlineCenterDbContext : DbContext
             .HasForeignKey<Account>(a => a.Guid);
 
         modelBuilder.Entity<Employee>()
-            .HasOne(d => d.Division)
-            .WithMany(e => e.Employees)
-            .HasForeignKey(e => e.DivisionGuid);
-
-        modelBuilder.Entity<Employee>()
             .HasMany(e => e.CsTasks)
             .WithOne(cst => cst.Employee)
             .HasForeignKey(cst => cst.CsGuid);
@@ -70,10 +64,16 @@ public class HotlineCenterDbContext : DbContext
             .HasOne(tr => tr.WorkOrder)
             .WithOne(t => t.WorkReport)
             .HasForeignKey<WorkReport>(tr => tr.Guid);
+        
+        
+        modelBuilder.Entity<Project>()
+            .HasOne(p => p.WorkOrder)
+            .WithOne(wo => wo.Project)
+            .HasForeignKey<WorkOrder>(wo => wo.ProjectGuid);
 
-        modelBuilder.Entity<CsTask>()
-            .HasOne(ct => ct.Task)
-            .WithMany(t => t.CsTasks)
+        modelBuilder.Entity<CsWorkOrder>()
+            .HasOne(ct => ct.WorkOrder)
+            .WithMany(t => t.CsWorkOrders)
             .HasForeignKey(ct => ct.WorkOrderGuid)
             .OnDelete(DeleteBehavior.Restrict);
 

@@ -14,7 +14,7 @@ public class Report : BaseEntity
     [Column("employee_guid")]
     public Guid EmployeeGuid { get; set; }
 
-    [Column("status)")]
+    [Column("status")]
     public StatusLevel Status { get; set; }
 
     [Column("photo_url", TypeName = "nvarchar(max)")]

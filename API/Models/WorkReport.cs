@@ -2,7 +2,7 @@
 
 namespace API.Models;
 
-[Table("tb_task_reports")]
+[Table("tb_work_reports")]
 public class WorkReport : BaseEntity
 {
     [Column("is_finish")]
