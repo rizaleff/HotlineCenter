@@ -57,7 +57,7 @@ public class ReportController : ControllerBase
         return Ok(new ResponseOKHandler<IEnumerable<ReportDetailDto>>(reportDetails));
     }
 
-    [HttpGet]
+    [HttpGet("details")]
     public IActionResult GetAll()
     {
         var result = _reportRepository.GetAll();
