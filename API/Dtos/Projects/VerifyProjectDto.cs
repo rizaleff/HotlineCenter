@@ -6,7 +6,7 @@ public class VerifyProjectDto
 {
     public Guid Guid { get; set; }
     public bool IsApproved {  get; set; }
-    public string Note { get; set }
+    public string Note { get; set; }
 
     public static implicit operator Project(VerifyProjectDto verifyProjectDto)
     {
