@@ -9,7 +9,7 @@ public class ReportDto
     public string Description { get; set; }
     public Guid EmployeeGuid { get; set; }
     public StatusLevel Status { get; set; }
-    public string PhotoUrl { get; set; }
+    //public string PhotoUrl { get; set; }
 
     public static implicit operator Report(ReportDto reportDto)
     {
@@ -20,7 +20,7 @@ public class ReportDto
             Description = reportDto.Description,
             EmployeeGuid = reportDto.EmployeeGuid,
             Status = reportDto.Status,
-            PhotoUrl = reportDto.PhotoUrl,
+            //PhotoUrl = reportDto.PhotoUrl,
             ModifiedDate = DateTime.Now
         };
     }
@@ -33,7 +33,7 @@ public class ReportDto
             Description = report.Description,
             EmployeeGuid = report.EmployeeGuid,
             Status = report.Status,
-            PhotoUrl = report.PhotoUrl
+            //PhotoUrl = report.PhotoUrl
         };
     }
 }

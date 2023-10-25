@@ -10,7 +10,8 @@ public class CreateReportDto
     public string Description { get; set; }
     public Guid EmployeeGuid { get; set; }
     public StatusLevel Status { get; set; }
-    public string PhotoUrl { get; set; }
+    //public string PhotoUrl { get; set; }
+    public IFormFile PhotoFile { get; set; }
 
     public static implicit operator Report(CreateReportDto createReportDto)
     {
@@ -20,7 +21,7 @@ public class CreateReportDto
             Description = createReportDto.Description,
             EmployeeGuid = createReportDto.EmployeeGuid,
             Status = createReportDto.Status,
-            PhotoUrl = createReportDto.PhotoUrl,
+            //PhotoUrl = createReportDto.PhotoUrl,
             CreatedDate = DateTime.Now,
             ModifiedDate = DateTime.Now
         };

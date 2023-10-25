@@ -17,8 +17,11 @@ public class Report : BaseEntity
     [Column("status")]
     public StatusLevel Status { get; set; }
 
-    [Column("photo_url", TypeName = "nvarchar(max)")]
-    public string PhotoUrl { get; set; }
+    /*[Column("photo_url", TypeName = "nvarchar(max)")]
+    public string PhotoUrl { get; set; }*/
+
+    [Column("photo")]
+    public byte[] Photo { get; set; }
 
     [Column("note", TypeName = "nvarchar(max)")]
     public string? Note {  get; set; }

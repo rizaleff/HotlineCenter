@@ -1,4 +1,5 @@
 ﻿using API.Contracts;
+using API.Dtos.Employees;
 using API.Dtos.Projects;
 using API.Dtos.Reports;
 using API.DTOs.Reports;
@@ -50,8 +51,8 @@ public class ReportController : ControllerBase
                                 Status = rep.Status,
                                 CreatedDate = rep.CreatedDate,
                                 ModifiedDate = rep.ModifiedDate,
-                                ReportPhotoUrl = rep.PhotoUrl,
-                                EmployeePhotoUrl = emp.PhotoUrl
+                                ReportPhoto = rep.Photo,
+                                EmployeePhoto = emp.Photo
                             };
 
         return Ok(new ResponseOKHandler<IEnumerable<ReportDetailDto>>(reportDetails));
@@ -97,6 +98,16 @@ public class ReportController : ControllerBase
     {
         try
         {
+            Report report = reportDto;
+            if (reportDto.PhotoFile != null && reportDto.PhotoFile.Length > 0)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    reportDto.PhotoFile.CopyTo(memoryStream);
+                    report.Photo = memoryStream.ToArray();
+                }
+            }
+
             var result = _reportRepository.Create(reportDto);
             return Ok(new ResponseOKHandler<ReportDto>((ReportDto)result));
         }
@@ -173,7 +184,7 @@ public class ReportController : ControllerBase
             toUpdate.EmployeeGuid = reportByGuid.EmployeeGuid;
             toUpdate.Title = reportByGuid.Title; 
             toUpdate.Description = reportByGuid.Description;
-            toUpdate.PhotoUrl = reportByGuid.PhotoUrl;
+            //toUpdate.PhotoUrl = reportByGuid.PhotoUrl;
             toUpdate.CreatedDate = reportByGuid.CreatedDate;
 
             _reportRepository.Update(toUpdate);

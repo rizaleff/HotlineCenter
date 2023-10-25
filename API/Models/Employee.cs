@@ -24,10 +24,12 @@ public class Employee : BaseEntity
 
     [Column("phone_number", TypeName = "nvarchar(50)")]
     public string PhoneNumber { get; set; }
+    [Column("photo")]
+    public byte[] Photo { get; set; }
 
-    [Column("photo_url", TypeName = "nvarchar(max)")]
-    public string PhotoUrl { get; set; }
-    
+    /*[Column("photo_url", TypeName = "nvarchar(max)")]
+    public string PhotoUrl { get; set; }*/
+
     //Cardinality
     public Account? Account { get; set; }
     public ICollection<CsWorkOrder>? CsTasks { get; set; }
