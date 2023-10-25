@@ -25,7 +25,10 @@ public class Employee : BaseEntity
     public string PhoneNumber { get; set; }
 
     [Column("division_guid")]
-    public Guid DivisionGuid{ get; set; }
+    public Guid? DivisionGuid{ get; set; }
+
+    [Column("photo_url")]
+    public string PhotoUrl { get; set; }
     
     //Cardinality
     public Account? Account { get; set; }

@@ -21,7 +21,7 @@ public class Report : BaseEntity
     public string PhotoUrl { get; set; }
 
     [Column("note", TypeName = "nvarchar(max)")]
-    public string Note {  get; set; }
+    public string? Note {  get; set; }
 
     //Cardinality
     public WorkOrder? WorkOrder {  get; set; }
