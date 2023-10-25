@@ -1,19 +1,4 @@
-/*html {
-  font-size: 14px;
+.max-img {
+    max-width: 500px;
+    max-height: 500px;
 }
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
-}*/
-
