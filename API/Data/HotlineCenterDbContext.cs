@@ -1,7 +1,5 @@
 ﻿using API.Models;
 using Microsoft.EntityFrameworkCore;
-using WorkOrder = API.Models.WorkOrder;
-
 namespace API.Data;
 public class HotlineCenterDbContext : DbContext
 {

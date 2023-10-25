@@ -11,7 +11,7 @@ public class WorkReport : BaseEntity
     [Column("description", TypeName = "nvarchar(max)")]
     public string Description { get; set; }
 
-    [Column("photo")]
+    [Column("photo", TypeName = "nvarchar(max)")]
     public int Photo { get; set; }
 
     [Column("note", TypeName = "nvarchar(max)")]
