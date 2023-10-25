@@ -1,7 +1,7 @@
 ﻿using API.Models;
 using API.Utilities.Enums;
 
-namespace API.DTOs.Accounts;
+namespace API.Dtos.Accounts;
 public class RegisterAccountDto
 {
     public string FirstName { get; set; }

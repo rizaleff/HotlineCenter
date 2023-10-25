@@ -1,6 +1,6 @@
 ﻿using API.Models;
 
-namespace API.DTOs.Accounts;
+namespace API.Dtos.Accounts;
 
 public class LoginDto
 {
