@@ -12,7 +12,7 @@ public class HotlineCenterDbContext : DbContext
     public DbSet<CsTask> CsTasks { get; set; }
     public DbSet<Division> Divisions { get; set; }
     public DbSet<Employee> Employees { get; set; }
-    public DbSet<Projects> Projects { get; set; }
+    public DbSet<Project> Projects { get; set; }
     public DbSet<Report> Reports { get; set; }
     public DbSet<Role> Roles { get; set; }
     public DbSet<WorkReport> WorkReports { get; set; }
