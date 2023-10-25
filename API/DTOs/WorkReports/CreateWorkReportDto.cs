@@ -7,7 +7,7 @@ public class CreateWorkReportDto
 {
     public bool IsFinish { get; set; }
     public string Description { get; set; }
-    public int Photo { get; set; }
+    public byte[] Photo { get; set; }
 
 
     public static implicit operator WorkReport(CreateWorkReportDto createdWorkReportDto)

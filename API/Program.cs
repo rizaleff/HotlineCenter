@@ -15,6 +15,7 @@ builder.Services.AddScoped<ICsTaskRepository, CsTaskRepository>();
 builder.Services.AddScoped<IDivisionRepository, DivisionRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IReportRepository, ReportRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IWorkReportRepository, WorkReportRepository>();
 builder.Services.AddScoped<IWorkOrderRepository, WorkOrderRepository>();

@@ -61,9 +61,9 @@ public class HotlineCenterDbContext : DbContext
             .HasForeignKey<WorkOrder>(t => t.ReportGuid);
 
         modelBuilder.Entity<WorkReport>()
-            .HasOne(tr => tr.WorkOrder)
-            .WithOne(t => t.WorkReport)
-            .HasForeignKey<WorkReport>(tr => tr.Guid);
+            .HasOne(wr => wr.WorkOrder)
+            .WithOne(wo => wo.WorkReport)
+            .HasForeignKey<WorkReport>(wr => wr.WorkOrderGuid);
         
         
         modelBuilder.Entity<Project>()

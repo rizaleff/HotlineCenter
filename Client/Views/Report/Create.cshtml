@@ -1,4 +1,6 @@
-﻿@{
+﻿@model API.Dtos.Reports.ReceiveReportDto
+
+@{
     Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
 }
 <div class="body-wrapper">
@@ -68,21 +70,21 @@
                         @* <h5 class="card-title fw-semibold mb-4">Forms</h5> *@
                         <div class="card mt-3">
                             <div class="card-body">
-                                <form>
+                                <form action="Create" method="post" enctype="multipart/form-data">
                                     <div class="mb-3">
-                                        <input hidden type="text" class="form-control" value="80055f32-4949-4a04-94d8-a8bc3120e074">
+                                        <input asp-for="EmployeeGuid" hidden type="text" class="form-control" value="2310dbfe-289e-4b4f-b703-08dbd53ec525">
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="form-group mb-3">
                                         <label for="problemSubject" class="form-label">Subject</label>
-                                        <input type="text" class="form-control">
+                                        <input asp-for="Title" type="text" class="form-control">
                                         <div class="form-text">Enter the issue title.</div>
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="form-group mb-3">
                                         <label for="descrption" class="form-label">Description</label>
-                                        <textarea class="form-control" aria-label="With textarea"></textarea>
+                                        <textarea asp-for="Description" class="form-control" aria-label="With textarea"></textarea>
                                     </div>
-                                    <div class="input-group mb-3">
-                                        <input type="file" class="form-control" id="foto">
+                                    <div class="form-group mb-3">
+                                        <input asp-for="PhotoFile" type="file" class="form-control" id="foto">
                                     </div>
                                     <div class="mb-3 form-check">
                                         <input type="checkbox" class="form-check-input" id="exampleCheck1">

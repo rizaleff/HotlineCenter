@@ -9,7 +9,6 @@ public class CreateWorkOrderDto
     public Guid ReportGuid { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
-    public DateTime TaskEstimate { get; set; }
     public bool IsApproved { get; set; }
 
     public static implicit operator WorkOrder(CreateWorkOrderDto createTaskDto)
@@ -19,7 +18,6 @@ public class CreateWorkOrderDto
             ReportGuid = createTaskDto.ReportGuid,
             Title = createTaskDto.Title,
             Description = createTaskDto.Description,
-            TaskEstimate = createTaskDto.TaskEstimate,
             IsApproved = createTaskDto.IsApproved,
             CreatedDate = DateTime.Now,
             ModifiedDate = DateTime.Now
