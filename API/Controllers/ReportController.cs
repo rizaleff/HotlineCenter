@@ -99,14 +99,7 @@ public class ReportController : ControllerBase
         try
         {
             Report report = reportDto;
-            if (reportDto.PhotoFile != null && reportDto.PhotoFile.Length > 0)
-            {
-                using (var memoryStream = new MemoryStream())
-                {
-                    reportDto.PhotoFile.CopyTo(memoryStream);
-                    report.Photo = memoryStream.ToArray();
-                }
-            }
+
 
             var result = _reportRepository.Create(reportDto);
             return Ok(new ResponseOKHandler<ReportDto>((ReportDto)result));
