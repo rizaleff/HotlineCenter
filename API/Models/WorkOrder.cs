@@ -26,6 +26,8 @@ public class WorkOrder : BaseEntity
     [Column("project_guid")]
     public Guid? ProjectGuid {  get; set; }
 
+
+
     // Cardinality
     public Report? Report { get; set; }
     public WorkReport? WorkReport { get; set; }

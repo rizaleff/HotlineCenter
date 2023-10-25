@@ -12,10 +12,13 @@ public class WorkReport : BaseEntity
     public string Description { get; set; }
 
     [Column("photo", TypeName = "nvarchar(max)")]
-    public int Photo { get; set; }
+    public byte[] Photo { get; set; }
 
     [Column("note", TypeName = "nvarchar(max)")]
     public string? Note { get; set; }
+
+    [Column("work_order_guid")]
+    public Guid? WorkOrderGuid { get; set; }
 
     // Cardinality
     public WorkOrder? WorkOrder { get; set; }
