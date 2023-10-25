@@ -20,7 +20,8 @@ public class Project : BaseEntity
     public float Budget { get; set; }
 
     [Column("note", TypeName = "nvarchar(max)")]
-    public string Note { get; set; }
+    public string? Note { get; set; }
+
     //Cardinality
     public Report? Report { get; set; }
 
