@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+    Layout = "~/Views/Shared/_ManagerLayout.cshtml";
 }
 <div class="body-wrapper">
     <!--  Header Start -->
@@ -59,42 +59,188 @@
                     <!-- Inner main -->
                     <div class="inner-main">
                         <!-- Inner main header -->
-                        <div class="d-flex justify-content-between pt-3 mx-3">
-                            <div class="">
-                                <a href="Report/Create" class="btn btn-primary">Create Report</a>
-                            </div>
-                            <span class="input-icon input-icon-sm ml-auto w-auto">
-                                <input type="text" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none" placeholder="Search Projects" />
-                            </span>
-                        </div>
+
                         <!-- /Inner main header -->
                         <!-- Inner main body -->
                         <!-- Forum List -->
                         <div class="inner-main-body p-2 p-sm-3">
-                            <div class="card mb-2">
-                                <div class="card-body p-2 p-sm-3">
-                                    <div class="media d-lg-flex justify-content-lg-between forum-item">
 
-                                        <div class="media-body d-lg-flex mt-lg-0 mt-2 align-items-center">
-                                            <a href="#" data-toggle="collapse" data-target=".forum-content"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="mr-3 mx-3 rounded-circle" width="50" alt="User" /></a>
-                                            <div class="mx-3 my-3 align-items-center">
-                                                <h6><a href="#" data-toggle="collapse" data-target=".forum-content" class="text-body fw-bold">Realtime fetching data</a></h6>
-                                                <p class="fw-normal">
-                                                    lorem ipsum dolor.
-                                                </p>
-                                                <div class="d-flex justify-content-start">
-                                                    <p class="text-muted pr-2 bg-success text-white p-1 rounded">
-                                                        Sending
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="text-muted small text-center align-self-center mx-2">
-                                            <a href="/Report/Details" class="btn btn-primary">Details</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <table class="table table-sm" id="tableProjects">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">First</th>
+                                        <th scope="col">Last</th>
+                                        <th scope="col">Handle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>fat</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- /Forum List -->
+                            <!-- Forum Detail -->
+                            <!-- /Inner main body -->
+                        </div>
+
+                        <div class="inner-main-body p-2 p-sm-3">
+
+                            <table class="table table-sm" id="tableProjects">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">First</th>
+                                        <th scope="col">Last</th>
+                                        <th scope="col">Handle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>fat</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                     <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>mdo</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
                             <!-- /Forum List -->
                             <!-- Forum Detail -->
                             <!-- /Inner main body -->

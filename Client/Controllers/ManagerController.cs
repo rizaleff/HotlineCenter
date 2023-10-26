@@ -1,16 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Client.Controllers;
-
-public class ManagerController : Controller
+namespace Client.Controllers
 {
-    public IActionResult Index()
+    public class ManagerController : Controller
     {
-        return View("Dashboard");
-    }
+        public IActionResult Index()
+        {
+            return View("Dashboard");
+        }
 
-    public IActionResult ProjectList()
-    {
-        return View("ProjectList");
+        
     }
 }

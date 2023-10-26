@@ -53,5 +53,10 @@ namespace Client.Controllers
         {
             return View("Details");
         }
+
+        public IActionResult Edit()
+        {
+            return View("Edit");
+        }
     }
 }
