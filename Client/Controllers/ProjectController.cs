@@ -2,14 +2,14 @@
 
 namespace Client.Controllers
 {
-    public class ReportController : Controller
+    public class ProjectController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Create() 
+        public IActionResult Create()
         {
             return View("Create");
         }
@@ -22,6 +22,12 @@ namespace Client.Controllers
         public IActionResult Edit()
         {
             return View("Edit");
+        }
+
+        
+        public IActionResult VerificationProject()
+        {
+            return View("VerificationProject");
         }
     }
 }

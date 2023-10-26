@@ -16,4 +16,9 @@ html {
 body {
   margin-bottom: 60px;
 }*/
-
+@media (min-width:1200px) {
+    .max-img {
+        max-width: 500px;
+        max-height: 500px;
+    }
+}
