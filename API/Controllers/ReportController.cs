@@ -53,6 +53,7 @@ public class ReportController : ControllerBase
                                 Status = rep.Status,
                                 CreatedDate = rep.CreatedDate,
                                 ModifiedDate = rep.ModifiedDate,
+                                Note = rep.Note,
                                 ReportPhoto = rep.Photo,
                                 EmployeePhoto = emp.Photo
                             };
@@ -94,6 +95,7 @@ public class ReportController : ControllerBase
             CreatedDate = report.CreatedDate,
             ModifiedDate = report.ModifiedDate,
             ReportPhoto = report.Photo,
+            Note = report.Note,
             EmployeePhoto = employee.Photo
         };
         if (result is null)
@@ -166,7 +168,7 @@ public class ReportController : ControllerBase
     }
 
 
-    [HttpPut]
+    [HttpPut("myReport")]
     public IActionResult Update(ReportDto reportDto)
     {
         try
@@ -204,7 +206,7 @@ public class ReportController : ControllerBase
         }
     }
 
-    [HttpPut("status")]
+    [HttpPut]
     public IActionResult UpdateStatus(EditStatusReportDto editStatusReportDto)
     {
         try
@@ -226,6 +228,8 @@ public class ReportController : ControllerBase
             toUpdate.EmployeeGuid = reportByGuid.EmployeeGuid;
             toUpdate.Title = reportByGuid.Title; 
             toUpdate.Description = reportByGuid.Description;
+            toUpdate.EmployeeGuid = reportByGuid.EmployeeGuid;
+            toUpdate.Photo = reportByGuid.Photo;
             //toUpdate.PhotoUrl = reportByGuid.PhotoUrl;
             toUpdate.CreatedDate = reportByGuid.CreatedDate;
 

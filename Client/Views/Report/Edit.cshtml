@@ -1,4 +1,7 @@
-﻿@{
+﻿@using API.Utilities.Enums;
+@model API.Dtos.Reports.EditStatusReportDto;
+
+@{
     Layout = "~/Views/Shared/_GeneralAffairsLayout.cshtml";
 }
 <div class="body-wrapper">
@@ -24,6 +27,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                            aria-expanded="false">
+
                             <img src="~/lib/img/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
@@ -70,29 +74,37 @@
                             <div class="card-body">
 
                                 <div class="text-center m-3">
-                                    <img src="~/lib/img/products/s4.jpg" class="img-fluid max-img" alt="...">
-                                </div>
+                                    @if (ViewBag.SelectedReport.ReportPhoto != null && ViewBag.SelectedReport.ReportPhoto.Length > 0)
+                                    {
+                                        var base64Image = Convert.ToBase64String(ViewBag.SelectedReport.ReportPhoto);
+                                        var imgSrc = $"data:image/jpeg;base64,{base64Image}";
+                                        <img src="@imgSrc" alt="Photo" class="img-fluid max-img" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/lib/img/products/s4.jpg" class="img-fluid max-img" alt="...">
+                                    }
+
+                                        </div>
                                 <div class="card-body">
-                                    <h6 class="card-title">Subject</h6>
+                                    <h6 class="card-title">@ViewBag.SelectedReport.Title</h6>
                                     <p class="card-text">
-                                        Description Some quick example text to build on the card title and make up the bulk of
-                                        the tioncard's content.
+                                       @ViewBag.SelectedReport.Description
                                     </p>
                                     <div class="d-flex">
                                         <p class="badge text-white text-muted me-2 bg-success p-1 rounded align-self-center">
-                                            Sending
+                                            @ViewBag.SelectedReport.Status
                                         </p>
                                         <p class="pr-2 p-1 rounded text-primary">
-                                            created 7 minutes ago
+                                            @ViewBag.SelectedReport.CreatedDate
                                         </p>
                                     </div>
 
                                 </div>
 
-                                <form>
+                               
                                     <div class="mb-3">
-                                        <input hidden type="text" class="form-control" value="80055f32-4949-4a04-94d8-a8bc3120e074">
-                                    </div>
+                                           </div>
                                     <div hidden class="mb-3">
                                         <label for="problemSubject" class="form-label">Subject</label>
                                         <input type="text" class="form-control" value="">
@@ -105,33 +117,37 @@
                                     <div hidden class="input-group mb-3">
                                         <input type="file" class="form-control" id="foto" value="">
                                     </div>
+                                <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                                    <input hidden type="text" class="form-control" asp-for ="Guid" value="f51487bb-e1c9-456e-fa7f-08dbd6055ac4">
                                     <div class="d-flex mb-3 form-check">
                                         <div class="me-5">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                            <label class="form-check-label" for="exampleCheck1">Sending</label>
+                                            <input type="radio" class="form-check-input" id="sending" asp-for="Status" value="0">
+                                            <label class="form-check-label" for="sending">Sending</label>
                                         </div>
 
                                         <div class="me-5">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                            <label class="form-check-label" for="exampleCheck1">On-Process</label>
+                                            <input type="radio" class="form-check-input" id="onPocess" asp-for="Status" value="1" >
+                                            <label class="form-check-label" for="onProcess">On-Process</label>
                                         </div>
+
                                         <div class="me-5">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                            <label class="form-check-label" for="exampleCheck1">Rejected</label>
+                                            <input type="radio" class="form-check-input" id="rejected" asp-for="Status" value="2" >
+                                            <label class="form-check-label" for="rejected">Rejected</label>
                                         </div>
+
                                         <div class="me-5">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                            <label class="form-check-label" for="exampleCheck1">Done</label>
+                                            <input type="radio" class="form-check-input" id="done" asp-for="Status" value="3" >
+                                            <label class="form-check-label" for="done">Done</label>
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="descrptionnote" class="form-label">Note</label>
-                                        <textarea class="form-control" aria-label="With textarea"></textarea>
+                                        <textarea class="form-control" aria-label="With textarea" asp-for="Note"></textarea>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                                 <div class="d-flex justify-content-center">
-                                <a href="" class="btn btn-success mt-3" >Create Work Order</a>
+                                    <a href="" class="btn btn-success mt-3">Create Work Order</a>
                                 </div>
                             </div>
                         </div>
@@ -145,3 +161,18 @@
 
     </div>
 </div>
+
+
+
+<script>
+    // Misalkan Anda memiliki variabel data dari respons API
+    var responseData = {
+        Status: 1, // Contoh nilai status dari respons API
+    };
+
+    // Set radio button berdasarkan nilai Status dari respons API
+    document.getElementById('sending').checked = @ViewBag.SelectedReport.Status === 0;
+    document.getElementById('onProcess').checked = @ViewBag.SelectedReport.Status === 1;
+    document.getElementById('rejected').checked = @ViewBag.SelectedReport.Status === 2;
+    document.getElementById('done').checked = @ViewBag.SelectedReport.Status === 3;
+</script>

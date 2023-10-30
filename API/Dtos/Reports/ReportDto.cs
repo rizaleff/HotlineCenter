@@ -7,7 +7,6 @@ public class ReportDto
     public Guid Guid { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
-    public Guid EmployeeGuid { get; set; }
     public StatusLevel Status { get; set; }
     //public string PhotoUrl { get; set; }
 
@@ -18,7 +17,6 @@ public class ReportDto
             Guid = reportDto.Guid,
             Title = reportDto.Title,
             Description = reportDto.Description,
-            EmployeeGuid = reportDto.EmployeeGuid,
             Status = reportDto.Status,
             //PhotoUrl = reportDto.PhotoUrl,
             ModifiedDate = DateTime.Now
@@ -31,7 +29,6 @@ public class ReportDto
             Guid = report.Guid,
             Title = report.Title,
             Description = report.Description,
-            EmployeeGuid = report.EmployeeGuid,
             Status = report.Status,
             //PhotoUrl = report.PhotoUrl
         };

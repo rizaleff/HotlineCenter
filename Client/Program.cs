@@ -11,6 +11,7 @@ builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
 builder.Services.AddScoped<ICreateReportRepository, CreateReportRepository>();
 builder.Services.AddScoped<IDetailReportRepository, DetailReportRepository>();
+builder.Services.AddScoped<IEditReportRepository, EditReportRepository>();
 
 
 
