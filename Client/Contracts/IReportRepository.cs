@@ -1,11 +1,10 @@
-﻿using API.Dtos.Reports;
+﻿using API.Dtos.Accounts;
+using API.Dtos.Reports;
 using API.Models;
+using API.Utilities.Handlers;
 
-namespace Client.Contracts
+namespace Client.Contracts;
+public interface IReportRepository : IRepository<ReportDto, Guid>
 {
-    public interface IReportRepository : IRepository<CreateReportDto, Guid>
-    {
-
-
-    }
+    Task<ResponseOKHandler<IEnumerable<ReportDto>>> GetMyReport(Guid employeeGuid);
 }

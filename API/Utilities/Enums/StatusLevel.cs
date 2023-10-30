@@ -2,7 +2,9 @@
 {
     public enum StatusLevel
     {
+        Sending,
         OnProcess,
-        Finish
+        Reject,
+        Done
     }
 }

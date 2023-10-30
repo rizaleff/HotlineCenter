@@ -25,9 +25,11 @@ public class ReportController : ControllerBase
     }
 
 
-    [HttpGet]
+    [HttpGet("details")]
     public IActionResult GetAllDetail()
     {
+
+
         var reports = _reportRepository.GetAll();
         var employees = _employeeRepository.GetAll();
 
@@ -57,8 +59,55 @@ public class ReportController : ControllerBase
 
         return Ok(new ResponseOKHandler<IEnumerable<ReportDetailDto>>(reportDetails));
     }
+    [HttpGet("myReport/{employeeGuid}")]
+    public IActionResult GetByEmployeeGuid(Guid employeeGuid)
+    {
+        var result = _reportRepository.GetReportByEmployee(employeeGuid);
 
-    [HttpGet("details")]
+        if (result is null)
+        {
+            return NotFound(new ResponseErrorHandler
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "Data Not Found"
+            });
+        }
+
+        var data = result.Select(x => (ReportDto)x);
+        return Ok(new ResponseOKHandler<IEnumerable<ReportDto>>(data));
+    }
+
+    [HttpGet("details/{guid}")]
+    public IActionResult GetDetailByGuid(Guid guid)
+    {
+        var report = _reportRepository.GetByGuid(guid);
+        var employee = _employeeRepository.GetByGuid(report.EmployeeGuid);
+
+        var result = new ReportDetailDto
+        {
+            Guid = report.Guid,
+            Title = report.Title,
+            Description = report.Description,
+            EmployeeFullName = employee.FirstName + " " + employee.LastName,
+            Status = report.Status,
+            CreatedDate = report.CreatedDate,
+            ModifiedDate = report.ModifiedDate,
+            ReportPhoto = report.Photo,
+            EmployeePhoto = employee.Photo
+        };
+        if (result is null)
+        {
+            return NotFound(new ResponseErrorHandler
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "Data Not Found"
+            });
+        }
+        return Ok(new ResponseOKHandler<ReportDetailDto>(result));
+    }
+    [HttpGet]
     public IActionResult GetAll()
     {
         var result = _reportRepository.GetAll();
