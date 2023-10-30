@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<API.DTOs.Reports.ReportDetailDto>
+
 @{
     Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
 }
@@ -21,7 +22,7 @@
             </ul>
             <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
                 <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                    
+
                     <li class="nav-item dropdown">
                         <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                            aria-expanded="false">
@@ -71,41 +72,81 @@
                         <!-- /Inner main header -->
                         <!-- Inner main body -->
                         <!-- Forum List -->
-                        <div class="inner-main-body p-2 p-sm-3">
-                            <div class="card mb-2">
-                                <div class="card-body p-2 p-sm-3">
-                                    <div class="media d-lg-flex justify-content-lg-between forum-item">
-                                        
-                                        <div class="media-body d-lg-flex mt-lg-0 mt-2 align-items-center">
-                                            <a href="#" data-toggle="collapse" data-target=".forum-content"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="mr-3 mx-3 rounded-circle" width="50" alt="User" /></a>
-                                            <div class="mx-3 my-3 align-items-center">
-                                            <h6><a href="#" data-toggle="collapse" data-target=".forum-content" class="text-body fw-bold">Realtime fetching data</a></h6>
-                                            <p class="fw-normal">
-                                                    lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolorsit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet 
-                                                </p>
-                                            <div class="d-flex justify-content-start">
-                                                <p class="text-muted pr-2 bg-success text-white p-1 rounded">
-                                                    Sending
-                                                </p>
+                        @foreach (var item in Model.Reverse())
+                        {
+                            <p>
+                                <div class="inner-main-body p-2 p-sm-3">
+                                    <div class="card mb-2">
+                                        <div class="card-body p-2 p-sm-3">
+                                            <div class="media d-lg-flex justify-content-lg-between forum-item">
+                                                <div class="media-body d-lg-flex mt-lg-0 mt-2 align-items-center">
+                                                    <a href="#" data-toggle="collapse" data-target=".forum-content"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="mr-3 mx-3 rounded-circle" width="50" alt="User" /></a>
+                                                    <div class="mx-3 my-3 align-items-center">
+                                                        <h6>
+                                                            <a href="#" data-toggle="collapse" data-target=".forum-content" class="text-body fs-6 fw-bold">
+                                                                @Html.DisplayFor(modelItem => item.Title)
+                                                            </a>
+                                                        </h6>
+                                                        <p class="fw-normal">
+                                                            @Html.DisplayFor(modelItem => item.Description)
+                                                        </p>
+                                                        <div class="d-flex justify-content-start">
+                                                            <p class="text-muted pr-2 bg-success text-white p-1 rounded">
+                                                                @Html.DisplayFor(modelItem => item.Status)
+
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-muted small text-center align-self-center mx-2">
+                                                    <a href="/Report/Details/?guid=@item.Guid" class="btn btn-primary">Details</a>
+                                                </div>
                                             </div>
-                                            </div>
-                                        </div>
-                                        <div class="text-muted small text-center align-self-center mx-2">
-                                            <a href="/Report/Details" class="btn btn-primary">Details</a>
                                         </div>
                                     </div>
+                                    <!-- /Forum List -->
+                                    <!-- Forum Detail -->
+                                    <!-- /Inner main body -->
                                 </div>
-                            </div>
+                            </p>
+                        }
+                        @* <div class="inner-main-body p-2 p-sm-3">
+                        <div class="card mb-2">
+                        <div class="card-body p-2 p-sm-3">
+                        <div class="media d-lg-flex justify-content-lg-between forum-item">
+
+                        <div class="media-body d-lg-flex mt-lg-0 mt-2 align-items-center">
+                        <a href="#" data-toggle="collapse" data-target=".forum-content"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="mr-3 mx-3 rounded-circle" width="50" alt="User" /></a>
+                        <div class="mx-3 my-3 align-items-center">
+                        <h6><a href="#" data-toggle="collapse" data-target=".forum-content" class="text-body fw-bold">Realtime fetching data</a></h6>
+                        <p class="fw-normal">
+
+                        lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolorsit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet
+                        </p>
+                        <div class="d-flex justify-content-start">
+                        <p class="text-muted pr-2 bg-success text-white p-1 rounded">
+                        Sending
+                        </p>
+                        </div>
+                        </div>
+                        </div>
+                        <div class="text-muted small text-center align-self-center mx-2">
+                        <a href="/Report/Details" class="btn btn-primary">Details</a>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
                         <!-- /Forum List -->
                         <!-- Forum Detail -->
                         <!-- /Inner main body -->
+                        </div>
+                        *@
+                        <!-- /Inner main -->
                     </div>
-                    <!-- /Inner main -->
                 </div>
             </div>
+
+
         </div>
-        
-       
     </div>
-</div>
 </div>

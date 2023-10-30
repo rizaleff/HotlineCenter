@@ -1,4 +1,6 @@
-﻿@{
+﻿@model API.DTOs.Reports.ReportDetailDto
+
+@{
     Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
 }
 <div class="body-wrapper">
@@ -66,36 +68,46 @@
                         <!-- /Inner main header -->
                         <!-- Inner main body -->
                         @* <h5 class="card-title fw-semibold mb-4">Forms</h5> *@
+                       
                         <div class="card mt-3">
                             <div class="text-center m-3">
-                                <img src="~/lib/img/products/s4.jpg" class="img-fluid max-img " alt="...">
+                                @if (Model.ReportPhoto != null && Model.ReportPhoto.Length > 0)
+                                {
+                                    var base64Image = Convert.ToBase64String(Model.ReportPhoto);
+                                    var imgSrc = $"data:image/jpeg;base64,{base64Image}";
+                                    <img src="@imgSrc" alt="Photo" class="img-fluid max-img" />
+                                }
+                                else
+                                {
+                                    <img src="~/lib/img/products/s4.jpg" alt="...">
+                                }
+                                
                             </div>
                             <div class="card-body">
-                                <h6 class="card-title">Subject</h6>
+                                <h6 class="card-title">@Html.DisplayFor(model => model.Title)</h6>
                                 <p class="card-text">
-                                   Description Some quick example text to build on the card title and make up the bulk of
-                                    the tioncard's content.
+                                    @Html.DisplayFor(model => model.Description)
                                 </p>
                                 <div class="d-flex">
                                     <p class="badge text-white text-muted me-2 bg-success p-1 rounded align-self-center">
-                                        Sending
+                                        @Html.DisplayFor(model => model.Status)
                                     </p>
                                     <p class="pr-2 p-1 rounded text-primary">
-                                        created 7 minutes ago
+                                        created : @Html.DisplayFor(model => model.CreatedDate)
                                     </p>
                                 </div>
                                 <div class="">
-                                    
+
                                     <p class=" rounded text-gray fw-bold">
-                                        Note From GA : 
+                                        Note From GA :
                                     </p>
                                     <p class=" rounded text-gray">
-                                        asdasdasddasdasdasfasfasfasfasfa
+
                                     </p>
                                 </div>
-                               
+
                             </div>
-                           
+
                         </div>
 
                         <!-- /Inner main body -->
@@ -103,7 +115,7 @@
                     <!-- /Inner main -->
                 </div>
 
-               
+
             </div>
         </div>
 

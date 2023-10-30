@@ -1,5 +1,8 @@
-﻿using API.Dtos.Reports;
+﻿using API.Dtos.Employees;
+using API.Dtos.Reports;
+using API.DTOs.Reports;
 using Client.Contracts;
+using Client.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata;
 
@@ -8,10 +11,12 @@ namespace Client.Controllers
     public class ReportController : Controller
     {
 
-        private readonly IReportRepository repository;
-        public ReportController(IReportRepository repository)
+        private readonly ICreateReportRepository _createReportRepository;
+        private readonly IDetailReportRepository _detailReportRepository;
+        public ReportController(ICreateReportRepository createReportRepository, IDetailReportRepository detailReportRepository)
         {
-            this.repository = repository;
+            _createReportRepository = createReportRepository;
+            _detailReportRepository = detailReportRepository;
         }
         public IActionResult Index()
         {
@@ -31,6 +36,7 @@ namespace Client.Controllers
             createReportDto.Title = reportDto.Title;
             createReportDto.Description = reportDto.Description;
             createReportDto.EmployeeGuid = reportDto.EmployeeGuid;
+
             if (reportDto.PhotoFile != null && reportDto.PhotoFile.Length > 0)
             {
                 using (var memoryStream = new MemoryStream())
@@ -39,19 +45,25 @@ namespace Client.Controllers
                     createReportDto.PhotoFile = memoryStream.ToArray();
                 }
             }
-            var result = await repository.Post(createReportDto); ;
+            var result = await _createReportRepository.Post(createReportDto); ;
             if (result.Code == 200)
             {
-                return RedirectToAction("Employee", "Index");
+                return RedirectToAction("Index", "Employee" );
             }
             ModelState.AddModelError(string.Empty, result.Message);
             return View();
         }
 
 
-        public IActionResult Details()
+        public async Task<IActionResult> Details(Guid guid)
         {
-            return View("Details");
+            var result = await _detailReportRepository.Get(guid);
+            var selectedReport = new ReportDetailDto();
+            if (result.Data != null)
+            {
+                selectedReport = result.Data;
+            }
+            return View("Details", selectedReport);
         }
 
         public IActionResult Edit()

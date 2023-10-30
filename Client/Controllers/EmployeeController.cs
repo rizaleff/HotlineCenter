@@ -1,17 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using API.Dtos.Employees;
+using API.Dtos.Reports;
+using API.DTOs.Reports;
+using Client.Contracts;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Client.Controllers
 {
     public class EmployeeController : Controller
     {
-        public IActionResult Index()
+        private readonly IDetailReportRepository _detailReportepository;
+        private readonly IReportRepository _reportepository;
+        public EmployeeController(IDetailReportRepository detailReportepository, IReportRepository reportRepository)
         {
-            return View("Dashboard");
+            _detailReportepository = detailReportepository;
+            _reportepository = reportRepository;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var result = await _detailReportepository.Get();
+            var listReport = new List<ReportDetailDto>();
+            listReport = result.Data.ToList();
+            return View("Dashboard", listReport);
         }
 
-        public IActionResult MyReport()
+        public async Task<IActionResult> MyReport(Guid employeeGuid)
         {
-            return View("MyReport");
+            var result = await _reportepository.GetMyReport(employeeGuid);
+            var listMyReport = new List<ReportDto>();
+            listMyReport = result.Data.ToList();
+            return View("MyReport", listMyReport);
         }
     }
 }

@@ -11,4 +11,6 @@ public class RoleRepository : GeneralRepository<Role>, IRoleRepository
     {
         return _context.Set<Role>().FirstOrDefault(r => r.Name == "Client")?.Guid;
     }
+
+   
 }
