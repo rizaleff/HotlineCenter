@@ -60,7 +60,7 @@
                         <!-- Inner main header -->
                         <div class="d-flex justify-content-between pt-3 mx-3">
                             <div class="">
-                                <a href="/Employee" class="btn btn-primary align-content-center"><i class='bx bx-arrow-back me-1' style='color:#ffffff'></i> Back to Dashboard</a>
+                                <a href="/GeneralAffairs/WorkOrder" class="btn btn-primary align-content-center"><i class='bx bx-arrow-back me-1' style='color:#ffffff'></i> Back to Dashboard</a>
                             </div>
                         </div>
                         <!-- /Inner main header -->
@@ -81,17 +81,20 @@
                                         <label for="descrption" class="form-label">Description</label>
                                         <textarea class="form-control" aria-label="With textarea"></textarea>
                                     </div>
-                                    <div class="input-group mb-3">
-                                        <input type="file" class="form-control" id="foto">
-                                    </div>
-                                    <div class="mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">Have you checked your report?</label>
+                                    <div class="mb-3">
+                                        <label for="cs" class="form-label">CS : </label>
+                                        <select class="js-example-basic-multiple js-states form-control" id="id_label_multiple" multiple="multiple">
+                                            <option value="AL">Alabama</option>
+                                            <option value="AL"></option>
+                                            ...
+                                            <option value="WY">Wyoming</option>
+                                        </select>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                             </div>
                         </div>
+
 
 
 
