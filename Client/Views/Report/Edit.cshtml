@@ -126,17 +126,17 @@
                                         </div>
 
                                         <div class="me-5">
-                                            <input type="radio" class="form-check-input" id="onPocess" asp-for="Status" value="1" >
+                                            <input type="radio" class="form-check-input" id="onPocess" asp-for="Status" value="1">
                                             <label class="form-check-label" for="onProcess">On-Process</label>
                                         </div>
 
                                         <div class="me-5">
-                                            <input type="radio" class="form-check-input" id="rejected" asp-for="Status" value="2" >
+                                            <input type="radio" class="form-check-input" id="rejected" asp-for="Status" value="2">
                                             <label class="form-check-label" for="rejected">Rejected</label>
                                         </div>
 
                                         <div class="me-5">
-                                            <input type="radio" class="form-check-input" id="done" asp-for="Status" value="3" >
+                                            <input type="radio" class="form-check-input" id="done" asp-for="Status" value="3">
                                             <label class="form-check-label" for="done">Done</label>
                                         </div>
                                     </div>
@@ -161,18 +161,3 @@
 
     </div>
 </div>
-
-
-
-<script>
-    // Misalkan Anda memiliki variabel data dari respons API
-    var responseData = {
-        Status: 1, // Contoh nilai status dari respons API
-    };
-
-    // Set radio button berdasarkan nilai Status dari respons API
-    document.getElementById('sending').checked = @ViewBag.SelectedReport.Status === 0;
-    document.getElementById('onProcess').checked = @ViewBag.SelectedReport.Status === 1;
-    document.getElementById('rejected').checked = @ViewBag.SelectedReport.Status === 2;
-    document.getElementById('done').checked = @ViewBag.SelectedReport.Status === 3;
-</script>
