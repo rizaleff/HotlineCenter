@@ -11,8 +11,10 @@
     <link rel="shortcut icon" type="image/png" href="~/img/logos/favicon.png" />
     <link rel="stylesheet" href="~/css/styles.css" />
     <link rel="stylesheet" href="~/css/ga.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @*     <link rel="stylesheet" href="~/css/forum.css" /> *@
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
 </head>
@@ -84,7 +86,13 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/sidebarmenu.js"></script>
     <script src="~/js/app.min.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
