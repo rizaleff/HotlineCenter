@@ -32,6 +32,7 @@ public class Employee : BaseEntity
 
     //Cardinality
     public Account? Account { get; set; }
-    public ICollection<CsWorkOrder>? CsTasks { get; set; }
+    public ICollection<WorkReport>? WorkReports { get; set; }
+    public ICollection<WorkOrder>? WorkOrders { get; set; }
     public ICollection<Report>? Reports { get; set; }
 }

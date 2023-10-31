@@ -31,9 +31,4 @@ public class Report : BaseEntity
     public WorkOrder? WorkOrder {  get; set; }
     public Project? Project { get; set; }
     public Employee? Employee{ get; set; }
-
-    internal object Select(Func<object, ReportDto> value)
-    {
-        throw new NotImplementedException();
-    }
 }
