@@ -26,11 +26,12 @@ public class WorkOrder : BaseEntity
     [Column("project_guid")]
     public Guid? ProjectGuid {  get; set; }
 
-
+    [Column("employee_guid")]
+    public Guid? EmployeeGuid { get; set; }
 
     // Cardinality
     public Report? Report { get; set; }
     public WorkReport? WorkReport { get; set; }
-    public ICollection<CsWorkOrder>? CsWorkOrders { get; set; }
+    public Employee? Employee { get; set; }
     public Project? Project { get; set; }
 }
