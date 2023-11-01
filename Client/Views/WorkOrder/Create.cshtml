@@ -1,4 +1,6 @@
-﻿@{
+﻿
+
+@{
     Layout = "~/Views/Shared/_GeneralAffairsLayout.cshtml";
 }
 <div class="body-wrapper">
@@ -68,30 +70,30 @@
                         @* <h5 class="card-title fw-semibold mb-4">Forms</h5> *@
                         <div class="card mt-3">
                             <div class="card-body">
-                                <form>
+                               
                                     <div class="mb-3">
-                                        <input hidden type="text" class="form-control" value="80055f32-4949-4a04-94d8-a8bc3120e074">
+                                        <input id="reportGuid" hidden type="text" class="form-control" value="@ViewBag.ReportGuid">
                                     </div>
                                     <div class="mb-3">
                                         <label for="problemSubject" class="form-label">Subject</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" id="title">
                                         <div class="form-text">Enter the issue title.</div>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="descrption" class="form-label">Description</label>
-                                        <textarea class="form-control" aria-label="With textarea"></textarea>
+                                        <label for="descrption" class="form-label" >Description</label>
+                                    <textarea class="form-control" aria-label="With textarea" id="description"></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label for="cs" class="form-label">CS : </label>
-                                        <select class="js-example-basic-multiple js-states form-control" id="id_label_multiple" multiple="multiple">
-                                            <option value="AL">Alabama</option>
-                                            <option value="AL"></option>
-                                            ...
-                                            <option value="WY">Wyoming</option>
+                                        <select class="js-example-basic-single js-states form-control" id="cs">
+                                            <option disabled>Please Select</option>
+                                            @foreach (var cs in ViewBag.ListCs)
+                                            {
+                                                <option value="@cs.Guid">@cs.FullName</option>
+                                            }
                                         </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </form>
+                                  </div>
+                                    <button  onclick="InsertWorkOrder()" class="btn btn-primary">Submit</button>
                             </div>
                         </div>
 

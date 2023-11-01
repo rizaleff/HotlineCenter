@@ -7,6 +7,8 @@ public class HotlineCenterDbContext : DbContext
 
     public DbSet<Account> Accounts { get; set; }
     public DbSet<AccountRole> AccountRoles { get; set; }
+
+/*    public DbSet<CsWorkOrder> CsWorkOders { get; set; }*/
     public DbSet<Employee> Employees { get; set; }
     public DbSet<Project> Projects { get; set; }
     public DbSet<Report> Reports { get; set; }

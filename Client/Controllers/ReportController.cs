@@ -53,13 +53,20 @@ public class ReportController : Controller
                 createReportDto.PhotoFile = memoryStream.ToArray();
             }
         }
-        var result = await _createReportRepository.Post(createReportDto); ;
+        var result = await _createReportRepository.Post(createReportDto);
         if (result.Code == 200)
         {
             return RedirectToAction("Index", "Employee");
         }
         ModelState.AddModelError(string.Empty, result.Message);
         return View();
+    }
+
+    [HttpPost]
+    public async Task<JsonResult> CreateReport(CreateReportDto createReportDto)
+    {
+        var result = await _createReportRepository.Post(createReportDto);
+        return Json(result);
     }
 
 
@@ -75,9 +82,8 @@ public class ReportController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Edit()
+    public async Task<IActionResult> Edit(Guid guid)
     {
-        Guid guid = new Guid("f51487bb-e1c9-456e-fa7f-08dbd6055ac4");
         var result = await _detailReportRepository.Get(guid);
         if (result.Data != null)
         {
@@ -88,9 +94,9 @@ public class ReportController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Edit(EditStatusReportDto EditStatusReportDto)
+    public async Task<IActionResult> ToUpdate(EditStatusReportDto editStatusReportDto)
     {
-        var result = await _editReportRepository.Put(EditStatusReportDto.Guid, EditStatusReportDto);
+        var result = await _editReportRepository.Put(editStatusReportDto.Guid, editStatusReportDto);
         if (result.Code == 200)
         {
             return RedirectToAction("Index", "GeneralAffairs");
