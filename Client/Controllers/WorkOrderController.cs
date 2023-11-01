@@ -1,36 +1,78 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using API.Dtos.Reports;
+using API.Dtos.Tasks;
+using API.DTOs.Employees;
+using API.DTOs.Reports;
+using API.DTOs.WorkOrders;
+using Client.Contracts;
+using Client.Repositories;
+using Microsoft.AspNetCore.Mvc;
+using System;
 
-namespace Client.Controllers
+namespace Client.Controllers;
+public class WorkOrderController : Controller
 {
-    public class WorkOrderController : Controller
+
+    private readonly ICsEmployeeRepository _csEmployeeRepository;
+    private readonly ICreateWorkOrderRepository _createWorkOrderRepository;
+
+
+    public WorkOrderController(ICsEmployeeRepository csEmployeeRepository, ICreateWorkOrderRepository createWorkOrderRepository)
     {
-        public IActionResult Index()
+        _csEmployeeRepository = csEmployeeRepository;
+        _createWorkOrderRepository = createWorkOrderRepository;
+    }
+
+    public IActionResult Index()
+    {
+        return View();
+    }
+
+    /*    [HttpPost]
+        public async Task<IActionResult> ToCreate(CreateWorkOrderDto createWorkOrderDto)
         {
+
+            var result = await _createWorkOrderRepository.Post(createWorkOrderDto);
+            if (result.Code == 200)
+            {
+                return RedirectToAction("Index", "Employee");
+            }
+            ModelState.AddModelError(string.Empty, result.Message);
             return View();
-        }
+        }*/
 
-        public IActionResult Create()
-        {
-            return View("Create");
-        }
+    [HttpPost]
+    public async Task<JsonResult> ToCreate(CreateWorkOrderDto createWorkOrderDto)
+    {
 
-        public IActionResult Details()
-        {
-            return View("Details");
-        }
+        var result = await _createWorkOrderRepository.Post(createWorkOrderDto);
+        return Json(result.Data);
+    }
+    public async Task<IActionResult> Create(Guid reportGuid)
+    {
+        var result = await _csEmployeeRepository.Get();
+        var listCs = new List<CsEmployeeDto>();
+        ViewBag.ReportGuid = reportGuid;
+        ViewBag.ListCs = result.Data.ToList();
 
-        public IActionResult Edit()
-        {
-            return View("Edit");
-        }
+        return View("Create");
+    }
 
-        public IActionResult VerificationWork()
-        {
-            return View("VerificationWork");
-        }
-        public IActionResult VerificationProject()
-        {
-            return View("VerificationProject");
-        }
+    public IActionResult Details()
+    {
+        return View("Details");
+    }
+
+    public IActionResult Edit()
+    {
+        return View("Edit");
+    }
+
+    public IActionResult VerificationWork()
+    {
+        return View("VerificationWork");
+    }
+    public IActionResult VerificationProject()
+    {
+        return View("VerificationProject");
     }
 }

@@ -1,5 +1,6 @@
 ﻿using API.Contracts;
 using API.Dtos.Employees;
+using API.DTOs.Employees;
 using API.Models;
 using API.Utilities.Handlers;
 using Microsoft.AspNetCore.Mvc;
@@ -12,19 +13,53 @@ namespace API.Controllers;
 public class EmployeeController : ControllerBase
 {
     private readonly IEmployeeRepository _employeeRepository;
+    private readonly IAccountRoleRepository _accountRoleRepository;
+    private readonly IRoleRepository _roleRepository;
 
-    public EmployeeController(IEmployeeRepository employeeRepository)
+    public EmployeeController(IEmployeeRepository employeeRepository, 
+                            IAccountRoleRepository accountRoleRepository, 
+                            IRoleRepository roleRepository)
     {
         _employeeRepository = employeeRepository;
+        _accountRoleRepository = accountRoleRepository;
+        _roleRepository = roleRepository;
     }
 
-   /* [HttpGet("details")]
-    public IActionResult GetDetails()
+    /* [HttpGet("details")]
+     public IActionResult GetDetails()
+     {
+
+     }
+ */
+
+    [HttpGet("Cs")]
+    public IActionResult GetCsEmployee()
     {
-        
-    }
-*/
+        var employees = _employeeRepository.GetAll();
+        var accountRoles = _accountRoleRepository.GetAll();
+        var roles = _roleRepository.GetAll();
 
+        if (!(employees.Any() && accountRoles.Any() && roles.Any()))
+        {
+            return NotFound(new ResponseErrorHandler
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "Data Not Found"
+            });
+        }
+
+        var csEmployee = from emp in employees
+                              join acc in accountRoles on emp.Guid equals acc.AccountGuid
+                              join rol in roles on acc.RoleGuid equals rol.Guid
+                              select new CsEmployeeDto
+                              {
+                                  Guid = emp.Guid,
+                                  FullName = string.Concat(emp.FirstName, " ", emp.LastName),
+                                 };
+
+        return Ok(new ResponseOKHandler<IEnumerable<CsEmployeeDto>>(csEmployee));
+    }
     [HttpGet]
     public IActionResult GetAll()
     {

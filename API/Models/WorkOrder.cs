@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using API.Utilities.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Models;
 
@@ -23,11 +24,15 @@ public class WorkOrder : BaseEntity
     [Column("note", TypeName = "nvarchar(max)")]
     public string? Note { get; set; }
 
+    [Column("status")]
+    public StatusWorkOrderLevel Status { get; set; }
+
     [Column("project_guid")]
     public Guid? ProjectGuid {  get; set; }
 
     [Column("employee_guid")]
     public Guid? EmployeeGuid { get; set; }
+
 
     // Cardinality
     public Report? Report { get; set; }

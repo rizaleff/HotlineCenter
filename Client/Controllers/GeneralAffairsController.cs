@@ -1,12 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using API.DTOs.Reports;
+using Client.Contracts;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Client.Controllers
 {
     public class GeneralAffairsController : Controller
     {
-        public IActionResult Index()
+        private readonly IDetailReportRepository _detailReportepository;
+        
+        public GeneralAffairsController(IDetailReportRepository detailReportepository)
         {
-            return View("Dashboard");
+            _detailReportepository = detailReportepository;
+           
+        }
+        public async Task<IActionResult> Index()
+        {
+            var result = await _detailReportepository.Get();
+            var listReport = new List<ReportDetailDto>();
+            listReport = result.Data.ToList();
+            return View("Dashboard", listReport);
         }
 
         public IActionResult Projects()
