@@ -2,17 +2,17 @@
 
 namespace Client.Controllers
 {
-    public class ManagerController : Controller
+    public class ServiceWorkerController : Controller
     {
         public IActionResult Index()
         {
             return View("Dashboard");
         }
 
-        [Route("Manager/ApproveProject")]
-        public IActionResult ApproveProject()
+        public IActionResult MyWorkReport()
         {
-            return View("ApproveProject");
+            return View();
         }
+
     }
 }

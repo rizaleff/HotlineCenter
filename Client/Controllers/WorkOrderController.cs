@@ -8,6 +8,7 @@ using Client.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
+
 namespace Client.Controllers;
 public class WorkOrderController : Controller
 {
@@ -18,6 +19,7 @@ public class WorkOrderController : Controller
 
     public WorkOrderController(ICsEmployeeRepository csEmployeeRepository, ICreateWorkOrderRepository createWorkOrderRepository)
     {
+
         _csEmployeeRepository = csEmployeeRepository;
         _createWorkOrderRepository = createWorkOrderRepository;
     }
@@ -29,6 +31,7 @@ public class WorkOrderController : Controller
 
     /*    [HttpPost]
         public async Task<IActionResult> ToCreate(CreateWorkOrderDto createWorkOrderDto)
+
         {
 
             var result = await _createWorkOrderRepository.Post(createWorkOrderDto);
@@ -67,12 +70,25 @@ public class WorkOrderController : Controller
         return View("Edit");
     }
 
-    public IActionResult VerificationWork()
-    {
-        return View("VerificationWork");
-    }
-    public IActionResult VerificationProject()
-    {
-        return View("VerificationProject");
-    }
+        public IActionResult VerificationWork()
+        {
+            return View("VerificationWork");
+        }
+        public IActionResult VerificationProject()
+        {
+            return View("VerificationProject");
+        }
+
+        public async Task<JsonResult> GetWorkOrderByEmployeeGuid(Guid employeeGuid)
+
+        {
+            var result = await _workOrderRepository.GetWorkOrderByEmployeeGuid(employeeGuid); // Mengambil data WorkOrder berdasarkan EmployeeGuid
+            return Json(result.Data);
+        } public async Task<JsonResult> GetWorkOrderDetails(Guid Guid)
+
+        {
+            var result = await _workOrderRepository.GetWorkOrderDetails(Guid); // Mengambil data WorkOrder berdasarkan EmployeeGuid
+            return Json(result.Data);
+        }
+
 }

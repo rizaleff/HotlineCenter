@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="~/css/ga.css" />
 @*     <link rel="stylesheet" href="~/css/forum.css" /> *@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+   
 
 
 </head>
@@ -40,7 +43,7 @@
                             <span class="hide-menu">Home</span>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="/Employee" aria-expanded="false">
+                            <a class="sidebar-link" href="/ServiceWorker" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-layout-dashboard"></i>
                                 </span>
@@ -48,13 +51,14 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="/Employee/MyReport/?employeeGuid=a0396d96-aebf-4ea5-6935-08dbda07316d" aria-expanded="false">
+                            <a class="sidebar-link" href="/ServiceWorker/MyWorkReport" aria-expanded="false" id="myReportLink">
                                 <span>
-                                    <i class="ti ti-alert-circle"></i>
+                                    <i class="ti ti-layout-dashboard"></i>
                                 </span>
-                                <span class="hide-menu">My Report</span>
+                                <span class="hide-menu">My Work Report</span>
                             </a>
                         </li>
+                       
                         </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -76,7 +80,8 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/sidebarmenu.js"></script>
     <script src="~/js/app.min.js"></script>
-    
+    <script src="~/js/MyWorkReport.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

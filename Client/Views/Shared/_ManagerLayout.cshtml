@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Client</title>
+    <title>@ViewData["Title"] Manager | Dashboard</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Client.styles.css" asp-append-version="true" />
@@ -70,6 +70,21 @@
     <script src="~/js/sidebarmenu.js"></script>
     <script src="~/js/app.min.js"></script>
     
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var detailButtons = document.querySelectorAll(".btn-detail");
+
+            detailButtons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    var id = button.getAttribute("data-id");
+
+                    window.location.href = "/Manager/ApproveProject?id=" + id;
+                });
+            });
+        });
+    </script>
+
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

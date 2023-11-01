@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+    Layout = "~/Views/Shared/_CsLayout.cshtml";
 }
 <div class="body-wrapper">
     <!--  Header Start -->
@@ -40,7 +40,7 @@
                                     <i class="ti ti-list-check fs-6"></i>
                                     <p class="mb-0 fs-3">My Task</p>
                                 </a>
-                                <a href="/Login" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                                <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
                             </div>
                         </div>
                     </li>
@@ -51,7 +51,7 @@
     <!--  Header End -->
     <div class="container-fluid">
 
-        <h1>Project List</h1>
+        <h1>Work Order</h1>
         <div class="container">
             <div class="main-body p-0">
                 <div class="inner-wrapper">
@@ -59,49 +59,29 @@
                     <!-- Inner main -->
                     <div class="inner-main">
                         <!-- Inner main header -->
-
                         <!-- /Inner main header -->
                         <!-- Inner main body -->
                         <!-- Forum List -->
+
+
                         <div class="inner-main-body p-2 p-sm-3">
 
-                            <table class="table table-sm" id="tableProjects">
+                            <table id="workReportTable" class="display" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
-                                        <th scope="col">Actions</th>
+                                        <th class="col">No</th>
+                                        <th class="col">Title</th>
+                                        <th class="col">Deskripsi</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>mdo</td>
-                                        <td>
-                                            <button class="btn btn-primary btn-detail" data-id="1">Detail</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>fat</td>
-                                        <td>
-                                            <button class="btn btn-primary btn-detail" data-id="2">Detail</button>
-                                        </td>
-                                    </tr>
-                                    
                                 </tbody>
                             </table>
                             <!-- /Forum List -->
                             <!-- Forum Detail -->
                             <!-- /Inner main body -->
                         </div>
-
                         <!-- /Inner main -->
                     </div>
                 </div>

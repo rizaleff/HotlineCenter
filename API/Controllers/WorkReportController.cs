@@ -1,5 +1,5 @@
 ﻿using API.Contracts;
-using API.Dtos.TaskReports;
+using API.Dtos.WorkReports;
 using API.Dtos.Tasks;
 using API.Dtos.WorkReports;
 using API.Models;
@@ -7,6 +7,7 @@ using API.Repositories;
 using API.Utilities.Handlers;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using API.Dtos.Reports;
 
 namespace API.Controllers;
 
@@ -43,11 +44,24 @@ public class WorkReportController : ControllerBase
     }
 
 
-    //[HttpGet("{guid}")]
-    //public IActionResult GetByGuid(Guid guid)
-    //{
-       
-    //}
+    [HttpGet("myWorkReport/{employeeGuid}")]
+    public IActionResult GetByEmployeeGuid(Guid employeeGuid)
+    {
+        var result = _workReportRepository.GetWorkReportByEmployee(employeeGuid);
+
+        if (result is null)
+        {
+            return NotFound(new ResponseErrorHandler
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "Data Not Found"
+            });
+        }
+
+        var data = result.Select(x => (WorkReportDto)x);
+        return Ok(new ResponseOKHandler<IEnumerable<WorkReportDto>>(data));
+    }
 
 
     [HttpPost]

@@ -1,6 +1,9 @@
-﻿@{
+﻿@model API.Models.Project
+
+@{
     Layout = "~/Views/Shared/_ManagerLayout.cshtml";
 }
+
 <div class="body-wrapper">
     <!--  Header Start -->
     <header class="app-header">
@@ -49,65 +52,25 @@
         </nav>
     </header>
     <!--  Header End -->
-    <div class="container-fluid">
 
-        <h1>Project List</h1>
+    <!-- Detail Section -->
+    <div class="container-fluid">
+        <h1>Detail Project</h1>
         <div class="container">
             <div class="main-body p-0">
-                <div class="inner-wrapper">
-                    <!-- /Inner sidebar -->
-                    <!-- Inner main -->
-                    <div class="inner-main">
-                        <!-- Inner main header -->
-
-                        <!-- /Inner main header -->
-                        <!-- Inner main body -->
-                        <!-- Forum List -->
-                        <div class="inner-main-body p-2 p-sm-3">
-
-                            <table class="table table-sm" id="tableProjects">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
-                                        <th scope="col">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>mdo</td>
-                                        <td>
-                                            <button class="btn btn-primary btn-detail" data-id="1">Detail</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>fat</td>
-                                        <td>
-                                            <button class="btn btn-primary btn-detail" data-id="2">Detail</button>
-                                        </td>
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
-                            <!-- /Forum List -->
-                            <!-- Forum Detail -->
-                            <!-- /Inner main body -->
-                        </div>
-
-                        <!-- /Inner main -->
-                    </div>
-                </div>
+                <table class="table table-sm" id="tableProjects">
+                    <tr>
+                        <td><strong>Title:</strong></td>
+                        <td>Title Here</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Description:</strong></td>
+                        <td>Description Here</td>
+                    </tr>
+                    <!-- Add more details here -->
+                </table>
             </div>
-
-
         </div>
     </div>
+
 </div>

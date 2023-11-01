@@ -4,6 +4,7 @@ using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(HotlineCenterDbContext))]
-    partial class HotlineCenterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231031113309_aAtu")]
+    partial class aAtu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,6 +90,41 @@ namespace API.Migrations
                     b.HasIndex("RoleGuid");
 
                     b.ToTable("tb_account_roles");
+                });
+
+            modelBuilder.Entity("API.Models.CsWorkOrder", b =>
+                {
+                    b.Property<Guid>("Guid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("guid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_date");
+
+                    b.Property<Guid>("CsGuid")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("cs_guid");
+
+                    b.Property<Guid?>("EmployeeGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("modified_date");
+
+                    b.Property<Guid>("WorkOrderGuid")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("work_order_guid");
+
+                    b.HasKey("Guid");
+
+                    b.HasIndex("EmployeeGuid");
+
+                    b.HasIndex("WorkOrderGuid");
+
+                    b.ToTable("tb_cs_work_orders");
                 });
 
             modelBuilder.Entity("API.Models.Employee", b =>
@@ -432,6 +469,23 @@ namespace API.Migrations
                     b.Navigation("Account");
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("API.Models.CsWorkOrder", b =>
+                {
+                    b.HasOne("API.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeGuid");
+
+                    b.HasOne("API.Models.WorkOrder", "WorkOrder")
+                        .WithMany()
+                        .HasForeignKey("WorkOrderGuid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("WorkOrder");
                 });
 
             modelBuilder.Entity("API.Models.Project", b =>
