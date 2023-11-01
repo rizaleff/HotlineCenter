@@ -396,7 +396,3 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-*.csproj
-API/appsettings.json
-API/API.csproj
-Client/Client.csproj
