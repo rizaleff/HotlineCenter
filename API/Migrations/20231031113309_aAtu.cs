@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API.Migrations
 {
-    public partial class Satu : Migration
+    public partial class aAtu : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -150,19 +150,25 @@ namespace API.Migrations
                 columns: table => new
                 {
                     guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    report_guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    report_guid = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     title = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     task_estimate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     is_approved = table.Column<bool>(type: "bit", nullable: false),
                     note = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     project_guid = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    employee_guid = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     created_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     modified_date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tb_work_orders", x => x.guid);
+                    table.ForeignKey(
+                        name: "FK_tb_work_orders_tb_m_employees_employee_guid",
+                        column: x => x.employee_guid,
+                        principalTable: "tb_m_employees",
+                        principalColumn: "guid");
                     table.ForeignKey(
                         name: "FK_tb_work_orders_tb_projects_project_guid",
                         column: x => x.project_guid,
@@ -172,8 +178,7 @@ namespace API.Migrations
                         name: "FK_tb_work_orders_tb_reports_report_guid",
                         column: x => x.report_guid,
                         principalTable: "tb_reports",
-                        principalColumn: "guid",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "guid");
                 });
 
             migrationBuilder.CreateTable(
@@ -183,6 +188,7 @@ namespace API.Migrations
                     guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     cs_guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     work_order_guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EmployeeGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     created_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     modified_date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -190,17 +196,16 @@ namespace API.Migrations
                 {
                     table.PrimaryKey("PK_tb_cs_work_orders", x => x.guid);
                     table.ForeignKey(
-                        name: "FK_tb_cs_work_orders_tb_m_employees_cs_guid",
-                        column: x => x.cs_guid,
+                        name: "FK_tb_cs_work_orders_tb_m_employees_EmployeeGuid",
+                        column: x => x.EmployeeGuid,
                         principalTable: "tb_m_employees",
-                        principalColumn: "guid",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "guid");
                     table.ForeignKey(
                         name: "FK_tb_cs_work_orders_tb_work_orders_work_order_guid",
                         column: x => x.work_order_guid,
                         principalTable: "tb_work_orders",
                         principalColumn: "guid",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -208,18 +213,24 @@ namespace API.Migrations
                 columns: table => new
                 {
                     guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    title = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     is_finish = table.Column<bool>(type: "bit", nullable: false),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     photo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     note = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     work_order_guid = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    employee_guid = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     created_date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     modified_date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tb_work_reports", x => x.guid);
+                    table.ForeignKey(
+                        name: "FK_tb_work_reports_tb_m_employees_employee_guid",
+                        column: x => x.employee_guid,
+                        principalTable: "tb_m_employees",
+                        principalColumn: "guid");
                     table.ForeignKey(
                         name: "FK_tb_work_reports_tb_work_orders_work_order_guid",
                         column: x => x.work_order_guid,
@@ -238,9 +249,9 @@ namespace API.Migrations
                 column: "role_guid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_cs_work_orders_cs_guid",
+                name: "IX_tb_cs_work_orders_EmployeeGuid",
                 table: "tb_cs_work_orders",
-                column: "cs_guid");
+                column: "EmployeeGuid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tb_cs_work_orders_work_order_guid",
@@ -277,6 +288,11 @@ namespace API.Migrations
                 column: "employee_guid");
 
             migrationBuilder.CreateIndex(
+                name: "IX_tb_work_orders_employee_guid",
+                table: "tb_work_orders",
+                column: "employee_guid");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_tb_work_orders_project_guid",
                 table: "tb_work_orders",
                 column: "project_guid",
@@ -287,7 +303,13 @@ namespace API.Migrations
                 name: "IX_tb_work_orders_report_guid",
                 table: "tb_work_orders",
                 column: "report_guid",
-                unique: true);
+                unique: true,
+                filter: "[report_guid] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_work_reports_employee_guid",
+                table: "tb_work_reports",
+                column: "employee_guid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tb_work_reports_work_order_guid",

@@ -9,6 +9,10 @@ namespace Client.Controllers
             return View("Dashboard");
         }
 
-        
+        public IActionResult MyWorkReport()
+        {
+            return View();
+        }
+
     }
 }

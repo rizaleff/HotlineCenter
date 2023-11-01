@@ -1,6 +1,10 @@
 ﻿using API.Contracts;
+using API.Dtos.Reports;
 using API.Dtos.Tasks;
+using API.Dtos.WorkReports;
+using API.DTOs.Reports;
 using API.Models;
+using API.Repositories;
 using API.Utilities.Handlers;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -12,10 +16,13 @@ namespace API.Controllers;
 public class WorkOrderController : ControllerBase
 {
     private readonly IWorkOrderRepository _workOrderRepository;
+    private readonly IReportRepository _reportRepository;
 
-    public WorkOrderController(IWorkOrderRepository workOrderRepository)
+    public WorkOrderController(IWorkOrderRepository workOrderRepository, IReportRepository reportRepository)
     {
         _workOrderRepository = workOrderRepository;
+        _reportRepository = reportRepository;
+
     }
 
 
@@ -43,9 +50,54 @@ public class WorkOrderController : ControllerBase
     //[HttpGet("{guid}")]
     //public IActionResult GetByGuid(Guid guid)
     //{
-       
+
     //}
 
+    /*[HttpGet("{guid}")]
+    public IActionResult GetDetailByGuid(Guid guid)
+    {
+        var workOrder = _workOrderRepository.GetByGuid(guid);
+        var report = _reportRepository.GetByGuid(workOrder.ReportGuid);
+
+        var result = new WorkOrderDetailDto
+        {
+            Guid = workOrder.Guid,
+            Title = workOrder.Title,
+            Description = workOrder.Description,
+            Status = report.Status,
+            CreatedDate = report.CreatedDate,
+            ModifiedDate = report.ModifiedDate,
+            ReportPhoto = report.Photo,
+            Note = report.Note,
+            EmployeePhoto = report.Photo
+        };
+        if (result is null)
+        {
+            return NotFound(new ResponseErrorHandler
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "Data Not Found"
+            });
+        }
+        return Ok(new ResponseOKHandler<WorkOrderDetailDto>(result));
+    }*/
+
+    [HttpGet("{guid}")]
+    public IActionResult GetByGuid(Guid guid)
+    {
+        var result = _workOrderRepository.GetByGuid(guid);
+        if (result is null)
+        {
+            return NotFound(new ResponseErrorHandler
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "Data Not Found"
+            });
+        }
+        return Ok(new ResponseOKHandler<WorkOrderDto>((WorkOrderDto)result));
+    }
 
     [HttpPost]
     public IActionResult Create(CreateWorkOrderDto workOrderDto)
@@ -137,5 +189,24 @@ public class WorkOrderController : ControllerBase
                 Error = ex.Message
             });
         }
+    }
+
+    [HttpGet("myWorkOrder/{employeeGuid}")]
+    public IActionResult GetByEmployeeGuid(Guid employeeGuid)
+    {
+        var result = _workOrderRepository.GetWorkOrderByEmployee(employeeGuid);
+
+        if (result is null)
+        {
+            return NotFound(new ResponseErrorHandler
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "Data Not Found"
+            });
+        }
+
+        var data = result.Select(x => (WorkOrderDto)x);
+        return Ok(new ResponseOKHandler<IEnumerable<WorkOrderDto>>(data));
     }
 }

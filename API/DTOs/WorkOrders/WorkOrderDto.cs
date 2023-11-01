@@ -6,6 +6,7 @@ public class WorkOrderDto
 {
     public Guid Guid { get; set; }
     public Guid ReportGuid { get; set; }
+    public Guid? EmployeeGuid { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
     public DateTime TaskEstimate { get; set; }
@@ -17,6 +18,7 @@ public class WorkOrderDto
         {
             Guid = workOrderDto.Guid,
             ReportGuid = workOrderDto.ReportGuid,
+            EmployeeGuid = workOrderDto.EmployeeGuid,
             Title = workOrderDto.Title,
             Description = workOrderDto.Description,
             TaskEstimate = workOrderDto.TaskEstimate,
@@ -32,6 +34,7 @@ public class WorkOrderDto
         {
             Guid = workOrder.Guid,
             ReportGuid = workOrder.ReportGuid,
+            EmployeeGuid = workOrder.EmployeeGuid,
             Title = workOrder.Title,
             Description = workOrder.Description,
             TaskEstimate = workOrder.TaskEstimate,

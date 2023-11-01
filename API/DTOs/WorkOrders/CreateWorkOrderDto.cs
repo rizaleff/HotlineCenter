@@ -6,6 +6,7 @@ using WorkOrder = API.Models.WorkOrder;
 namespace API.Dtos.Tasks;
 public class CreateWorkOrderDto
 {
+    public Guid EmployeeGuid { get; set; }
     public Guid ReportGuid { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
@@ -15,6 +16,7 @@ public class CreateWorkOrderDto
     {
         return new WorkOrder
         {
+            EmployeeGuid = createTaskDto.EmployeeGuid,
             ReportGuid = createTaskDto.ReportGuid,
             Title = createTaskDto.Title,
             Description = createTaskDto.Description,
