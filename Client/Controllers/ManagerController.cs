@@ -9,6 +9,10 @@ namespace Client.Controllers
             return View("Dashboard");
         }
 
-        
+        [Route("Manager/ApproveProject")]
+        public IActionResult ApproveProject()
+        {
+            return View("ApproveProject");
+        }
     }
 }
