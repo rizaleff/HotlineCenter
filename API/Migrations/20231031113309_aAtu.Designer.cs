@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(HotlineCenterDbContext))]
-    [Migration("20231031024450_Satu")]
-    partial class Satu
+    [Migration("20231031113309_aAtu")]
+    partial class aAtu
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,6 +107,9 @@ namespace API.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("cs_guid");
 
+                    b.Property<Guid?>("EmployeeGuid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("modified_date");
@@ -117,7 +120,7 @@ namespace API.Migrations
 
                     b.HasKey("Guid");
 
-                    b.HasIndex("CsGuid");
+                    b.HasIndex("EmployeeGuid");
 
                     b.HasIndex("WorkOrderGuid");
 
@@ -333,6 +336,10 @@ namespace API.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("description");
 
+                    b.Property<Guid?>("EmployeeGuid")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("employee_guid");
+
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit")
                         .HasColumnName("is_approved");
@@ -349,7 +356,7 @@ namespace API.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("project_guid");
 
-                    b.Property<Guid>("ReportGuid")
+                    b.Property<Guid?>("ReportGuid")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("report_guid");
 
@@ -364,12 +371,15 @@ namespace API.Migrations
 
                     b.HasKey("Guid");
 
+                    b.HasIndex("EmployeeGuid");
+
                     b.HasIndex("ProjectGuid")
                         .IsUnique()
                         .HasFilter("[project_guid] IS NOT NULL");
 
                     b.HasIndex("ReportGuid")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[report_guid] IS NOT NULL");
 
                     b.ToTable("tb_work_orders");
                 });
@@ -390,6 +400,10 @@ namespace API.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("description");
 
+                    b.Property<Guid?>("EmployeeGuid")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("employee_guid");
+
                     b.Property<bool>("IsFinish")
                         .HasColumnType("bit")
                         .HasColumnName("is_finish");
@@ -409,7 +423,7 @@ namespace API.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("title");
 
                     b.Property<Guid?>("WorkOrderGuid")
@@ -417,6 +431,8 @@ namespace API.Migrations
                         .HasColumnName("work_order_guid");
 
                     b.HasKey("Guid");
+
+                    b.HasIndex("EmployeeGuid");
 
                     b.HasIndex("WorkOrderGuid")
                         .IsUnique()
@@ -458,15 +474,13 @@ namespace API.Migrations
             modelBuilder.Entity("API.Models.CsWorkOrder", b =>
                 {
                     b.HasOne("API.Models.Employee", "Employee")
-                        .WithMany("CsTasks")
-                        .HasForeignKey("CsGuid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("EmployeeGuid");
 
                     b.HasOne("API.Models.WorkOrder", "WorkOrder")
-                        .WithMany("CsWorkOrders")
+                        .WithMany()
                         .HasForeignKey("WorkOrderGuid")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Employee");
@@ -498,15 +512,19 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.WorkOrder", b =>
                 {
+                    b.HasOne("API.Models.Employee", "Employee")
+                        .WithMany("WorkOrders")
+                        .HasForeignKey("EmployeeGuid");
+
                     b.HasOne("API.Models.Project", "Project")
                         .WithOne("WorkOrder")
                         .HasForeignKey("API.Models.WorkOrder", "ProjectGuid");
 
                     b.HasOne("API.Models.Report", "Report")
                         .WithOne("WorkOrder")
-                        .HasForeignKey("API.Models.WorkOrder", "ReportGuid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("API.Models.WorkOrder", "ReportGuid");
+
+                    b.Navigation("Employee");
 
                     b.Navigation("Project");
 
@@ -515,9 +533,15 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.WorkReport", b =>
                 {
+                    b.HasOne("API.Models.Employee", "Employee")
+                        .WithMany("WorkReports")
+                        .HasForeignKey("EmployeeGuid");
+
                     b.HasOne("API.Models.WorkOrder", "WorkOrder")
                         .WithOne("WorkReport")
                         .HasForeignKey("API.Models.WorkReport", "WorkOrderGuid");
+
+                    b.Navigation("Employee");
 
                     b.Navigation("WorkOrder");
                 });
@@ -531,9 +555,11 @@ namespace API.Migrations
                 {
                     b.Navigation("Account");
 
-                    b.Navigation("CsTasks");
-
                     b.Navigation("Reports");
+
+                    b.Navigation("WorkOrders");
+
+                    b.Navigation("WorkReports");
                 });
 
             modelBuilder.Entity("API.Models.Project", b =>
@@ -555,8 +581,6 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.WorkOrder", b =>
                 {
-                    b.Navigation("CsWorkOrders");
-
                     b.Navigation("WorkReport");
                 });
 #pragma warning restore 612, 618

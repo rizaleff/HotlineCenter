@@ -7,4 +7,9 @@ public class WorkOrderRepository : GeneralRepository<Models.WorkOrder>, IWorkOrd
 {
     public WorkOrderRepository(HotlineCenterDbContext context) : base(context) { }
 
+    public IEnumerable<WorkOrder>? GetWorkOrderByEmployee(Guid employeeGuid)
+    {
+        return _context.Set<WorkOrder>().Where(r => r.EmployeeGuid == employeeGuid).ToList();
+    }
+
 }

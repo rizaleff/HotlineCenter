@@ -102,7 +102,7 @@
 
                                 </div>
 
-                               
+                            
                                     <div class="mb-3">
                                            </div>
                                     <div hidden class="mb-3">
@@ -117,8 +117,8 @@
                                     <div hidden class="input-group mb-3">
                                         <input type="file" class="form-control" id="foto" value="">
                                     </div>
-                                <form asp-action="Edit" method="post" enctype="multipart/form-data">
-                                    <input hidden type="text" class="form-control" asp-for ="Guid" value="f51487bb-e1c9-456e-fa7f-08dbd6055ac4">
+                                <form asp-action="ToUpdate" method="post" enctype="multipart/form-data">
+                                    <input hidden type="text" class="form-control" asp-for ="Guid" value="@ViewBag.SelectedReport.Guid">
                                     <div class="d-flex mb-3 form-check">
                                         <div class="me-5">
                                             <input type="radio" class="form-check-input" id="sending" asp-for="Status" value="0">
@@ -147,7 +147,7 @@
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                                 <div class="d-flex justify-content-center">
-                                    <a href="" class="btn btn-success mt-3">Create Work Order</a>
+                                    <a href="/WorkOrder/Create/?reportGuid=@ViewBag.SelectedReport.Guid" class="btn btn-success mt-3">Create Work Order</a>
                                 </div>
                             </div>
                         </div>
@@ -157,7 +157,7 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
+
+                                    

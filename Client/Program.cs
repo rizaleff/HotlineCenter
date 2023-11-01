@@ -9,9 +9,13 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped(typeof(IRepository<,>), typeof(GeneralRepository<,>));
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
+builder.Services.AddScoped<IWorkReportRepository, WorkReportRepository>();
+builder.Services.AddScoped<IWorkOrderRepository, WorkOrderRepository>();
 builder.Services.AddScoped<ICreateReportRepository, CreateReportRepository>();
+builder.Services.AddScoped<ICreateWorkOrderRepository, CreateWorkOrderRepository>();
 builder.Services.AddScoped<IDetailReportRepository, DetailReportRepository>();
 builder.Services.AddScoped<IEditReportRepository, EditReportRepository>();
+builder.Services.AddScoped<ICsEmployeeRepository, CsEmployeeRepository>();
 
 
 

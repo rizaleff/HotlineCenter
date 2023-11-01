@@ -7,7 +7,8 @@ public class HotlineCenterDbContext : DbContext
 
     public DbSet<Account> Accounts { get; set; }
     public DbSet<AccountRole> AccountRoles { get; set; }
-    public DbSet<CsWorkOrder> CsWorkOders { get; set; }
+
+/*    public DbSet<CsWorkOrder> CsWorkOders { get; set; }*/
     public DbSet<Employee> Employees { get; set; }
     public DbSet<Project> Projects { get; set; }
     public DbSet<Report> Reports { get; set; }
@@ -39,11 +40,6 @@ public class HotlineCenterDbContext : DbContext
             .HasOne(a => a.Employee)
             .WithOne(e => e.Account)
             .HasForeignKey<Account>(a => a.Guid);
-
-/*        modelBuilder.Entity<Employee>()
-            .HasMany(e => e.CsTasks)
-            .WithOne(cst => cst.Employee)
-            .HasForeignKey(cst => cst.CsGuid);*/
 
         modelBuilder.Entity<Employee>()
             .HasMany(e => e.Reports)

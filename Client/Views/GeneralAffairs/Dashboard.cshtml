@@ -1,6 +1,14 @@
-﻿@{
+﻿@using API.Utilities.Enums;
+@model IEnumerable<API.DTOs.Reports.ReportDetailDto>
+
+@{
     Layout = "~/Views/Shared/_GeneralAffairsLayout.cshtml";
 }
+@{
+  
+    int listCount = 1;
+}
+
 <div class="body-wrapper">
     <!--  Header Start -->
     <header class="app-header">
@@ -59,41 +67,69 @@
                     <!-- Inner main -->
                     <div class="inner-main">
                         <!-- Inner main header -->
-                        <div class="d-flex justify-content-between pt-3 mx-3">
-                            <span class="input-icon input-icon-sm ml-auto w-auto">
-                                <input type="text" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none" placeholder="Search Reports" />
-                            </span>
-                        </div>
+                        @*                         <div class="d-flex justify-content-between pt-3 mx-3">
+                        <span class="input-icon input-icon-sm ml-auto w-auto">
+                        <input type="text" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none" placeholder="Search Reports" />
+                        </span>
+                        </div> *@
                         <!-- /Inner main header -->
                         <!-- Inner main body -->
                         <!-- Forum List -->
-                        <div class="inner-main-body p-2 p-sm-3">
 
-                            <table class="table table-sm" id="tableProjects">
+                        <div class="inner-main-body p-2 p-sm-3">
+                            <table class="table table-sm" id="tableReports">
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
                                         <th scope="col">Name of Reporter</th>
-                                        <th scope="col">Division</th>
                                         <th scope="col">Title</th>
-                                        <th scope="col">Time</th>
+                                        <th scope="col">Created Date</th>
                                         <th scope="col">Status</th>
+
+                                        <th scope="col">Action</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>fat</td>
-                                    </tr>
-                                   
+                                    @foreach (var item in Model.Reverse())
+                                    {
+
+                                        string cssClass = "";
+                                        if (item.Status == StatusLevel.Sending)
+                                        {
+                                            cssClass = "bg-light-success text-success";
+                                        }
+                                        else if (item.Status == StatusLevel.OnProcess)
+                                        {
+                                            cssClass = "bg-light-warning text-warning";
+                                        }
+                                        else if (item.Status == StatusLevel.Reject)
+                                        {
+                                            cssClass = "bg-light-danger text-danger";
+                                        }
+
+                                        else
+                                        {
+                                            cssClass = "bg-light-info text-info";
+                                        }
+
+
+                                        <tr>
+                                            <td> @listCount </td>
+                                            <td> @Html.DisplayFor(modelItem => item.EmployeeFullName)</td>
+                                            <td> @Html.DisplayFor(modelItem => item.Title)</td>
+                                            <td> @Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                                            <td>
+                                                <span class="mb-1 badge rounded-pill font-medium @cssClass">@Html.DisplayFor(modelItem => item.Status)</span>
+                                            </td>
+                                            <td>
+                                                <div class="text-muted small text-center align-self-center mx-2">
+                                                    <a href="/Report/Edit/?guid=@item.Guid" class="btn btn-primary">Edit</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        listCount++;
+                                    }
                                 </tbody>
                             </table>
                             <!-- /Forum List -->

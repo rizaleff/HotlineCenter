@@ -19,7 +19,10 @@ namespace Client.Controllers
         {
             var result = await _detailReportepository.Get();
             var listReport = new List<ReportDetailDto>();
-            listReport = result.Data.ToList();
+            if (result.Data != null)
+            {
+                listReport = result.Data.ToList();
+            }
             return View("Dashboard", listReport);
         }
 
