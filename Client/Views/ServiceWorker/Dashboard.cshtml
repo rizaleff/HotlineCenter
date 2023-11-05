@@ -51,28 +51,127 @@
     <!--  Header End -->
     <div class="container-fluid">
 
-        <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+        <div class="modal fade " id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 id="title"></h2>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-header bg-primary">
+                        <h2 class="text-white">Details</h2>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                         </button>
 
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p id="description"></p>
+                        <div class="row border mt-3">
+                            <div class="col-md-6 ms-auto bg-light py-3">
+                                Title Work Order
+                            </div>
+                            <div class="col-md-6 ms-auto bg-light py-3 d-flex">
+                               <p class="me-2">: </p> <p class="" id="title"></p>
+                            </div>
+                        </div>
+                        <div class="row border mt-3">
+                            <div class="col-md-6 ms-auto bg-light py-3">
+                                Deskripsi Work Order
+                            </div>
+                            <div class="col-md-6 ms-auto bg-light py-3 d-flex">
+                                <p class="me-2">: </p> <p id="description"></p>
+                            </div>
+                        </div>
+                        <div class="m-2">
+                            <h2>Report Detail</h2>
+                            <p id="reportDescription"></p>
+                        </div>
+                        <div class="text-center m-2">
+                            <img id="image" src="" alt="Image">
+                        </div>
+                        
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button class="btn btn-success" id="createWorkOrderReportButton">Create Work Order</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        
+        <!-- Modal createWorkOrderModal -->
+        <div class="modal fade" id="createWorkOrderReportModal" tabindex="-1" role="dialog" aria-labelledby="createWorkOrderReportModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createWorkOrderReportModal">Create Work Order</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Formulir untuk membuat Work Order -->
+                        <form id="workOrderForm" enctype="multipart/form-data">
+                            <input type="hidden" id="workOrderGuid" name="workOrderGuid">
+                           
+                            <div class="form-group">
+                                <label for="newTitle">Title</label>
+                                <input type="text" class="form-control" id="newTitle" name="title">
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" id="employeeGuid" name="employeeGuid" value="a0396d96-aebf-4ea5-6935-08dbda07316d">
+                            </div>
+                            <div class="form-group">
+                                <label for="newDescription">Description</label>
+                                <textarea class="form-control" id="newDescription" name="description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="newPhoto">Photo</label>
+                                <input type="file" id="photoFile">
+                            </div>
 
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="submitWorkReport">Create Work Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content border-0">
+                <div class="modal-header bg-primary">
+                    <h6 class="modal-title text-white">Add Notes</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="notes-box">
+                        <div class="notes-content">
+                            <form action="javascript:void(0);" id="addnotesmodalTitle">
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <div class="note-title">
+                                            <label>Note Title</label>
+                                            <input type="text" id="note-has-title" class="form-control" minlength="25" placeholder="Title">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="note-description">
+                                            <label>Note Description</label>
+                                            <textarea id="note-has-description" class="form-control" minlength="60" placeholder="Description" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" data-bs-dismiss="modal">Discard</button>
+                    <button id="btn-n-add" class="btn btn-primary" disabled="disabled">Add</button>
+                </div>
+            </div>
+        </div>
+ *@
 
         <h1>Work Order</h1>
         <div class="container">

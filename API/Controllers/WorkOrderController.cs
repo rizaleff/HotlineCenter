@@ -53,7 +53,7 @@ public class WorkOrderController : ControllerBase
 
     //}
 
-    /*[HttpGet("{guid}")]
+    [HttpGet("details/{guid}")]
     public IActionResult GetDetailByGuid(Guid guid)
     {
         var workOrder = _workOrderRepository.GetByGuid(guid);
@@ -64,12 +64,11 @@ public class WorkOrderController : ControllerBase
             Guid = workOrder.Guid,
             Title = workOrder.Title,
             Description = workOrder.Description,
-            Status = report.Status,
-            CreatedDate = report.CreatedDate,
-            ModifiedDate = report.ModifiedDate,
+            ReportGuid = workOrder.ReportGuid,
+            Status = workOrder.Status,
+            ReportDescription = report.Description,
             ReportPhoto = report.Photo,
-            Note = report.Note,
-            EmployeePhoto = report.Photo
+            CreatedDate = workOrder.CreatedDate,
         };
         if (result is null)
         {
@@ -81,7 +80,7 @@ public class WorkOrderController : ControllerBase
             });
         }
         return Ok(new ResponseOKHandler<WorkOrderDetailDto>(result));
-    }*/
+    }
 
     [HttpGet("{guid}")]
     public IActionResult GetByGuid(Guid guid)

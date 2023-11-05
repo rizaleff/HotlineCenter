@@ -23,16 +23,6 @@ public class WorkOrderRepository : GeneralRepository<WorkOrderDto, Guid>, IWorkO
         return entityVM;
     }
 
-    public async Task<ResponseOKHandler<IEnumerable<WorkOrderDto>>> GetWorkOrderDetails(Guid guid)
-    {
-        ResponseOKHandler<IEnumerable<WorkOrderDto>> entityVM = null;
-        string link = request  + guid;
-        using (var response = await httpClient.GetAsync(request + guid))
-        {
-            string apiResponse = await response.Content.ReadAsStringAsync();
-            entityVM = JsonConvert.DeserializeObject<ResponseOKHandler<IEnumerable<WorkOrderDto>>>(apiResponse);
-        }
-        return entityVM;
-    }
+    
 
 }
