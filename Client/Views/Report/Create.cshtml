@@ -1,5 +1,9 @@
 ﻿@model API.Dtos.Reports.ReceiveReportDto
-
+@using Microsoft.AspNetCore.Http
+@{
+    // Mengambil nilai dari sesi dengan tipe data tertentu
+    var guidValue = Context.Request.HttpContext.Session.GetString("Guid");
+}
 @{
     Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
 }
@@ -72,7 +76,7 @@
                             <div class="card-body">
                                 <form action="Create" method="post" enctype="multipart/form-data">
                                     <div class="mb-3">
-                                        <input asp-for="EmployeeGuid" hidden type="text" class="form-control" value="a0396d96-aebf-4ea5-6935-08dbda07316d">
+                                        <input asp-for="EmployeeGuid" hidden type="text" class="form-control" value="@guidValue">
 
                                     </div>
                                     <div class="form-group mb-3">

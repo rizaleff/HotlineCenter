@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@{
+    // Mengambil nilai dari sesi dengan tipe data tertentu
+    var guidValue = Context.Request.HttpContext.Session.GetString("Guid");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -48,7 +53,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="/Employee/MyReport/?employeeGuid=a0396d96-aebf-4ea5-6935-08dbda07316d" aria-expanded="false">
+                            <a class="sidebar-link" href="/Employee/MyReport/?employeeGuid=@guidValue" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-alert-circle"></i>
                                 </span>
