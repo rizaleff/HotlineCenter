@@ -16,7 +16,6 @@ public class CreateWorkOrderDto
     {
         return new WorkOrder
         {
-            
             ReportGuid = createTaskDto.ReportGuid,
             Title = createTaskDto.Title,
             Description = createTaskDto.Description,

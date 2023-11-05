@@ -45,14 +45,14 @@ public class ReportController : Controller
         createReportDto.Description = reportDto.Description;
         createReportDto.EmployeeGuid = reportDto.EmployeeGuid;
 
-        if (reportDto.PhotoFile != null && reportDto.PhotoFile.Length > 0)
-        {
-            using (var memoryStream = new MemoryStream())
+            if (reportDto.PhotoFile != null && reportDto.PhotoFile.Length > 0)
             {
-                reportDto.PhotoFile.CopyTo(memoryStream);
-                createReportDto.PhotoFile = memoryStream.ToArray();
+                using (var memoryStream = new MemoryStream())
+                {
+                    reportDto.PhotoFile.CopyTo(memoryStream);
+                    createReportDto.PhotoFile = memoryStream.ToArray();
+                }
             }
-        }
         var result = await _createReportRepository.Post(createReportDto);
         if (result.Code == 200)
         {
