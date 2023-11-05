@@ -15,13 +15,18 @@ public class WorkOrderController : Controller
 
     private readonly ICsEmployeeRepository _csEmployeeRepository;
     private readonly ICreateWorkOrderRepository _createWorkOrderRepository;
+    private readonly IWorkOrderRepository _workOrderRepository;
+    private readonly IWorkOrderDetailRepository _workOrderDetailRepository;
 
 
-    public WorkOrderController(ICsEmployeeRepository csEmployeeRepository, ICreateWorkOrderRepository createWorkOrderRepository)
+
+    public WorkOrderController(ICsEmployeeRepository csEmployeeRepository, ICreateWorkOrderRepository createWorkOrderRepository, IWorkOrderRepository workOrderRepository, IWorkOrderDetailRepository workOrderDetailRepository)
     {
 
         _csEmployeeRepository = csEmployeeRepository;
         _createWorkOrderRepository = createWorkOrderRepository;
+        _workOrderRepository = workOrderRepository;
+        _workOrderDetailRepository = workOrderDetailRepository;
     }
 
     public IActionResult Index()
@@ -79,16 +84,18 @@ public class WorkOrderController : Controller
             return View("VerificationProject");
         }
 
-        public async Task<JsonResult> GetWorkOrderByEmployeeGuid(Guid employeeGuid)
+    public async Task<JsonResult> GetWorkOrderByEmployeeGuid(Guid employeeGuid)
 
-        {
-            var result = await _workOrderRepository.GetWorkOrderByEmployeeGuid(employeeGuid); // Mengambil data WorkOrder berdasarkan EmployeeGuid
-            return Json(result.Data);
-        } public async Task<JsonResult> GetWorkOrderDetails(Guid Guid)
+    {
+        var result = await _workOrderRepository.GetWorkOrderByEmployeeGuid(employeeGuid); // Mengambil data WorkOrder berdasarkan EmployeeGuid
+        return Json(result.Data);
 
-        {
-            var result = await _workOrderRepository.GetWorkOrderDetails(Guid); // Mengambil data WorkOrder berdasarkan EmployeeGuid
+    }
+    public async Task<JsonResult> GetWorkOrderDetails(Guid guid)
+
+    {
+        var result = await _workOrderDetailRepository.Get(guid); 
             return Json(result.Data);
-        }
+    }
 
 }
