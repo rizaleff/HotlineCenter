@@ -13,7 +13,7 @@ namespace Client.Controllers
         public WorkReportController(IWorkReportRepository workReportRepository, ICreateWorkReportRepository createWorkReportReportRepository)
         {
                 _workReportReportrepository = workReportRepository;
-            _createWorkReportRepository = createWorkReportReportRepository;
+                _createWorkReportRepository = createWorkReportReportRepository;
 
 
         }
@@ -35,5 +35,7 @@ namespace Client.Controllers
             var result = await _createWorkReportRepository.Post(createWorkReportDto);
             return Json(result);
         }
+
+
     }
 }
