@@ -104,7 +104,211 @@
                     </div>
                     <!-- /Inner main -->
                 </div>
-
+                <div class="col-12">
+                    <!-- ---------------------
+                                                        start Step wizard with validation
+                                                    ---------------- -->
+                    <div class="card">
+                        <div class="card-body wizard-content">
+                            <h4 class="card-title">Step wizard with validation</h4>
+                            <p class="card-subtitle mb-3"> You can us the validation like what we did </p>
+                            <form action="#" class="validation-wizard wizard-circle mt-5 wizard clearfix" role="application" id="steps-uid-7" novalidate="novalidate">
+                                <div class="steps clearfix"><ul role="tablist"><li role="tab" class="first current" aria-disabled="false" aria-selected="true"><a id="steps-uid-7-t-0" href="#steps-uid-7-h-0" aria-controls="steps-uid-7-p-0"><span class="current-info audible">current step: </span><span class="step">1</span> Step 1</a></li><li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-7-t-1" href="#steps-uid-7-h-1" aria-controls="steps-uid-7-p-1"><span class="step">2</span> Step 2</a></li><li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-7-t-2" href="#steps-uid-7-h-2" aria-controls="steps-uid-7-p-2"><span class="step">3</span> Step 3</a></li><li role="tab" class="disabled last" aria-disabled="true"><a id="steps-uid-7-t-3" href="#steps-uid-7-h-3" aria-controls="steps-uid-7-p-3"><span class="step">4</span> Step 4</a></li></ul></div><div class="content clearfix">
+                                    <!-- Step 1 -->
+                                    <h6 id="steps-uid-7-h-0" tabindex="-1" class="title current">Step 1</h6>
+                                    <section id="steps-uid-7-p-0" role="tabpanel" aria-labelledby="steps-uid-7-h-0" class="body current" aria-hidden="false">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="wfirstName2">
+                                                        First Name : <span class="danger">*</span>
+                                                    </label>
+                                                    <input type="text" class="form-control required" id="wfirstName2" name="firstName">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="wlastName2">
+                                                        Last Name : <span class="danger">*</span>
+                                                    </label>
+                                                    <input type="text" class="form-control required" id="wlastName2" name="lastName">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="wemailAddress2">
+                                                        Email Address : <span class="danger">*</span>
+                                                    </label>
+                                                    <input type="email" class="form-control required" id="wemailAddress2" name="emailAddress">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="wphoneNumber2">Phone Number :</label>
+                                                    <input type="tel" class="form-control" id="wphoneNumber2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="wlocation2">
+                                                        Select City : <span class="danger">*</span>
+                                                    </label>
+                                                    <select class="form-select required" id="wlocation2" name="location">
+                                                        <option value="">Select City</option>
+                                                        <option value="India">India</option>
+                                                        <option value="USA">USA</option>
+                                                        <option value="Dubai">Dubai</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="wdate2">Date of Birth :</label>
+                                                    <input type="date" class="form-control" id="wdate2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <!-- Step 2 -->
+                                    <h6 id="steps-uid-7-h-1" tabindex="-1" class="title">Step 2</h6>
+                                    <section id="steps-uid-7-p-1" role="tabpanel" aria-labelledby="steps-uid-7-h-1" class="body" aria-hidden="true" style="display: none;">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="jobTitle2">Company Name :</label>
+                                                    <input type="text" class="form-control required" id="jobTitle2">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="webUrl3">Company URL :</label>
+                                                    <input type="url" class="form-control required" id="webUrl3" name="webUrl3">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="mb-3">
+                                                    <label for="shortDescription3">Short Description :</label>
+                                                    <textarea name="shortDescription" id="shortDescription3" rows="6" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <!-- Step 3 -->
+                                    <h6 id="steps-uid-7-h-2" tabindex="-1" class="title">Step 3</h6>
+                                    <section id="steps-uid-7-p-2" role="tabpanel" aria-labelledby="steps-uid-7-h-2" class="body" aria-hidden="true" style="display: none;">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="wint1">Interview For :</label>
+                                                    <input type="text" class="form-control required" id="wint1">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="wintType1">Interview Type :</label>
+                                                    <select class="form-select required" id="wintType1" data-placeholder="Type to search cities" name="wintType1">
+                                                        <option value="Banquet">Normal</option>
+                                                        <option value="Fund Raiser">Difficult</option>
+                                                        <option value="Dinner Party">Hard</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="wLocation1">Location :</label>
+                                                    <select class="form-select required" id="wLocation1" name="wlocation">
+                                                        <option value="">Select City</option>
+                                                        <option value="India">India</option>
+                                                        <option value="USA">USA</option>
+                                                        <option value="Dubai">Dubai</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="wjobTitle2">Interview Date :</label>
+                                                    <input type="date" class="form-control required" id="wjobTitle2">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label>Requirements :</label>
+                                                    <div class="c-inputs-stacked">
+                                                        <div class="form-check">
+                                                            <input type="radio" id="customRadio16" name="customRadio" class="form-check-input">
+                                                            <label class="form-check-label" for="customRadio16">Employee</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input type="radio" id="customRadio17" name="customRadio" class="form-check-input">
+                                                            <label class="form-check-label" for="customRadio17">Contract</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <!-- Step 4 -->
+                                    <h6 id="steps-uid-7-h-3" tabindex="-1" class="title">Step 4</h6>
+                                    <section id="steps-uid-7-p-3" role="tabpanel" aria-labelledby="steps-uid-7-h-3" class="body" aria-hidden="true" style="display: none;">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="behName1">Behaviour :</label>
+                                                    <input type="text" class="form-control required" id="behName1">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="participants1">Confidance</label>
+                                                    <input type="text" class="form-control required" id="participants1">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="participants1">Result</label>
+                                                    <select class="form-select required" id="participants1" name="location">
+                                                        <option value="">Select Result</option>
+                                                        <option value="Selected">Selected</option>
+                                                        <option value="Rejected">Rejected</option>
+                                                        <option value="Call Second-time"> Call Second-time </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="decisions1">Comments</label>
+                                                    <textarea name="decisions" id="decisions1" rows="4" class="form-control"></textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label>Rate Interviwer :</label>
+                                                    <div class="c-inputs-stacked">
+                                                        <div class="form-check">
+                                                            <input type="radio" id="customRadio11" name="customRadio" class="form-check-input">
+                                                            <label class="form-check-label" for="customRadio11">1 star</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input type="radio" id="customRadio12" name="customRadio" class="form-check-input">
+                                                            <label class="form-check-label" for="customRadio12">2 star</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input type="radio" id="customRadio13" name="customRadio" class="form-check-input">
+                                                            <label class="form-check-label" for="customRadio13">3 star</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input type="radio" id="customRadio14" name="customRadio" class="form-check-input">
+                                                            <label class="form-check-label" for="customRadio14">4 star</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input type="radio" id="customRadio15" name="customRadio" class="form-check-input">
+                                                            <label class="form-check-label" for="customRadio15">5 star</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div><div class="actions clearfix"><ul role="menu" aria-label="Pagination"><li class="disabled" aria-disabled="true"><a href="#previous" role="menuitem">Previous</a></li><li aria-hidden="false" aria-disabled="false"><a href="#next" role="menuitem">Next</a></li><li aria-hidden="true" style="display: none;"><a href="#finish" role="menuitem">Submit</a></li></ul></div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- ---------------------
+                                                        end Step wizard with validation
+                                                    ---------------- -->
+                </div>
                 <!-- New Thread Modal -->
                 <div class="modal fade" id="threadModal" tabindex="-1" role="dialog" aria-labelledby="threadModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">

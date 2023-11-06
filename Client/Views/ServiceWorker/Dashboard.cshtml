@@ -1,4 +1,8 @@
 ﻿@{
+    // Mengambil nilai dari sesi dengan tipe data tertentu
+    var guidValue = Context.Request.HttpContext.Session.GetString("Guid");
+}
+@{
     Layout = "~/Views/Shared/_CsLayout.cshtml";
 }
 <div class="body-wrapper">
@@ -214,4 +218,3 @@
         </div>
     </div>
 </div>
-

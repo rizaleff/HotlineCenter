@@ -2,7 +2,6 @@
 using API.DTOs;
 using Client.Contracts;
 using Client.Models;
-using Client.Utilities.Handler;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
@@ -49,7 +48,6 @@ namespace Client.Controllers
             {
 
                 HttpContext.Session.SetString("JWToken", result.Data.Token);
-                AccountClaimDto claimDto = new AccountClaimDto();
 
                 var jwtToken = HttpContext.Session.GetString("JWToken");
 
