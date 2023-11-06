@@ -2,10 +2,11 @@
 // Cek apakah kita berada di halaman "myreport"
 if (window.location.pathname === '/ServiceWorker/MyWorkReport') {
     // Panggil fungsi getWorkReportByEmployeeGuid dengan parameter yang sesuai
-    getWorkReportByEmployeeGuid('a0396d96-aebf-4ea5-6935-08dbda07316d');
+    console.log(thisEmpGuid)
+    getWorkReportByEmployeeGuid(thisEmpGuid);
 } else if (window.location.pathname === '/ServiceWorker') {
 
-    getWorkOrderByEmployeeGuid('a0396d96-aebf-4ea5-6935-08dbda07316d');
+    getWorkOrderByEmployeeGuid(thisEmpGuid);
 }
 
 // Tambahkan event listener pada tombol "my report" di navbar
@@ -119,30 +120,30 @@ $("#submitWorkReport").on("click", function () {
     const title = $("#newTitle").val();
     const description = $("#newDescription").val();
     const workOrderGuid = $("#workOrderGuid").val();
-    const employeeGuid = "a0396d96-aebf-4ea5-6935-08dbda07316d";
+    const employeeGuid = thisEmpGuid;
     const photoInput = $("#photoFile")[0];
 
+    const photoFile = photoInput.files[0];
     // Check if a file is selected
-    if (photoInput.files.length > 0) {
-        const photoFile = photoInput.files[0];
+    if (photoInput) {
 
         const reader = new FileReader();
 
         reader.onload = function (event) {
             // The result will be an ArrayBuffer
-            const photoArrayBuffer = event.target.result;
+            //const photoArrayBuffer = event.target.result;
 
             // Convert ArrayBuffer to base64
-            const photoBase64 = arrayBufferToBase64(photoArrayBuffer);
-
-            
+            //const photoBase64 = arrayBufferToBase64(photoArrayBuffer);
+            var base64String = event.target.result.split(',')[1];
+            console.log(base64String);
             // Buat objek data yang akan dikirim ke API
             const data = {
                 Title: title,
                 Description: description,
                 WorkOrderGuid: workOrderGuid,
                 EmployeeGuid: employeeGuid,
-                Photo: photoBase64
+                Photo: base64String
             };
 
             console.log(data)
@@ -176,7 +177,8 @@ $("#submitWorkReport").on("click", function () {
         };
 
         // Read the selected file as an ArrayBuffer
-        reader.readAsArrayBuffer(photoFile);
+        //reader.readAsArrayBuffer(photoFile);
+        reader.readAsDataURL(photoFile);
     } else {
         // Handle the case when no file is selected
         Swal.fire({
@@ -187,15 +189,6 @@ $("#submitWorkReport").on("click", function () {
     }
 });
 
-// Function to convert ArrayBuffer to base64
-function arrayBufferToBase64(arrayBuffer) {
-    const binary = new Uint8Array(arrayBuffer);
-    let base64 = [];
-    for (let i = 0; i < binary.length; i++) {
-        base64 += String.fromCharCode(binary[i]);
-    }
-    return btoa(base64);
-}
 
 
 
