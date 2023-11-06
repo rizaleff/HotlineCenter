@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -74,7 +77,10 @@
         </div>
     </div>
 
-    
+    <script>
+        var thisEmpGuid = @Json.Serialize(Context.Request.HttpContext.Session.GetString("Guid"));
+        console.log("Nilai UserName dari sesi: " + thisEmpGuid);
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -83,6 +89,8 @@
     <script src="~/js/MyWorkReport.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

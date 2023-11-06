@@ -96,14 +96,13 @@ public class AccountController : ControllerBase
         }
     }
 
-
     // Endpoint untuk login akun.
     [HttpPost("Login")]
     public IActionResult Login(LoginDto loginDto)
     {
         try
-        {
-            var employees = _employeeRepository.GetEmail(loginDto.Email);
+            {
+                var employees = _employeeRepository.GetEmail(loginDto.Email);
 
             if (employees is null)
             {
