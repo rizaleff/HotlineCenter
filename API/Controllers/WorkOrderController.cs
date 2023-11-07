@@ -5,6 +5,7 @@ using API.Dtos.WorkReports;
 using API.DTOs.Reports;
 using API.Models;
 using API.Repositories;
+using API.Utilities.Enums;
 using API.Utilities.Handlers;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -47,13 +48,7 @@ public class WorkOrderController : ControllerBase
     }
 
 
-    //[HttpGet("{guid}")]
-    //public IActionResult GetByGuid(Guid guid)
-    //{
-
-    //}
-
-    /*[HttpGet("{guid}")]
+    [HttpGet("details/{guid}")]
     public IActionResult GetDetailByGuid(Guid guid)
     {
         var workOrder = _workOrderRepository.GetByGuid(guid);
@@ -64,12 +59,11 @@ public class WorkOrderController : ControllerBase
             Guid = workOrder.Guid,
             Title = workOrder.Title,
             Description = workOrder.Description,
-            Status = report.Status,
-            CreatedDate = report.CreatedDate,
-            ModifiedDate = report.ModifiedDate,
+            ReportGuid = workOrder.ReportGuid,
+            Status = workOrder.Status,
+            ReportDescription = report.Description,
             ReportPhoto = report.Photo,
-            Note = report.Note,
-            EmployeePhoto = report.Photo
+            CreatedDate = workOrder.CreatedDate,
         };
         if (result is null)
         {
@@ -81,7 +75,23 @@ public class WorkOrderController : ControllerBase
             });
         }
         return Ok(new ResponseOKHandler<WorkOrderDetailDto>(result));
-    }*/
+    }
+    [HttpGet("MyWorkOrders/{empGuid}")]
+    public IActionResult GetWorkOrderByEmpGuid(Guid empGuid)
+    {
+        var result = _workOrderRepository.GetWoDetailByEmpGuid(empGuid);
+        
+        if (result is null)
+        {
+            return NotFound(new ResponseErrorHandler
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "Data Not Found"
+            });
+        }
+        return Ok(new ResponseOKHandler<IEnumerable<WorkOrderDetailDto>>(result));
+    }
 
     [HttpGet("{guid}")]
     public IActionResult GetByGuid(Guid guid)
@@ -105,6 +115,36 @@ public class WorkOrderController : ControllerBase
         try
         {
             var result = _workOrderRepository.Create(workOrderDto);
+            var report = new EditStatusReportDto
+            {
+                Guid = workOrderDto.ReportGuid,
+                Note = null,
+                Status = StatusLevel.OnProcess
+            };
+
+            var reportByGuid = _reportRepository.GetByGuid(workOrderDto.ReportGuid);
+
+            if (reportByGuid is null)
+            {
+
+                return NotFound(new ResponseErrorHandler
+                {
+                    Code = StatusCodes.Status404NotFound,
+                    Status = HttpStatusCode.NotFound.ToString(),
+                    Message = "Data Not Found"
+                });
+            }
+
+            Report toUpdate = report;
+            toUpdate.EmployeeGuid = reportByGuid.EmployeeGuid;
+            toUpdate.Title = reportByGuid.Title;
+            toUpdate.Description = reportByGuid.Description;
+            toUpdate.EmployeeGuid = reportByGuid.EmployeeGuid;
+            toUpdate.Photo = reportByGuid.Photo;
+            //toUpdate.PhotoUrl = reportByGuid.PhotoUrl;
+            toUpdate.CreatedDate = reportByGuid.CreatedDate;
+
+            _reportRepository.Update(toUpdate);
 
             return Ok(new ResponseOKHandler<WorkOrderDto>((WorkOrderDto)result));
         }

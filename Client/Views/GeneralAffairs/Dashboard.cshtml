@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_GeneralAffairsLayout.cshtml";
 }
 @{
-  
+
     int listCount = 1;
 }
 
@@ -48,7 +48,7 @@
                                     <i class="ti ti-list-check fs-6"></i>
                                     <p class="mb-0 fs-3">My Task</p>
                                 </a>
-                                <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                                <a href="Logout" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
                             </div>
                         </div>
                     </li>
@@ -66,6 +66,7 @@
                     <!-- /Inner sidebar -->
                     <!-- Inner main -->
                     <div class="inner-main">
+  
                         <!-- Inner main header -->
                         @*                         <div class="d-flex justify-content-between pt-3 mx-3">
                         <span class="input-icon input-icon-sm ml-auto w-auto">
@@ -93,24 +94,37 @@
                                 <tbody>
                                     @foreach (var item in Model.Reverse())
                                     {
-
+                                        var imgSrc = "";
+                                        @if (item.ReportPhoto != null && item.ReportPhoto.Length > 0)
+                                        {
+                                            var base64Image = Convert.ToBase64String(item.ReportPhoto);
+                                            imgSrc = $"data:image/jpeg;base64,{base64Image}";
+                                           
+                                        }
                                         string cssClass = "";
+                                        string cssBtnClass = "";
+                                        string btnText = "Detail";
                                         if (item.Status == StatusLevel.Sending)
                                         {
                                             cssClass = "bg-light-success text-success";
+                                            cssBtnClass = "btn-success";
+                                            btnText = "Process";
                                         }
                                         else if (item.Status == StatusLevel.OnProcess)
                                         {
                                             cssClass = "bg-light-warning text-warning";
+                                            cssBtnClass = "btn-primary";
                                         }
                                         else if (item.Status == StatusLevel.Reject)
                                         {
                                             cssClass = "bg-light-danger text-danger";
+                                            cssBtnClass = "btn-primary";
                                         }
 
                                         else
                                         {
                                             cssClass = "bg-light-info text-info";
+                                            cssBtnClass = "btn-primary";
                                         }
 
 
@@ -123,8 +137,26 @@
                                                 <span class="mb-1 badge rounded-pill font-medium @cssClass">@Html.DisplayFor(modelItem => item.Status)</span>
                                             </td>
                                             <td>
-                                                <div class="text-muted small text-center align-self-center mx-2">
-                                                    <a href="/Report/Edit/?guid=@item.Guid" class="btn btn-primary">Edit</a>
+                                                <div >
+                                                    @* <a href="/Report/Edit/?guid=@item.Guid" class="btn btn-primary"hidden">Edit</a> *@
+                                                    <button class="btn @cssBtnClass btn-detail"
+                                                            data-bs-toggle="modal"
+                                                            data-action="detail"
+                                                            data-bs-target="#detailModal"
+                                                            data-report='{
+                                                                            "reportBy":"@item.EmployeeFullName",
+                                                                            "reportBy":"@item.EmployeeFullName",
+                                                                            "reportGuid":"@item.Guid",
+                                                                            "title":"@item.Title",
+                                                                            "createdDate":"@item.CreatedDate",
+                                                                            "status":"@item.Status",
+                                                                            "note":"@item.Note",
+                                                                            "modifiedDate":"@item.ModifiedDate",
+                                                                            "reportPhoto":"@imgSrc"
+                                                                        }'>
+                                                            @btnText
+                                                    </button>
+
                                                 </div>
                                             </td>
                                         </tr>
@@ -137,11 +169,115 @@
                             <!-- /Inner main body -->
                         </div>
                         <!-- /Inner main -->
+
                     </div>
                 </div>
             </div>
 
 
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">Detail Report</h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <p><strong>Reported By:</strong> <span id="reportBy"></span></p>
+                <p><strong>Title:</strong> <span id="title"></span></p>
+                <p><strong>Created Date:</strong> <span id="createdDate"></span></p>
+                <p><strong>Status:</strong> <span id="status"></span></p>
+                <p><strong>Note:</strong> <span id="note"></span></p>
+                <p><strong>Modified Date:</strong> <span id="modifiedDate"></span></p>
+                <div class="mt-3">
+                    <strong>Report Photo:</strong><br>
+                    <img id="reportPhoto" src="" alt="Report Photo" class="img-fluid">
+                </div>
+            </div>
+            <div class="modal-footer" id="modalFooter">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="rejectWoModal" class="modal fade" tabindex="-1" aria-labelledby="reject-wo-modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header bg-danger text-white">
+                <h4 class="modal-title" id="danger-header-modalLabel">
+                    Reject Report
+                </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <input type="hidden" id="reportGuidInput" name="guid">
+                    <div class="mb-3">
+                        <label for="noteTextArea" class="col-form-label">Note:</label>
+                        <textarea class="form-control" id="noteTextArea" placeholder="Berikan alasan penolakan"></textarea>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" onclick="UpdateStatusReport()" class="btn bg-danger-subtle text-danger font-medium">
+                    Reject
+                </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+
+<div class="modal fade" id="createWorkOrderModal" tabindex="-1" role="dialog" aria-labelledby="createWorkOrderModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h2 class="text-white">Create Work Order</h2>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulir untuk membuat Work Order -->
+                <form id="workOrderForm" enctype="multipart/form-data">
+                    <input type="hidden" id="reportGuidHidden" name="reportGuidHidden">
+
+                    <div class="form-group">
+                        <label for="inputWoTitle">Title</label>
+                        <input type="text" class="form-control" id="inputWoTitle" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputWoDesc">Description</label>
+                        <textarea class="form-control" id="inputWoDesc" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="csEmployee">Description</label>
+                        <select class="form-select" js-states form-control" id="inputCs">
+                            <option disabled>Please Select</option>
+                            @foreach (var cs in ViewBag.ListCs)
+                            {
+                                <option value="@cs.Guid">@cs.FullName</option>
+                            }
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-close-white" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" onclick="InsertWorkOrder()" class="btn btn-success" id="createWorkOrderBtn">Create Work Order</button>
+
+            </div>
         </div>
     </div>
 </div>

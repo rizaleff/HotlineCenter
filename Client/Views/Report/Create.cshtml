@@ -1,5 +1,9 @@
 ﻿@model API.Dtos.Reports.ReceiveReportDto
-
+@using Microsoft.AspNetCore.Http
+@{
+    // Mengambil nilai dari sesi dengan tipe data tertentu
+    var guidValue = Context.Request.HttpContext.Session.GetString("Guid");
+}
 @{
     Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
 }
@@ -42,7 +46,7 @@
                                     <i class="ti ti-list-check fs-6"></i>
                                     <p class="mb-0 fs-3">My Task</p>
                                 </a>
-                                <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                                <a href="Logout" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
                             </div>
                         </div>
                     </li>
@@ -72,23 +76,23 @@
                             <div class="card-body">
                                 <form action="Create" method="post" enctype="multipart/form-data">
                                     <div class="mb-3">
-                                        <input asp-for="EmployeeGuid" hidden type="text" class="form-control" value="a0396d96-aebf-4ea5-6935-08dbda07316d">
+                                        <input asp-for="EmployeeGuid" hidden type="text" class="form-control" value="@guidValue" required>
 
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="problemSubject" class="form-label">Subject</label>
-                                        <input asp-for="Title" type="text" class="form-control">
+                                        <input asp-for="Title" type="text" class="form-control" required>
                                         <div class="form-text">Enter the issue title.</div>
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="descrption" class="form-label">Description</label>
-                                        <textarea asp-for="Description" class="form-control" aria-label="With textarea"></textarea>
+                                        <textarea asp-for="Description" class="form-control" aria-label="With textarea" required></textarea>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <input asp-for="PhotoFile" type="file" class="form-control" id="foto">
+                                        <input asp-for="PhotoFile" type="file" class="form-control" id="foto" required>
                                     </div>
                                     <div class="mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
                                         <label class="form-check-label" for="exampleCheck1">Have you checked your report?</label>
                                     </div>
                                     <button type="submit" onclick="Insert()" class="btn btn-primary">Submit</button>

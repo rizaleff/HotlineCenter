@@ -11,28 +11,18 @@ public class WorkOrderRepository : GeneralRepository<WorkOrderDto, Guid>, IWorkO
     {
 
     }
-    public async Task<ResponseOKHandler<IEnumerable<WorkOrderDto>>> GetWorkOrderByEmployeeGuid(Guid employeeGuid)
+    public async Task<ResponseOKHandler<IEnumerable<WorkOrderDetailDto>>> GetWorkOrderByEmployeeGuid(Guid employeeGuid)
     {
-        ResponseOKHandler<IEnumerable<WorkOrderDto>> entityVM = null;
+        ResponseOKHandler<IEnumerable<WorkOrderDetailDto>> entityVM = null;
         string link = request + "myWorkOrder/" + employeeGuid;
-        using (var response = await httpClient.GetAsync(request + "myWorkOrder/" + employeeGuid))
+        using (var response = await httpClient.GetAsync(request + "MyWorkOrders/" + employeeGuid))
         {
             string apiResponse = await response.Content.ReadAsStringAsync();
-            entityVM = JsonConvert.DeserializeObject<ResponseOKHandler<IEnumerable<WorkOrderDto>>>(apiResponse);
+            entityVM = JsonConvert.DeserializeObject<ResponseOKHandler<IEnumerable<WorkOrderDetailDto>>>(apiResponse);
         }
         return entityVM;
     }
 
-    public async Task<ResponseOKHandler<IEnumerable<WorkOrderDto>>> GetWorkOrderDetails(Guid guid)
-    {
-        ResponseOKHandler<IEnumerable<WorkOrderDto>> entityVM = null;
-        string link = request  + guid;
-        using (var response = await httpClient.GetAsync(request + guid))
-        {
-            string apiResponse = await response.Content.ReadAsStringAsync();
-            entityVM = JsonConvert.DeserializeObject<ResponseOKHandler<IEnumerable<WorkOrderDto>>>(apiResponse);
-        }
-        return entityVM;
-    }
+    
 
 }

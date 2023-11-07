@@ -52,6 +52,7 @@ public class EmployeeController : ControllerBase
         var csEmployee = from emp in employees
                               join acc in accountRoles on emp.Guid equals acc.AccountGuid
                               join rol in roles on acc.RoleGuid equals rol.Guid
+                              where rol.Name == "CS"
                               select new CsEmployeeDto
                               {
                                   Guid = emp.Guid,

@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@{
+    // Mengambil nilai dari sesi dengan tipe data tertentu
+    var guidValue = Context.Request.HttpContext.Session.GetString("Guid");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -14,6 +19,7 @@
 @*     <link rel="stylesheet" href="~/css/forum.css" /> *@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
+    <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/r-2.5.0/datatables.min.css" rel="stylesheet">
 
 </head>
 <body>
@@ -48,7 +54,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="/Employee/MyReport/?employeeGuid=a0396d96-aebf-4ea5-6935-08dbda07316d" aria-expanded="false">
+                            <a class="sidebar-link" href="/Employee/MyReport/?employeeGuid=@guidValue" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-alert-circle"></i>
                                 </span>
@@ -77,6 +83,21 @@
     <script src="~/js/sidebarmenu.js"></script>
     <script src="~/js/app.min.js"></script>
     
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/r-2.5.0/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dataReport table').DataTable({
+                paging: true,  // Aktifkan paginasi
+                searching: true,  // Aktifkan pencarian
+                ordering: true,  // Aktifkan pengurutan kolom
+                // Dan opsi DataTables lainnya sesuai kebutuhan Anda
+            });
+        });
+
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

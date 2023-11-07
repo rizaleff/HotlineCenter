@@ -319,9 +319,13 @@ namespace API.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("project_guid");
 
-                    b.Property<Guid?>("ReportGuid")
+                    b.Property<Guid>("ReportGuid")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("report_guid");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int")
+                        .HasColumnName("status");
 
                     b.Property<DateTime>("TaskEstimate")
                         .HasColumnType("datetime2")
@@ -341,8 +345,7 @@ namespace API.Migrations
                         .HasFilter("[project_guid] IS NOT NULL");
 
                     b.HasIndex("ReportGuid")
-                        .IsUnique()
-                        .HasFilter("[report_guid] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("tb_work_orders");
                 });
@@ -468,7 +471,9 @@ namespace API.Migrations
 
                     b.HasOne("API.Models.Report", "Report")
                         .WithOne("WorkOrder")
-                        .HasForeignKey("API.Models.WorkOrder", "ReportGuid");
+                        .HasForeignKey("API.Models.WorkOrder", "ReportGuid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Employee");
 

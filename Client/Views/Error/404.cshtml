@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Creative and engaging 404 page designs to captivate your website visitors.</title>
+
+    <!-- Meta -->
+    <meta name="description" content="Marketplace for Bootstrap Admin Dashboards" />
+    <meta name="author" content="Bootstrap Gallery" />
+    <link rel="canonical" href="https://www.bootstrap.gallery/">
+    <meta property="og:url" content="https://www.bootstrap.gallery">
+    <meta property="og:title" content="Admin Templates - Dashboard Templates | Bootstrap Gallery">
+    <meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
+    <meta property="og:type" content="Website">
+    <meta property="og:site_name" content="Bootstrap Gallery">
+    <link rel="shortcut icon" href="assets/images/favicon.svg" />
+
+    <!-- *************
+            ************ CSS Files *************
+        ************* -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/error/assets/css/main.min.css" />
+</head>
+
+<body class="error-bg">
+
+    <!-- Error container starts -->
+    <div class="error-container">
+
+        <h1 class="mb-4 lh-1">404</h1>
+        <h4 class="fw-bold mb-3">
+            There is nothing here...
+        </h4>
+        <h6 class="mb-4">May be the page you are looking for is not found<br />or never existed.</h6>
+        <h6 id="countdown">5</h6>
+        <a href="#" class="btn btn-primary rounded-5 px-4 py-2 fs-5">Back to Home</a>
+    </div>
+    <!-- Error container ends -->
+
+</body>
+<script>
+    let timer = 5
+    setInterval(() => {
+        document.getElementById('countdown').innerHTML = timer;
+        timer--;
+
+        if (timer === 0) {
+            location.href = "/Login";
+        }
+    }, 1000)
+</script>
+</html>
+
+

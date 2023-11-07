@@ -6,6 +6,5 @@ using API.Utilities.Handlers;
 namespace Client.Contracts;
 public interface IWorkOrderRepository : IRepository<WorkOrderDto, Guid>
 {
-    Task<ResponseOKHandler<IEnumerable<WorkOrderDto>>> GetWorkOrderByEmployeeGuid(Guid employeeGuid);
-    Task<ResponseOKHandler<IEnumerable<WorkOrderDto>>> GetWorkOrderDetails(Guid Guid);
+    Task<ResponseOKHandler<IEnumerable<WorkOrderDetailDto>>> GetWorkOrderByEmployeeGuid(Guid employeeGuid);
 }

@@ -5,6 +5,7 @@ using API.DTOs.Reports;
 using API.DTOs.WorkOrders;
 using Client.Contracts;
 using Client.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -15,13 +16,18 @@ public class WorkOrderController : Controller
 
     private readonly ICsEmployeeRepository _csEmployeeRepository;
     private readonly ICreateWorkOrderRepository _createWorkOrderRepository;
+    private readonly IWorkOrderRepository _workOrderRepository;
+    private readonly IWorkOrderDetailRepository _workOrderDetailRepository;
 
 
-    public WorkOrderController(ICsEmployeeRepository csEmployeeRepository, ICreateWorkOrderRepository createWorkOrderRepository)
+
+    public WorkOrderController(ICsEmployeeRepository csEmployeeRepository, ICreateWorkOrderRepository createWorkOrderRepository, IWorkOrderRepository workOrderRepository, IWorkOrderDetailRepository workOrderDetailRepository)
     {
 
         _csEmployeeRepository = csEmployeeRepository;
         _createWorkOrderRepository = createWorkOrderRepository;
+        _workOrderRepository = workOrderRepository;
+        _workOrderDetailRepository = workOrderDetailRepository;
     }
 
     public IActionResult Index()
@@ -43,6 +49,7 @@ public class WorkOrderController : Controller
             return View();
         }*/
 
+    [Authorize(Roles = "GA")]
     [HttpPost]
     public async Task<JsonResult> ToCreate(CreateWorkOrderDto createWorkOrderDto)
     {
@@ -50,6 +57,8 @@ public class WorkOrderController : Controller
         var result = await _createWorkOrderRepository.Post(createWorkOrderDto);
         return Json(result.Data);
     }
+
+    [Authorize(Roles = "GA")]
     public async Task<IActionResult> Create(Guid reportGuid)
     {
         var result = await _csEmployeeRepository.Get();
@@ -79,16 +88,20 @@ public class WorkOrderController : Controller
             return View("VerificationProject");
         }
 
-        public async Task<JsonResult> GetWorkOrderByEmployeeGuid(Guid employeeGuid)
+    [Authorize(Roles = "CS")]
+    public async Task<JsonResult> GetWorkOrderByEmployeeGuid(Guid employeeGuid)
 
-        {
-            var result = await _workOrderRepository.GetWorkOrderByEmployeeGuid(employeeGuid); // Mengambil data WorkOrder berdasarkan EmployeeGuid
-            return Json(result.Data);
-        } public async Task<JsonResult> GetWorkOrderDetails(Guid Guid)
+    {
+        var result = await _workOrderRepository.GetWorkOrderByEmployeeGuid(employeeGuid); // Mengambil data WorkOrder berdasarkan EmployeeGuid
+        return Json(result.Data);
 
-        {
-            var result = await _workOrderRepository.GetWorkOrderDetails(Guid); // Mengambil data WorkOrder berdasarkan EmployeeGuid
+    }
+    
+    public async Task<JsonResult> GetWorkOrderDetails(Guid guid)
+
+    {
+        var result = await _workOrderDetailRepository.Get(guid); 
             return Json(result.Data);
-        }
+    }
 
 }
