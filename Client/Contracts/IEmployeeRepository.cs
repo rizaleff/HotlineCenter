@@ -1,10 +1,9 @@
 ﻿using API.Models;
 
-namespace Client.Contracts
+namespace Client.Contracts;
+
+public interface IEmployeeRepository : IRepository<Employee, Guid>
 {
-    public interface IEmployeeRepository : IRepository<Employee, Guid>
-    {
 
 
-    }
 }

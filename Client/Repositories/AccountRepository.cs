@@ -27,4 +27,20 @@ public class AccountRepository : GeneralRepository<AccountDto, Guid>, IAccountRe
             return entityVM;
         }
     }
+
+    public async Task<ResponseOKHandler<RegisterAccountDto>> Register(RegisterAccountDto register)
+    {
+        string jsonEntity = JsonConvert.SerializeObject(register);
+        StringContent content = new StringContent(jsonEntity, Encoding.UTF8, "application/json");
+
+        using (var response = await httpClient.PostAsync($"{request}register", content))
+        {
+            response.EnsureSuccessStatusCode();
+            string apiResponse = await response.Content.ReadAsStringAsync();
+
+            var entityVM = JsonConvert.DeserializeObject<ResponseOKHandler<RegisterAccountDto>>(apiResponse);
+            return entityVM;
+        }
+    }
+
 }
