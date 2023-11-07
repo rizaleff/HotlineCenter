@@ -105,4 +105,13 @@ public class ReportController : Controller
         return View("Edit");
 
     }
+
+    [HttpPost]
+    public async Task<JsonResult> UpdateStatus(EditStatusReportDto editStatusReportDto)
+    {
+        var result = await _editReportRepository.Put(editStatusReportDto.Guid, editStatusReportDto);
+
+        return Json(result);
+
+    }
 }

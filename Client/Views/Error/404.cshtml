@@ -34,10 +34,23 @@
             There is nothing here...
         </h4>
         <h6 class="mb-4">May be the page you are looking for is not found<br />or never existed.</h6>
+        <h6 id="countdown">5</h6>
         <a href="#" class="btn btn-primary rounded-5 px-4 py-2 fs-5">Back to Home</a>
     </div>
     <!-- Error container ends -->
 
 </body>
+<script>
+    let timer = 5
+    setInterval(() => {
+        document.getElementById('countdown').innerHTML = timer;
+        timer--;
 
+        if (timer === 0) {
+            location.href = "/Login";
+        }
+    }, 1000)
+</script>
 </html>
+
+

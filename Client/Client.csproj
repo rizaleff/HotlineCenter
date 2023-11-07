@@ -16,4 +16,8 @@
     <ProjectReference Include="..\API\API.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\selectpicker\" />
+  </ItemGroup>
+
 </Project>

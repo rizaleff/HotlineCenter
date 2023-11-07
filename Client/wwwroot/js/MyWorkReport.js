@@ -11,8 +11,6 @@ if (window.location.pathname === '/ServiceWorker/MyWorkReport') {
 
 // Tambahkan event listener pada tombol "my report" di navbar
 
-
-
 function getWorkReportByEmployeeGuid(employeeGuid) {
 
     // Gantilah URL_API dengan URL endpoint API Anda

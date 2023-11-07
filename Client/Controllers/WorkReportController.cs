@@ -2,6 +2,7 @@
 using API.Dtos.WorkReports;
 using Client.Contracts;
 using Client.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Client.Controllers
@@ -21,7 +22,8 @@ namespace Client.Controllers
         {
             return View();
         }
-        
+
+        [Authorize(Roles = "CS")]
         public async Task<JsonResult> GetWorkReportByEmployeeGuid(Guid employeeGuid)
         
         {
@@ -29,6 +31,7 @@ namespace Client.Controllers
             return Json(result.Data);
         }
 
+        [Authorize(Roles = "CS")]
         [HttpPost]
         public async Task<JsonResult> CreateWorkReport(CreateWorkReportDto createWorkReportDto)
         {

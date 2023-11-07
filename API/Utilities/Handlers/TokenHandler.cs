@@ -30,7 +30,7 @@ public class TokenHandler : ITokenHandler
         var tokenOptions = new JwtSecurityToken(issuer: _configuration["JWTService:Issuer"],
                                                 audience: _configuration["JWTService:Audience"],
                                                 claims: claims,
-                                                expires: DateTime.Now.AddMinutes(5),
+                                                expires: DateTime.Now.AddMinutes(120),
                                                 signingCredentials: signingCredential);
         //Enkripsi token
         var encodedToken = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
