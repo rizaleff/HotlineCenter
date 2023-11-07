@@ -1,6 +1,6 @@
 ﻿using API.Contracts;
 using API.Data;
-using API.Dtos.Tasks;
+using API.Dtos.WorkOrders;
 using API.Models;
 using API.Utilities.Enums;
 
@@ -15,6 +15,26 @@ public class WorkOrderRepository : GeneralRepository<Models.WorkOrder>, IWorkOrd
                     join report in _context.Reports
                     on workOrder.ReportGuid equals report.Guid
                     where workOrder.EmployeeGuid == employeeGuid
+                    select new WorkOrderDetailDto
+                    {
+                        Guid = workOrder.Guid,
+                        Title = workOrder.Title,
+                        Description = workOrder.Description,
+                        ReportGuid = workOrder.ReportGuid,
+                        Status = workOrder.Status,
+                        ReportDescription = report.Description,
+                        ReportPhoto = report.Photo,
+                        CreatedDate = workOrder.CreatedDate
+                    };
+
+        return query.ToList();
+    }
+
+    public IEnumerable<WorkOrderDetailDto>? GetAllWoDetail()
+    {
+        var query = from workOrder in _context.WorkOrders
+                    join report in _context.Reports
+                    on workOrder.ReportGuid equals report.Guid
                     select new WorkOrderDetailDto
                     {
                         Guid = workOrder.Guid,

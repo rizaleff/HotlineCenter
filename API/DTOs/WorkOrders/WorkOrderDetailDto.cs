@@ -1,6 +1,6 @@
 ﻿using API.Utilities.Enums;
 
-namespace API.Dtos.Tasks;
+namespace API.Dtos.WorkOrders;
 
 
 public class WorkOrderDetailDto

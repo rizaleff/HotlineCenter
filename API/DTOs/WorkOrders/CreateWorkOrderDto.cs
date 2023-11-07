@@ -3,7 +3,7 @@ using API.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using WorkOrder = API.Models.WorkOrder;
 
-namespace API.Dtos.Tasks;
+namespace API.Dtos.WorkOrders;
 public class CreateWorkOrderDto
 {
     public Guid ReportGuid { get; set; }

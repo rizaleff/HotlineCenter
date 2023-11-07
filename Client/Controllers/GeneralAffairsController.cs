@@ -11,11 +11,13 @@ public class GeneralAffairsController : Controller
 {
     private readonly IDetailReportRepository _detailReportepository;
     private readonly ICsEmployeeRepository _csEmployeeRepository;
+    private readonly IWorkOrderDetailRepository _workOrderDetailRepository;
 
-    public GeneralAffairsController(IDetailReportRepository detailReportepository, ICsEmployeeRepository csEmployeeRepository)
+    public GeneralAffairsController(IDetailReportRepository detailReportepository, ICsEmployeeRepository csEmployeeRepository, IWorkOrderDetailRepository workOrderDetailRepository)
     {
         _detailReportepository = detailReportepository;
         _csEmployeeRepository = csEmployeeRepository;
+        _workOrderDetailRepository = workOrderDetailRepository;
     }
     public async Task<IActionResult> Index()
     {
@@ -33,9 +35,13 @@ public class GeneralAffairsController : Controller
     {
         return View("Projects");
     }
-    public IActionResult WorkOrder()
+    public async Task<IActionResult> WorkOrder()
     {
-        return View("WorkOrder");
+        var result = await _workOrderDetailRepository.Get();
+       
+        var listWorkOrder = result.Data.ToList();
+
+        return View("WorkOrder", listWorkOrder);
     }
 }
 

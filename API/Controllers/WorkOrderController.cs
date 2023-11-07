@@ -1,6 +1,6 @@
 ﻿using API.Contracts;
 using API.Dtos.Reports;
-using API.Dtos.Tasks;
+using API.Dtos.WorkOrders;
 using API.Dtos.WorkReports;
 using API.DTOs.Reports;
 using API.Models;
@@ -27,7 +27,7 @@ public class WorkOrderController : ControllerBase
     }
 
 
-    [HttpGet]
+    [HttpGet("Get")]
     public IActionResult GetAll()
     {
         var result = _workOrderRepository.GetAll();
@@ -93,6 +93,23 @@ public class WorkOrderController : ControllerBase
         return Ok(new ResponseOKHandler<IEnumerable<WorkOrderDetailDto>>(result));
     }
 
+
+    [HttpGet]
+    public IActionResult GetAllWorkOrder()
+    {
+        var result = _workOrderRepository.GetAllWoDetail();
+
+        if (result is null)
+        {
+            return NotFound(new ResponseErrorHandler
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "Data Not Found"
+            });
+        }
+        return Ok(new ResponseOKHandler<IEnumerable<WorkOrderDetailDto>>(result));
+    }
     [HttpGet("{guid}")]
     public IActionResult GetByGuid(Guid guid)
     {
