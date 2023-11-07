@@ -5,6 +5,7 @@ using API.DTOs.Reports;
 using API.DTOs.WorkOrders;
 using Client.Contracts;
 using Client.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -48,6 +49,7 @@ public class WorkOrderController : Controller
             return View();
         }*/
 
+    [Authorize(Roles = "GA")]
     [HttpPost]
     public async Task<JsonResult> ToCreate(CreateWorkOrderDto createWorkOrderDto)
     {
@@ -55,6 +57,8 @@ public class WorkOrderController : Controller
         var result = await _createWorkOrderRepository.Post(createWorkOrderDto);
         return Json(result.Data);
     }
+
+    [Authorize(Roles = "GA")]
     public async Task<IActionResult> Create(Guid reportGuid)
     {
         var result = await _csEmployeeRepository.Get();
@@ -84,6 +88,7 @@ public class WorkOrderController : Controller
             return View("VerificationProject");
         }
 
+    [Authorize(Roles = "CS")]
     public async Task<JsonResult> GetWorkOrderByEmployeeGuid(Guid employeeGuid)
 
     {
@@ -91,6 +96,7 @@ public class WorkOrderController : Controller
         return Json(result.Data);
 
     }
+    
     public async Task<JsonResult> GetWorkOrderDetails(Guid guid)
 
     {

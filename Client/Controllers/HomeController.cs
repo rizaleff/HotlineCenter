@@ -1,8 +1,10 @@
 ﻿using API.Dtos.Accounts;
 using API.DTOs;
+using API.Models;
 using Client.Contracts;
 using Client.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -34,17 +36,46 @@ namespace Client.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
+        [HttpGet("Logout/")]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
+        }
         public async Task<IActionResult> Login()
         {
-            return View();
+            var userRole = HttpContext.Session.GetString("Role");
+            if (string.IsNullOrEmpty(userRole))
+            {
+                return View();
+            }
+            switch (userRole)
+            {
+                case "Employee":
+                    return RedirectToAction("Index", "Employee");
+                    break;
+                case "CS":
+                    return RedirectToAction("Index", "ServiceWorker");
+                    break;
+                case "GA":
+                    return RedirectToAction("Index", "GeneralAffairs");
+                    break;
+                case "Manager":
+                    return RedirectToAction("Index", "Manager");
+                    break;
+                default:
+                    return RedirectToAction("Index");
+                    break;
+
+            }
         }
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto login)
         {
             var result = await _accountRepository.Login(login);
 
-            if (result.Status == "OK")
+
+            if (result.Status == "OK")  
             {
 
                 HttpContext.Session.SetString("JWToken", result.Data.Token);
@@ -63,6 +94,7 @@ namespace Client.Controllers
                 HttpContext.Session.SetString("FullName", fullName);
                 HttpContext.Session.SetString("Guid", guid);
                 HttpContext.Session.SetString("Email", email);
+                HttpContext.Session.SetString("Role", role);
 
                 switch (role)
                 {
