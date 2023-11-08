@@ -8,6 +8,8 @@ using API.Utilities.Handlers;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using API.Dtos.Reports;
+using API.DTOs.WorkOrders;
+using API.Utilities.Enums;
 
 namespace API.Controllers;
 
@@ -16,10 +18,12 @@ namespace API.Controllers;
 public class WorkReportController : ControllerBase
 {
     private readonly IWorkReportRepository _workReportRepository;
+    private readonly IWorkOrderRepository _workOrderRepository;
 
-    public WorkReportController(IWorkReportRepository workReportRepository)
+    public WorkReportController(IWorkReportRepository workReportRepository, IWorkOrderRepository workOrderRepository )
     {
         _workReportRepository = workReportRepository;
+        _workOrderRepository = workOrderRepository;
     }
 
 
@@ -70,7 +74,12 @@ public class WorkReportController : ControllerBase
         try
         {
             var result = _workReportRepository.Create(workReportDto);
-
+            var udpateStatusWo = new UpdateStatusWorkOrderDto
+            {
+                Guid = workReportDto.WorkOrderGuid,
+                Status = StatusWorkOrderLevel.Completed
+            };
+            _workOrderRepository.UpdateStatusWorkOrder(udpateStatusWo);
             return Ok(new ResponseOKHandler<WorkReportDto>((WorkReportDto)result));
         }
         catch (ExceptionHandler ex)
