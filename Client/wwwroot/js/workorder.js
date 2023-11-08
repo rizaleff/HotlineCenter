@@ -130,7 +130,7 @@ function InsertWorkOrder() {
             Swal.fire({
                 icon: 'success',
                 title: 'Success!',
-                text: "Sukses mengambil work order",
+                text: result.message,
 
             })
             $('#rejectWoModal').modal('hide');
@@ -155,7 +155,6 @@ function InsertWorkOrder() {
             });
         }
     });
-    reportTable.ajax.reload();
 
 }
 
@@ -182,7 +181,7 @@ function UpdateStatusReport() {
 
             })
 
-            reportTable.ajax.reload();
+
         },
         error: function (error) {
             console.log(error);
@@ -201,7 +200,6 @@ function UpdateStatusReport() {
             });
         }
     });
-    reportTable.ajax.reload();
     $('#detailModal').modal('hide');
 }
 
