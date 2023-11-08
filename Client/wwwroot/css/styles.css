@@ -12,7 +12,9 @@
         align-content: flex-start;
         align-items: flex-start
     }
-
+.select2-container {
+    z-index: 99999; /* Atur z-index sesuai kebutuhan */
+}
     .simplebar-wrapper {
         overflow: hidden;
         width: inherit;
