@@ -104,4 +104,11 @@ public class WorkOrderController : Controller
             return Json(result.Data);
     }
 
+    public async Task<JsonResult> UpdateStatus(UpdateStatusWorkOrderDto workOrderDto)
+
+    {
+        var result = await _workOrderRepository.UpdateStatus(workOrderDto);
+        return Json(result.Data);
+    }
+
 }
