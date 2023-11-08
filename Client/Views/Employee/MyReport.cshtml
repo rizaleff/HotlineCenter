@@ -34,7 +34,7 @@
                                     <i class="ti ti-list-check fs-6"></i>
                                     <p class="mb-0 fs-3">My Task</p>
                                 </a>
-                                <a href="Logout" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                                <a href="/Logout" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
                             </div>
                         </div>
                     </li>
@@ -81,26 +81,31 @@
                                                     <p class="fw-normal">
                                                         @Html.DisplayFor(modelItem => item.Description)
                                                     </p>
-                                                    <div class="d-flex justify-content-start">
-                                                        <p class="text-gray-500 pr-2 p-1 rounded" style="background-color:
-    @if (item.Status == StatusLevel.Sending)
-    {
-        @:#a1f2e3
-    }
-    else if (item.Status == StatusLevel.Reject)
-    {
-        @:#fbf2ef
-    }
-else if (item.Status == StatusLevel.OnProcess)
-    {
-        @:#fef5e5
-    }
-    else
-    {
-        @:#eaeff4
-    };">
+                                                    <div class="d-lg-flex justify-content-start ">
+                                                        <p class="text-gray-500 pr-2 p-1 rounded shadow-sm me-3" style="background-color:
+                                                        @if (item.Status == StatusLevel.Sending)
+                                                        {
+                                                            @:#a1f2e3
+                                                        }
+                                                        else if (item.Status == StatusLevel.Reject)
+                                                        {
+                                                            @:#fbf2ef
+                                                        }
+                                                    else if (item.Status == StatusLevel.OnProcess)
+                                                        {
+                                                            @:#fef5e5
+                                                        }
+                                                        else
+                                                        {
+                                                            @:#eaeff4
+                                                        };">
                                                             @Html.DisplayFor(modelItem => item.Status)
-                                                        </p>
+                                                        @* <p class="text-gray-500 pr-2 p-1 rounded ">
+                                                            <time datetime="@item.ModifiedDate.ToString("yyyy-MM-ddTHH:mm:ss")">
+                                                                @item.ModifiedDate.ToString("dd MMMM yyyy HH:mm:ss")
+                                                            </time>
+                                                        </p> *@
+
                                                     </div>
 
                                                 </div>
@@ -126,3 +131,26 @@ else if (item.Status == StatusLevel.OnProcess)
             </div>
         </div>
     </div>
+
+@* <script>
+    function timeAgo(date) {
+        const secondsAgo = Math.floor((new Date() - date) / 1000);
+        if (secondsAgo < 60) {
+            return secondsAgo + " detik yang lalu";
+        } else if (secondsAgo < 3600) {
+            return Math.floor(secondsAgo / 60) + " menit yang lalu";
+        } else if (secondsAgo < 86400) {
+            return Math.floor(secondsAgo / 3600) + " jam yang lalu";
+        } else if (secondsAgo < 604800) {
+            return Math.floor(secondsAgo / 86400) + " hari yang lalu";
+        } else {
+            return date.toLocaleString(); // Tampilkan tanggal penuh jika lebih dari seminggu yang lalu
+        }
+    }
+
+    const timeElements = document.querySelectorAll("time");
+    timeElements.forEach((element) => {
+        const dateTime = new Date(element.getAttribute("datetime"));
+        element.innerText = timeAgo(dateTime);
+    });
+</script> *@

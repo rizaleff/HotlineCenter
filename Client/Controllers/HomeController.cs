@@ -120,5 +120,27 @@ namespace Client.Controllers
             }
             return View("Login");
         }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterAccountDto register)
+        {
+            var result = await _accountRepository.Register(register);
+
+            if (result.Status == "OK")
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Registrasi gagal. Silakan coba lagi.");
+            }
+
+            return View(register);
+        }
     }
 }
