@@ -1,22 +1,5 @@
-﻿let reportTable;
-let workOrderTable;
-let workReportTable;
-$(document).ready(function () {
-    $('.js-example-basic-single').select2({
-        placeholder: 'Select an option'
-    });
-
-    $('.list-cs').select2({
-        placeholder: 'Select an option'
-    });
-
-    //Datatable
-    let reportTable = $("#tableReports").DataTable();
-    let workOrderTable = $("#workOrderTable").DataTable();
-    let workReportTable = $("#workReportTable").DataTable();
-
-});
-$(document).on('click', 'button[data-action="detail"]', function () {
+﻿$(document).ready(function () {
+    $(document).on('click', 'button[data-action="detail"]', function () {
 
         var reportData = $(this).data('report');
         var reportBy = reportData.reportBy;
@@ -42,20 +25,18 @@ $(document).on('click', 'button[data-action="detail"]', function () {
             // Jika status adalah "sending", tambahkan tombol "Process" dan "Reject"
             var rejectButton = $('<button>')
 
+
                 .addClass('btn btn-danger')
                 .text('Reject')
-                .attr('id', 'rejectButton')
                 .click(function () {
                     $('#reportGuidInput').val(reportData.reportGuid);
+                    $('#DetailModal').modal('hide');
 
-                    $("#detailModal").modal("hide");
-                    var rejectWoModal = new bootstrap.Modal(document.getElementById('rejectWoModal'));
+                })
+                .attr('id', 'rejectButton')
+                .attr('data-bs-toggle', 'modal') // Tambahkan atribut data-bs-toggle
+                .attr('data-bs-target', '#rejectWoModal') // Tambahkan atribut data-bs-target
 
-                    rejectWoModal.show();
-
-                    console.log('Reject button clicked');
-
-                });
             modalFooter.append(rejectButton);
 
 
@@ -66,7 +47,7 @@ $(document).on('click', 'button[data-action="detail"]', function () {
                 .click(function () {
                     // Tambahkan logika untuk menangani aksi ketika tombol "Process" diklik di sini
                     $('#reportGuidHidden').val(reportData.reportGuid);
-
+                    
                     $("#detailModal").modal("hide");
                     var createWorkOrderModal = new bootstrap.Modal(document.getElementById('createWorkOrderModal'));
                     createWorkOrderModal.show();
@@ -85,29 +66,7 @@ $(document).on('click', 'button[data-action="detail"]', function () {
             modalFooter.append(closeButton);
         }
     });
-
-    $(document).on('click', 'button[data-action="detailWorkOrder"]', function () {
-
-        var woData = $(this).data('wo');
-        var title = woData.title;
-        var description = woData.description;
-        var status = woData.status;
-        var createdDate = woData.createdDate;
-        var reportTitle = woData.reportTitle;
-        var reportDescription = woData.reportTitle;
-        var note = woData.note;
-        var modifiedDate = woData.modifiedDate;
-        var reportPhoto = woData.reportPhoto;
-
-        $('#title').text(title);
-        $('#createdDate').text(createdDate);
-        $('#description').text(description);
-        $('#reportDescription').text(reportDescription);
-        $('#status').text(status);
-        $('#note').text(note);
-        $('#modifiedDate').text(modifiedDate);
-        $('#reportPhoto').attr('src', reportPhoto);
-    });
+});
 
 
 
@@ -130,12 +89,12 @@ function InsertWorkOrder() {
             Swal.fire({
                 icon: 'success',
                 title: 'Success!',
-                text: "Sukses mengambil work order",
+                text: result.message,
 
             })
             $('#rejectWoModal').modal('hide');
             $('#detailModal').modal('hide');
-            console.log("succes create Work order")
+
             reportTable.ajax.reload();
         },
         error: function (error) {
@@ -155,13 +114,11 @@ function InsertWorkOrder() {
             });
         }
     });
-    reportTable.ajax.reload();
-
 }
 
 
 function UpdateStatusReport() {
-
+    
     var obj = new Object();
     obj.note = $("#noteTextArea").val();
     obj.guid = $("#reportGuidInput").val();
@@ -201,7 +158,6 @@ function UpdateStatusReport() {
             });
         }
     });
-    reportTable.ajax.reload();
     $('#detailModal').modal('hide');
 }
 

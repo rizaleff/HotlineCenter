@@ -1,9 +1,8 @@
 ﻿using API.Contracts;
 using API.Dtos.Reports;
-using API.Dtos.WorkOrders;
+using API.Dtos.Tasks;
 using API.Dtos.WorkReports;
 using API.DTOs.Reports;
-using API.DTOs.WorkOrders;
 using API.Models;
 using API.Repositories;
 using API.Utilities.Enums;
@@ -28,7 +27,7 @@ public class WorkOrderController : ControllerBase
     }
 
 
-    [HttpGet("Get")]
+    [HttpGet]
     public IActionResult GetAll()
     {
         var result = _workOrderRepository.GetAll();
@@ -94,23 +93,6 @@ public class WorkOrderController : ControllerBase
         return Ok(new ResponseOKHandler<IEnumerable<WorkOrderDetailDto>>(result));
     }
 
-
-    [HttpGet("details")]
-    public IActionResult GetAllWorkOrder()
-    {
-        var result = _workOrderRepository.GetAllWoDetail();
-
-        if (result is null)
-        {
-            return NotFound(new ResponseErrorHandler
-            {
-                Code = StatusCodes.Status404NotFound,
-                Status = HttpStatusCode.NotFound.ToString(),
-                Message = "Data Not Found"
-            });
-        }
-        return Ok(new ResponseOKHandler<IEnumerable<WorkOrderDetailDto>>(result));
-    }
     [HttpGet("{guid}")]
     public IActionResult GetByGuid(Guid guid)
     {
@@ -200,28 +182,6 @@ public class WorkOrderController : ControllerBase
             toUpdate.CreatedDate = entity.CreatedDate;
 
             _workOrderRepository.Update(toUpdate);
-
-            return Ok(new ResponseOKHandler<string>("Data Updated"));
-        }
-        catch (ExceptionHandler ex)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, new ResponseErrorHandler
-            {
-                Code = StatusCodes.Status500InternalServerError,
-                Status = HttpStatusCode.InternalServerError.ToString(),
-                Message = "Failed to create data",
-                Error = ex.Message
-            });
-        }
-    }
-
-
-    [HttpPut("UpdateStatus")]
-    public IActionResult UpdateStatus(UpdateStatusWorkOrderDto workOrderDto)
-    {
-        try
-        {
-           _workOrderRepository.UpdateStatusWorkOrder(workOrderDto);
 
             return Ok(new ResponseOKHandler<string>("Data Updated"));
         }

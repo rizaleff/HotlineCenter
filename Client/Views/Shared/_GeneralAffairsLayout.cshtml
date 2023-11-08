@@ -61,11 +61,11 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="/GeneralAffairs/WorkReport" aria-expanded="false">
+                            <a class="sidebar-link" href="/GeneralAffairs/Projects" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-alert-circle"></i>
                                 </span>
-                                <span class="hide-menu">Work Report</span>
+                                <span class="hide-menu">Projects</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -112,7 +112,19 @@
     @* <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
      *@
     <script>
-       
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2({ 
+                placeholder: 'Select an option' 
+            });
+
+            $('.list-cs').select2({
+                placeholder: 'Select an option'
+            });
+
+            //Datatable
+            let reportTable = $("#table-employee").DataTable();
+           
+        });
 
 
     </script>

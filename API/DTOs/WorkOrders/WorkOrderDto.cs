@@ -1,4 +1,4 @@
-﻿namespace API.Dtos.WorkOrders;
+﻿namespace API.Dtos.Tasks;
 
 using API.Dtos.CsTasks;
 using WorkOrder = Models.WorkOrder;

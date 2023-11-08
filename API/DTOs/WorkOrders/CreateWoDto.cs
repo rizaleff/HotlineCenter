@@ -1,4 +1,4 @@
-﻿using API.Dtos.WorkOrders;
+﻿using API.Dtos.Tasks;
 
 namespace API.DTOs.WorkOrders;
 public class CreateWoDto

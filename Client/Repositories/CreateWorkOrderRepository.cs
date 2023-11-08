@@ -1,5 +1,5 @@
 ﻿using API.Dtos.Reports;
-using API.Dtos.WorkOrders;
+using API.Dtos.Tasks;
 using Client.Contracts;
 
 namespace Client.Repositories;

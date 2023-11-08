@@ -95,42 +95,6 @@ function fillModalWithWorkOrderData(workOrderData) {
         $('#image').attr('src', `data:image/png;base64,${workOrderData.reportPhoto}`);
         $("#workOrderGuid").val(workOrderData.guid);
         $("[name='employeeGuid']").val(workOrderData.employeeGuid);
-
-        if (workOrderData.status == 0) {
-            // Jika status work order adalah 0, tampilkan tombol "Take Work Order"
-            document.getElementById("takeWorkOrderButton").style.display = "block";
-            document.getElementById("createWorkOrderReportButton").style.display = "none";
-        } else {
-            // Jika status work order bukan 0, tampilkan tombol "Create Work Order Report" dan sembunyikan tombol "Take Work Order"
-            document.getElementById("takeWorkOrderButton").style.display = "none";
-            document.getElementById("createWorkOrderReportButton").style.display = "block";
-        }
-
-      /*  var modalFooter = $('#detailWoModalFooter');
-        modalFooter.empty();
-        if (workOrderData.status === 0) {
-            // Jika status adalah "sending", tambahkan tombol "Process" dan "Reject"
-            var createWorkOrderReportButton = $('<button>')
-
-                .addClass('btn btn-success')
-                .text('Create Work Order')
-
-                .attr('onclick', 'openCreateWoModal')
-                .attr('id', 'createWorkOrderReportButton')
-            modalFooter.append(createWorkOrderReportButton);
-
-
-
-        } else {
-            // Jika status bukan "sending", tambahkan tombol "Close"
-
-            var takeWorkOrderButton = $('<button>')
-                .addClass('btn btn-success')
-                .text('Take Work Order')
-                .attr('id', 'takeWorkOrderButton')
-
-            modalFooter.append(takeWorkOrderButton);
-        }*/
     }).fail((err) => {
         console.log(err);
     });
@@ -148,41 +112,6 @@ $("#createWorkOrderReportButton").on("click", function () {
     createWorkOrderReportModal.show();
 
 });
-
-
-$("#takeWorkOrderButton").on("click", function () {
-
-    var obj = new Object();
-    obj.guid = $("#workOrderGuid").val();
-    obj.status = 1;
-    console.log(obj);
-    $.ajax({
-        url: "/WorkOrder/UpdateStatus/",
-        type: "POST",
-        data: obj,
-        success: function (result) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: "Sukses mengambil work order",
-            });
-        },
-        error: function (error) {
-            console.log(error);
-            let errorMessage;
-            if (Array.isArray(error.responseJSON.error)) {
-                errorMessage = error.responseJSON.error[0];
-            } else {
-                errorMessage = error.responseJSON.error;
-            }
-            Swal.fire({
-                icon: 'error',
-                title: 'Failed!',
-                text: errorMessage,
-            });
-        }
-    });
-})
 
 
 $("#submitWorkReport").on("click", function () {
