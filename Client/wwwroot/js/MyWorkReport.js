@@ -100,10 +100,14 @@ function fillModalWithWorkOrderData(workOrderData) {
             // Jika status work order adalah 0, tampilkan tombol "Take Work Order"
             document.getElementById("takeWorkOrderButton").style.display = "block";
             document.getElementById("createWorkOrderReportButton").style.display = "none";
-        } else {
+        } else if (workOrderData.status == 1) {
             // Jika status work order bukan 0, tampilkan tombol "Create Work Order Report" dan sembunyikan tombol "Take Work Order"
             document.getElementById("takeWorkOrderButton").style.display = "none";
             document.getElementById("createWorkOrderReportButton").style.display = "block";
+        } else {
+            console.log("else");
+            document.getElementById("takeWorkOrderButton").style.display = "none";
+            document.getElementById("createWorkOrderReportButton").style.display = "none";
         }
 
       /*  var modalFooter = $('#detailWoModalFooter');
