@@ -1,5 +1,5 @@
 ﻿using API.Dtos.Reports;
-using API.Dtos.Tasks;
+using API.Dtos.WorkOrders;
 using API.DTOs.Employees;
 using API.DTOs.Reports;
 using API.DTOs.WorkOrders;
@@ -102,6 +102,13 @@ public class WorkOrderController : Controller
     {
         var result = await _workOrderDetailRepository.Get(guid); 
             return Json(result.Data);
+    }
+
+    public async Task<JsonResult> UpdateStatus(UpdateStatusWorkOrderDto workOrderDto)
+
+    {
+        var result = await _workOrderRepository.UpdateStatus(workOrderDto);
+        return Json(result.Data);
     }
 
 }

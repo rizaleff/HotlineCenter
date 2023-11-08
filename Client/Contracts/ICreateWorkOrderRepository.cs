@@ -1,5 +1,5 @@
 ﻿using API.Dtos.Reports;
-using API.Dtos.Tasks;
+using API.Dtos.WorkOrders;
 
 namespace Client.Contracts;
 public interface ICreateWorkOrderRepository : IRepository<CreateWorkOrderDto, Guid>

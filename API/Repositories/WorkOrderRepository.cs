@@ -1,8 +1,11 @@
 ﻿using API.Contracts;
 using API.Data;
-using API.Dtos.Tasks;
+using API.Dtos.WorkOrders;
+using API.DTOs.WorkOrders;
 using API.Models;
 using API.Utilities.Enums;
+using API.Utilities.Handlers;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories;
 public class WorkOrderRepository : GeneralRepository<Models.WorkOrder>, IWorkOrderRepository
@@ -22,6 +25,28 @@ public class WorkOrderRepository : GeneralRepository<Models.WorkOrder>, IWorkOrd
                         Description = workOrder.Description,
                         ReportGuid = workOrder.ReportGuid,
                         Status = workOrder.Status,
+                        ReportTitle = report.Title,
+                        ReportDescription = report.Description,
+                        ReportPhoto = report.Photo,
+                        CreatedDate = workOrder.CreatedDate
+                    };
+
+        return query.ToList();
+    }
+
+    public IEnumerable<WorkOrderDetailDto>? GetAllWoDetail()
+    {
+        var query = from workOrder in _context.WorkOrders
+                    join report in _context.Reports
+                    on workOrder.ReportGuid equals report.Guid
+                    select new WorkOrderDetailDto
+                    {
+                        Guid = workOrder.Guid,
+                        Title = workOrder.Title,
+                        Description = workOrder.Description,
+                        ReportGuid = workOrder.ReportGuid,
+                        Status = workOrder.Status,
+                        ReportTitle = report.Title,
                         ReportDescription = report.Description,
                         ReportPhoto = report.Photo,
                         CreatedDate = workOrder.CreatedDate
@@ -34,7 +59,25 @@ public class WorkOrderRepository : GeneralRepository<Models.WorkOrder>, IWorkOrd
         return _context.Set<WorkOrder>().Where(r => r.EmployeeGuid == employeeGuid).ToList();
     }
 
+    public bool UpdateStatusWorkOrder(UpdateStatusWorkOrderDto workOrderDto)
+    {
+        try
+        {
+            var workOrderToUpdate = _context.WorkOrders.FirstOrDefault(wo => wo.Guid == workOrderDto.Guid);
+            workOrderToUpdate.Status = workOrderDto.Status;
+            workOrderToUpdate.ModifiedDate = DateTime.Now;
 
+            // Simpan perubahan ke database
+            _context.SaveChanges();
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+
+            throw new ExceptionHandler(ex.InnerException?.Message ?? ex.Message);
+        }
+    }
 
     /*
      * var query = from order in dbContext.Orders

@@ -1,5 +1,8 @@
-﻿@{
+﻿@using API.Utilities.Enums;
+@model IEnumerable<API.Dtos.WorkOrders.WorkOrderDetailDto>;
+@{
     Layout = "~/Views/Shared/_GeneralAffairsLayout.cshtml";
+    var listCount = 1;
 }
 <div class="body-wrapper">
     <!--  Header Start -->
@@ -71,30 +74,84 @@
                         <!-- Inner main body -->
                         <!-- Forum List -->
                         <div class="inner-main-body p-2 p-sm-3">
-
-                            <table class="table table-sm" id="tableProjects">
+                            <table class="table table-sm" id="workOrderTable">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Created</th>
+                                        <th scope="col">Status</th>
+
+                                        <th scope="col">Action</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>fat</td>
-                                    </tr>
+                                    @foreach (var item in Model.Reverse())
+                                    {
+                                        var imgSrc = "";
+                                        @if (item.ReportPhoto != null && item.ReportPhoto.Length > 0)
+                                        {
+                                            var base64Image = Convert.ToBase64String(item.ReportPhoto);
+                                            imgSrc = $"data:image/jpeg;base64,{base64Image}";
+                                        }
+                                        string cssClass = "";
+                                        string cssBtnClass = "";
+                                        string btnText = "Detail";
+                                        if (item.Status == StatusWorkOrderLevel.NotStarted)
+                                        {
+                                            cssClass = "bg-light-success text-danger";
+                                            cssBtnClass = "btn-success";
+                                            btnText = "Process";
+                                        }
+                                        else if (item.Status == StatusWorkOrderLevel.InProgress)
+                                        {
+                                            cssClass = "bg-light-warning text-warning";
+                                            cssBtnClass = "btn-primary";
+                                        }
+                                        else if (item.Status == StatusWorkOrderLevel.Completed)
+                                        {
+                                            cssClass = "bg-light-success text-success";
+                                            cssBtnClass = "btn-primary";
+                                        }
+                                        else
+                                        {
+                                            cssClass = "bg-light-info text-info";
+                                            cssBtnClass = "btn-primary";
+                                        }
+                                        <tr>
+                                            <td> @listCount </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Title)</td>
+                                            <td> @Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                                            <td>
+                                                <span class="mb-1 badge rounded-pill font-medium @cssClass">@Html.DisplayFor(modelItem => item.Status)</span>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    @* <a href="/Report/Edit/?guid=@item.Guid" class="btn btn-primary"hidden">Edit</a> *@
+                                                    <button class="btn btn-primary btn-detail"
+                                                            data-bs-toggle="modal"
+                                                            data-action="detailWorkOrder"
+                                                            data-bs-target="#detailsModal"
+                                                            data-wo='{
+                                                                                
+                                                                                "woGuid":"@item.Guid",
+                                                                                "title":"@item.Title",
+                                                                                "description":"@item.Description",
+                                                                                "status":"@item.Status",
+                                                                                "createdDate":"@item.CreatedDate",
+                                                                                "reportTitle":"@item.ReportTitle",
+                                                                                "reportDescription":"@item.ReportDescription",
+                                                                                "reportPhoto":"@imgSrc"
+                                                                            }'>
+                                                        Detail
+                                                    </button>
 
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        listCount++;
+                                    }
                                 </tbody>
                             </table>
                             <!-- /Forum List -->
@@ -107,6 +164,52 @@
             </div>
 
 
+        </div>
+    </div>
+</div>
+
+<div class="modal fade " id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h2 class="text-white">Details</h2>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+
+
+            </div>
+            <div class="modal-body">
+                <div class="row border mt-3">
+                    <div class="col-md-3 ms-auto bg-light py-3">
+                        Title Work Order
+                    </div>
+                    <div class="col-md-9 ms-auto bg-light py-3 d-flex">
+                        <p class="me-2">: </p> <p class="" id="title"></p>
+                    </div>
+                </div>
+                <div class="row border mt-3">
+                    <div class="col-md-3 ms-auto bg-light py-3">
+                        Deskripsi Work Order
+                    </div>
+                    <div class="col-md-9 ms-auto bg-light py-3 d-flex">
+                        <p class="me-2">: </p> <p id="description"></p>
+                    </div>
+                </div>
+                <div class="m-2">
+                    <h2>Report Detail</h2>
+                    <p id="reportDescription"></p>
+                </div>
+                <div class="text-center m-2">
+                    <img id="reportPhoto" class="img-fluid" src="" alt="Image">
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button class="btn btn-success" id="createWorkOrderReportButton">Create Work Order</button>
+                <button class="btn btn-success" id="takeWorkOrderButton">Take Work Order</button>
+            </div>
         </div>
     </div>
 </div>

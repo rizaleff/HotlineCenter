@@ -1,4 +1,6 @@
-﻿using API.DTOs.Employees;
+﻿using API.Dtos.WorkOrders;
+using API.Dtos.WorkReports;
+using API.DTOs.Employees;
 using API.DTOs.Reports;
 using Client.Contracts;
 using Client.Repositories;
@@ -11,11 +13,15 @@ public class GeneralAffairsController : Controller
 {
     private readonly IDetailReportRepository _detailReportepository;
     private readonly ICsEmployeeRepository _csEmployeeRepository;
+    private readonly IWorkOrderDetailRepository _workOrderDetailRepository;
+    private readonly IWorkReportRepository _workReportRepository;
 
-    public GeneralAffairsController(IDetailReportRepository detailReportepository, ICsEmployeeRepository csEmployeeRepository)
+    public GeneralAffairsController(IDetailReportRepository detailReportepository, ICsEmployeeRepository csEmployeeRepository, IWorkOrderDetailRepository workOrderDetailRepository, IWorkReportRepository workReportRepository)
     {
         _detailReportepository = detailReportepository;
         _csEmployeeRepository = csEmployeeRepository;
+        _workOrderDetailRepository = workOrderDetailRepository;
+        _workReportRepository = workReportRepository;
     }
     public async Task<IActionResult> Index()
     {
@@ -29,13 +35,29 @@ public class GeneralAffairsController : Controller
         return View("Dashboard", listReport);
     }
 
-    public IActionResult Projects()
+    public async Task<IActionResult> WorkReport()
     {
-        return View("Projects");
+        var result = await _workReportRepository.Get(); // Mengambil data WorkReport berdasarkan EmployeeGuid
+        var workReport = new List<WorkReportDto>();
+        if (result != null)
+        {
+            workReport = result.Data.ToList();
+
+        }
+
+        return View("WorkReport", workReport);
     }
-    public IActionResult WorkOrder()
+    public async Task<IActionResult> WorkOrder()
     {
-        return View("WorkOrder");
+        var result = await _workOrderDetailRepository.Get();
+        var listReport = new List<WorkOrderDetailDto>();
+        if (result != null)
+        {
+            listReport = result.Data.ToList();
+
+        }
+
+        return View("WorkOrder", listReport);
     }
 }
 
