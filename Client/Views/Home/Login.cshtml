@@ -15,14 +15,23 @@
                                 <img src="~/lib/img/logos/dark-logo.svg" width="180" alt="">
                             </a>
                             <p class="text-center">Your Social Campaigns</p>
+
                             <form action="Login" method="post">
                                 <div class="mb-3">
                                     <label asp-for="Email" class="form-label">Username</label>
-                                    <input type="email" class="form-control" asp-for="Email" aria-describedby="emailHelp" required>
+                                    <input type="email" class="form-control @(ViewData["LoginStatus"].ToString() == "NotFound" ? "is-invalid" : "")" asp-for="Email" aria-describedby="emailHelp">
+                                    @if (ViewData["LoginStatus"].ToString() == "NotFound")
+                                    {
+                                        <span class="invalid-feedback">Email Tidak Terdaftar</span>
+                                    }
                                 </div>
                                 <div class="mb-4">
                                     <label asp-for="Password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" asp-for="Password" required>
+                                    <input type="password" class="form-control @(ViewData["LoginStatus"].ToString() == "BadRequest" ? "is-invalid" : "")" asp-for="Password">
+                                    @if (ViewData["LoginStatus"].ToString() == "BadRequest")
+                                    {
+                                        <span class="invalid-feedback">Password salah.</span>
+                                    }
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</button>
                                 <div class="d-flex align-items-center justify-content-center">
@@ -30,6 +39,8 @@
                                     <a class="text-primary fw-bold ms-2" href="Register">Create an account</a>
                                 </div>
                             </form>
+
+
                         </div>
                     </div>
                 </div>

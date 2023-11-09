@@ -45,8 +45,13 @@ namespace Client.Controllers
         public async Task<IActionResult> Login()
         {
             var userRole = HttpContext.Session.GetString("Role");
+
             if (string.IsNullOrEmpty(userRole))
             {
+                if (ViewData["LoginStatus"] == null)
+                {
+                    ViewData["LoginStatus"] = "";
+                }
                 return View();
             }
             switch (userRole)
@@ -115,10 +120,18 @@ namespace Client.Controllers
                         break;
 
                 }
-
-                if (profilePhoto != null) { }
             }
-            return View("Login");
+
+            else if (result.Status == "BadRequest")
+            {
+                ModelState.AddModelError(string.Empty, result.Message);
+            }
+            else if (result.Status == "NotFound")
+            {
+                ModelState.AddModelError(string.Empty, result.Message);
+            }
+            ViewData["LoginStatus"] = result.Status;
+            return View();
         }
 
         public IActionResult Register()

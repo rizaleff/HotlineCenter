@@ -1,7 +1,6 @@
-﻿        using API.Contracts;
+﻿using API.Contracts;
 using API.Dtos.WorkReports;
 using API.Dtos.WorkOrders;
-using API.Dtos.WorkReports;
 using API.Models;
 using API.Repositories;
 using API.Utilities.Handlers;
