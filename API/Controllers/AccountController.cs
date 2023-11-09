@@ -111,7 +111,7 @@ public class AccountController : ControllerBase
                 {
                     Code = StatusCodes.Status404NotFound,
                     Status = HttpStatusCode.NotFound.ToString(),
-                    Message = "Account or Password is invalid!"
+                    Message = "Email was not registered"
                 });
             }
 
@@ -125,7 +125,7 @@ public class AccountController : ControllerBase
                 {
                     Code = StatusCodes.Status400BadRequest,
                     Status = HttpStatusCode.BadRequest.ToString(),
-                    Message = "Account or Password is invalid!"
+                    Message = "Password is invalid!"
                 });
             }
             string? stringPhoto = "";
@@ -167,7 +167,7 @@ public class AccountController : ControllerBase
             {
                 Code = StatusCodes.Status500InternalServerError,
                 Status = HttpStatusCode.InternalServerError.ToString(),
-                Message = "Failed to Delete data",
+                Message = "Password is invalid!",
                 Error = ex.Message
             });
         }

@@ -15,15 +15,25 @@
                                 <img src="~/lib/img/logos/dark-logo.svg" width="180" alt="">
                             </a>
                             <p class="text-center">Your Social Campaigns</p>
+
                             <form action="Login" method="post">
                                 <div class="mb-3">
                                     <label asp-for="Email" class="form-label">Username</label>
-                                    <input type="email" class="form-control" asp-for="Email" aria-describedby="emailHelp">
+                                    <input type="email" class="form-control @(ViewData["LoginStatus"].ToString() == "NotFound" ? "is-invalid" : "")" asp-for="Email" aria-describedby="emailHelp">
+                                    @if (ViewData["LoginStatus"].ToString() == "NotFound")
+                                    {
+                                        <span class="invalid-feedback">Email Tidak Terdaftar</span>
+                                    }
                                 </div>
                                 <div class="mb-4">
                                     <label asp-for="Password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" asp-for="Password">
+                                    <input type="password" class="form-control @(ViewData["LoginStatus"].ToString() == "BadRequest" ? "is-invalid" : "")" asp-for="Password">
+                                    @if (ViewData["LoginStatus"].ToString() == "BadRequest")
+                                    {
+                                        <span class="invalid-feedback">Password salah.</span>
+                                    }
                                 </div>
+
                                 <div class="d-flex align-items-center justify-content-between mb-4">
                                     <div class="form-check">
                                         <input class="form-check-input primary" type="checkbox" value="" id="flexCheckChecked" checked>
@@ -39,6 +49,8 @@
                                     <a class="text-primary fw-bold ms-2" href="Register">Create an account</a>
                                 </div>
                             </form>
+
+
                         </div>
                     </div>
                 </div>
