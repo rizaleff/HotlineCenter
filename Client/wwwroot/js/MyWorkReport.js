@@ -32,6 +32,18 @@ function getWorkReportByEmployeeGuid(employeeGuid) {
                 { data: 'title' },
                 { data: 'description' },
                 {
+                    data: 'isFinish',
+                    render: function (data, type, row) {
+                        if (data === false) {
+                            return '<span class="bg-light-danger px-2 py-1 text-danger rounded">Not Done Yet</span>';
+                        }
+                        else {
+                            // Jika status bukan nol, tampilkan nilai status yang sebenarnya
+                            return '<span class="bg-light-success px-2 py-1 text-success rounded">Done</span>';
+                        }
+                    },
+                },
+                {
                     data: null,
                     render: function (data, type, row) {
                         return '<button class="btn btn-primary btn-sm" data-action="detailWorkReport" data-id="' + data.id + '">Details</button> ';
@@ -56,17 +68,37 @@ function getWorkOrderByEmployeeGuid(employeeGuid) {
         url: URL_API
     }).done((res) => {
         // Menginisialisasi DataTable dengan data JSON yang diterima
+        res.reverse();
+        console.log(res);
         $('#workOrderTable').DataTable({
             data: res,
+            order: [[0, 'asc']], 
             columns: [
                 {
-                    "data": "id",
+                    data: null,
                     render: function (data, type, row, meta) {
-                        return meta.row + meta.settings._iDisplayStart + 1;
+                        // Menggunakan meta.row + 1 agar nomor urut dimulai dari 1
+                        return meta.row + 1;
                     }
                 },
                 { data: 'title' },
                 { data: 'description' },
+                {
+                    data: 'status',
+                    render: function (data, type, row) {
+                        if (data === 0) {
+                            return '<span class="bg-light-danger px-2 py-1 text-danger rounded">Not Started</span>';
+                        }
+                        else if (data === 1) {
+                            return '<span class="bg-light-warning px-2 py-1 text-warning rounded">In Progress</span>';
+                        }
+
+                        else {
+                            // Jika status bukan nol, tampilkan nilai status yang sebenarnya
+                            return '<span class="bg-light-success px-2 py-1 text-success rounded">Done</span>';
+                        }
+                    },
+                },
                 {
                     data: null,
                     render: function (data, type, row) {
@@ -211,8 +243,12 @@ $("#submitWorkReport").on("click", function () {
                     Swal.fire({
                         icon: 'success',
                         title: 'Success!',
-                        text: result.message,
+                        willClose: () => {
+                            // Reload halaman setelah tombol OK diklik
+                            location.reload();
+                        }
                     });
+                    $('#createWorkOrderReportModal').modal('hide');
                 },
                 error: function (error) {
                     console.log(error);
@@ -228,6 +264,7 @@ $("#submitWorkReport").on("click", function () {
                         text: errorMessage,
                     });
                 }
+
             });
         };
 
@@ -284,3 +321,4 @@ $(document).on('click', 'button[data-action="detail"]', function () {
     var data = $('#workOrderTable').DataTable().row($(this).parents('tr')).data();
     fillModalWithWorkOrderData(data);
 });
+
