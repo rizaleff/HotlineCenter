@@ -169,6 +169,7 @@
 <script>
     function timeAgo(date) {
         const secondsAgo = Math.floor((new Date() - date) / 1000);
+        console.log(secondsAgo);
         if (secondsAgo < 60) {
             return secondsAgo + " detik yang lalu";
         } else if (secondsAgo < 3600) {

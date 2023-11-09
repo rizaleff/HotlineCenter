@@ -12,13 +12,13 @@ public class WorkOrderRepository : GeneralRepository<Models.WorkOrder>, IWorkOrd
 {
     public WorkOrderRepository(HotlineCenterDbContext context) : base(context) { }
 
-    public IEnumerable<WorkReportDetailDto>? GetWoDetailByEmpGuid(Guid employeeGuid)
+    public IEnumerable<WorkOrderDetailDto>? GetWoDetailByEmpGuid(Guid employeeGuid)
     {
         var query = from workOrder in _context.WorkOrders
                     join report in _context.Reports
                     on workOrder.ReportGuid equals report.Guid
                     where workOrder.EmployeeGuid == employeeGuid
-                    select new WorkReportDetailDto
+                    select new WorkOrderDetailDto
                     {
                         Guid = workOrder.Guid,
                         Title = workOrder.Title,
@@ -34,12 +34,12 @@ public class WorkOrderRepository : GeneralRepository<Models.WorkOrder>, IWorkOrd
         return query.ToList();
     }
 
-    public IEnumerable<WorkReportDetailDto>? GetAllWoDetail()
+    public IEnumerable<WorkOrderDetailDto>? GetAllWoDetail()
     {
         var query = from workOrder in _context.WorkOrders
                     join report in _context.Reports
                     on workOrder.ReportGuid equals report.Guid
-                    select new WorkReportDetailDto
+                    select new WorkOrderDetailDto
                     {
                         Guid = workOrder.Guid,
                         Title = workOrder.Title,
