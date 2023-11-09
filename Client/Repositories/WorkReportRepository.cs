@@ -1,4 +1,5 @@
 ﻿using API.Dtos.WorkReports;
+using API.DTOs.WorkReports;
 using API.Models;
 using API.Utilities.Handlers;
 using Client.Contracts;
@@ -11,6 +12,18 @@ public class WorkReportRepository : GeneralRepository<WorkReportDto, Guid>, IWor
     {
 
     }
+
+    public async Task<ResponseOKHandler<IEnumerable<WorkReportDetailDto>>> GetAllWorkReport()
+    {
+        ResponseOKHandler<IEnumerable<WorkReportDetailDto>> entityVM = null;
+        using (var response = await httpClient.GetAsync(request + "details"))
+        {
+            string apiResponse = await response.Content.ReadAsStringAsync();
+            entityVM = JsonConvert.DeserializeObject<ResponseOKHandler<IEnumerable<WorkReportDetailDto>>>(apiResponse);
+        }
+        return entityVM;
+    }
+
     public async Task<ResponseOKHandler<IEnumerable<WorkReportDto>>> GetWorkReportByEmployeeGuid(Guid employeeGuid)
     {
         ResponseOKHandler<IEnumerable<WorkReportDto>> entityVM = null;

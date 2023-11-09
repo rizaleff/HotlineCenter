@@ -9,6 +9,7 @@ using System.Net;
 using API.Dtos.Reports;
 using API.DTOs.WorkOrders;
 using API.Utilities.Enums;
+using API.DTOs.WorkReports;
 
 namespace API.Controllers;
 
@@ -46,6 +47,25 @@ public class WorkReportController : ControllerBase
         return Ok(new ResponseOKHandler<IEnumerable<WorkReportDto>>(data));
     }
 
+
+    [HttpGet("details")]
+    public IActionResult GetAllWorkReport()
+    {
+        var result = _workReportRepository.GetDetailWorkReport();
+
+        if (!result.Any())
+        {
+            return NotFound(new ResponseErrorHandler
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "Data Not Found"
+            });
+        }
+
+
+        return Ok(new ResponseOKHandler<IEnumerable<WorkReportDetailDto>>(result));
+    }
 
     [HttpGet("myWorkReport/{employeeGuid}")]
     public IActionResult GetByEmployeeGuid(Guid employeeGuid)

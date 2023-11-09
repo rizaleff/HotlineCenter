@@ -15,6 +15,65 @@ $(document).ready(function () {
     let workOrderTable = $("#workOrderTable").DataTable();
     let workReportTable = $("#workReportTable").DataTable();
 
+    $(document).on('click', 'button[data-action="detailWorkReport"]', function () {
+        var wrData = $(this).data('wr');
+        console.log(wrData);
+        console.log(typeof wrData);
+        var titleWr = wrData.title;
+        var descriptionWr = wrData.description;
+        var isFinish = wrData.isFinish;
+        var createdDateWr = wrData.createdDate;
+        var workReportPhoto = wrData.workReportPhoto;
+        var reportGuid = wrData.reportGuid;
+
+        console.log("before title")
+        $('#titleWr').text(titleWr);
+        console.log(wrData.title + " wr data")
+        $('#descriptionWr').text(descriptionWr);
+        $('#imageWr').attr('src', workReportPhoto);
+
+        console.log("isFInih= " + isFinish)
+        console.log("type= " + typeof isFinish)
+        var modalFooter = $('#detailWrModalFooter');
+        modalFooter.empty();
+        if (isFinish === "False") {
+            console.log("masuk seleksi konsisi")
+            var closeButton = $('<button>')
+                .addClass('btn btn-secondary')
+                .text('Close')
+                .attr('data-bs-dismiss', 'modal');
+
+            modalFooter.append(closeButton);
+            var processButton = $('<button>')
+                .addClass('btn btn-success')
+                .text('Process')
+                .attr('id', 'processBtn')
+                .click(function () {
+                    // Tambahkan logika untuk menangani aksi ketika tombol "Process" diklik di sini
+                    $('#reportGuidHidden').val(reportGuid);
+
+                    $("#detailsWorkReportModal").modal("hide");
+                    var createWorkOrderModal = new bootstrap.Modal(document.getElementById('createWorkOrderModal'));
+                    createWorkOrderModal.show();
+                    console.log('Process button clicked');
+                });
+            modalFooter.append(processButton);
+
+
+        } else {
+
+            console.log("masuk seleksi konsisi else")
+           
+            var closeButton = $('<button>')
+                .addClass('btn btn-secondary')
+                .text('Close')
+                .attr('data-bs-dismiss', 'modal');
+
+            modalFooter.append(closeButton);
+        }
+
+    });
+
 });
 $(document).on('click', 'button[data-action="detail"]', function () {
 
@@ -107,11 +166,9 @@ $(document).on('click', 'button[data-action="detail"]', function () {
         $('#note').text(note);
         $('#modifiedDate').text(modifiedDate);
         $('#image').attr('src', reportPhoto);
+
+            
     });
-
-
-
-
 
 function InsertWorkOrder() {
     var obj = new Object();
@@ -223,7 +280,7 @@ switch (statusValue) {
     case "InProgress":
         statusElement.textContent = "Not Started";
         statusElement.classList.add("bg-warning");
-    case "Compl":eted
+    case "Completed":
         statusElement.textContent = "Not Started";
         statusElement.classList.add("bg-success");
         break;

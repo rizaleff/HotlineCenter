@@ -1,4 +1,5 @@
 ﻿using API.Dtos.Reports;
+using API.DTOs.Reports;
 using API.Models;
 using API.Utilities.Handlers;
 using Client.Contracts;
@@ -19,6 +20,17 @@ public class ReportRepository : GeneralRepository<ReportDto, Guid>, IReportRepos
         {
             string apiResponse = await response.Content.ReadAsStringAsync();
             entityVM = JsonConvert.DeserializeObject<ResponseOKHandler<IEnumerable<ReportDto>>>(apiResponse);
+        }
+        return entityVM;
+    }
+
+    public async Task<ResponseOKHandler<IEnumerable<TotalReportDto>>> GetTotalReport()
+    {
+        ResponseOKHandler<IEnumerable<TotalReportDto>> entityVM = null;
+        using (var response = await httpClient.GetAsync(request + "TotalReport/"))
+        {
+            string apiResponse = await response.Content.ReadAsStringAsync();
+            entityVM = JsonConvert.DeserializeObject<ResponseOKHandler<IEnumerable<TotalReportDto>>>(apiResponse);
         }
         return entityVM;
     }

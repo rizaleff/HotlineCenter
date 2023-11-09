@@ -28,7 +28,7 @@ public class Report : BaseEntity
     public string? Note {  get; set; }
 
     //Cardinality
-    public WorkOrder? WorkOrder {  get; set; }
+    public IEnumerable<WorkOrder>? WorkOrders {  get; set; }
     public Project? Project { get; set; }
     public Employee? Employee{ get; set; }
 }

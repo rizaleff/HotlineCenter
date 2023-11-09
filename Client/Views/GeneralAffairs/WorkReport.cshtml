@@ -1,4 +1,4 @@
-﻿@model IEnumerable<API.Dtos.WorkReports.WorkReportDto>;
+﻿@model IEnumerable<API.DTOs.WorkReports.WorkReportDetailDto>;
 
 @{
     Layout = "~/Views/Shared/_GeneralAffairsLayout.cshtml";
@@ -98,16 +98,16 @@
                                         string cssClass = "";
                                         string cssBtnClass = "";
                                         string btnText = "Detail";
-                                        string txtStatus = "Belum Disetujui";
+                                        string txtStatus = "Not Finish";
                                         if (item.IsFinish)
                                         {
                                             cssClass = "bg-light-success text-success";
                                             cssBtnClass = "btn-success";
-                                            txtStatus = "Disetujui";
+                                            txtStatus = "Finish";
                                         }
                                         else
                                         {
-                                            cssClass = "bg-light-info text-warning";
+                                            cssClass = "bg-light-danger text-danger";
                                             cssBtnClass = "btn-primary";
                                            
                                         }
@@ -125,13 +125,15 @@
                                                             data-bs-toggle="modal"
                                                             data-action="detailWorkReport"
                                                             data-bs-target="#detailsWorkReportModal"
-                                                            data-wo='{
+                                                            data-wr='{
 
-                                                                                    "woGuid":"@item.Guid",
+                                                                                    "wrGuid":"@item.Guid",
                                                                                     "title":"@item.Title",
-                                                                                    "description":"@item.Description,
+                                                                                    "description":"@item.Description",
                                                                                     "createdDate":"@item.CreatedDate",
-                                                                                    "image":"@imgSrc"
+                                                                                    "isFinish":"@item.IsFinish",
+                                                                                    "reportGuid":"@item.ReportGuid",
+                                                                                    "workReportPhoto":"@imgSrc"
                                                                                 }'>
                                                         Detail
                                                     </button>
@@ -151,8 +153,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
@@ -169,19 +169,18 @@
             </div>
             <div class="modal-body">
 
-
                 <div class="shadow-lg rounded m-2 card card-body">
                     <span class="side-stick bg-success" style="width:3px;height:35px;position:absolute;left:0"></span>
                     <div class="row">
                         <div class="text-center m-2">
-                            <img id="image" src="" alt="Image" class="rounded">
+                            <img id="imageWr" src="" alt="Image" class="rounded img-fluid">
                         </div>
                         <div class="col-3 ms-3 py-3">
                             <h6>Title Work Order</h6>
                         </div>
 
                         <div class="col-md-8 ms-auto py-3 d-flex">
-                            <p class="me-2">: </p> <p class="" id="title" name="title"></p>
+                            <p class="me-2">: </p> <p class="" id="titleWr" name="title"></p>
                         </div>
                     </div>
                     <div class="row">
@@ -189,7 +188,7 @@
                             <h6>Deskripsi Work Order</h6>
                         </div>
                         <div class="col-md-8 ms-auto py-3 d-flex">
-                            <p class="me-2">: </p> <p id="description"></p>
+                            <p class="me-2">: </p> <p id="descriptionWr"></p>
                         </div>
                     </div>
                 </div>
@@ -198,16 +197,54 @@
 
             </div>
 
-            <div class="modal-footer" id="detailWoModalFooter">
+            <div class="modal-footer" id="detailWrModalFooter">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
 
             </div>
         </div>
     </div>
 </div>
-<style>
-    #image {
-        max-width: 500px;
-        max-height: 500px;
-    }
-</style>
+
+
+<div class="modal fade" id="createWorkOrderModal" tabindex="-1" role="dialog" aria-labelledby="createWorkOrderModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h2 class="text-white">Create Work Order</h2>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulir untuk membuat Work Order -->
+                <form id="workOrderForm" enctype="multipart/form-data">
+                    <input type="hidden" id="reportGuidHidden" name="reportGuidHidden">
+
+                    <div class="form-group">
+                        <label for="inputWoTitle">Title</label>
+                        <input type="text" class="form-control" id="inputWoTitle" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputWoDesc">Description</label>
+                        <textarea class="form-control" id="inputWoDesc" name="description"></textarea>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="csEmployee">Description</label>
+                        <select class="form-select" js-states form-control" id="inputCs">
+                            <option disabled>Please Select</option>
+                            @foreach (var cs in ViewBag.ListCs)
+                            {
+                                <option value="@cs.Guid">@cs.FullName</option>
+                            }
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-close-white" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" onclick="InsertWorkOrder()" class="btn btn-success" id="createWorkOrderBtn">Create Work Order</button>
+
+            </div>
+        </div>
+    </div>
+</div>
