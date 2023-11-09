@@ -9,22 +9,15 @@
     <!--  Header Start -->
     <header class="app-header">
         <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item d-block d-xl-none">
                     <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
                         <i class='bx bx-menu'></i>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-icon-hover" href="javascript:void(0)">
-                    <a class="nav-link nav-icon-hover" href="javascript:void(0)">
-                        <i class='bx bx-bell'></i>
-                        <div class="notification bg-primary rounded-circle"></div>
-                    </a>
-                </li>
-            </ul>
-            <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-                <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+          
+            
 
                     <li class="nav-item dropdown">
                         <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
@@ -49,8 +42,8 @@
                             </div>
                         </div>
                     </li>
-                </ul>
-            </div>
+            </ul>
+
         </nav>
     </header>
     <!--  Header End -->
@@ -72,7 +65,7 @@
                             <p id="reportDescription"></p>
                         </div>
                         <div class="text-center m-2">
-                            <img id="image" src="" alt="Image" class="rounded">
+                            <img id="image" src="" alt="Image" class="rounded img img-fluid ">
                         </div>
                         <div class="shadow-lg rounded m-2 card card-body">
                             <span class="side-stick bg-success" style="width:3px;height:35px;position:absolute;left:0"></span>
@@ -106,19 +99,14 @@
                 </div>
             </div>
         </div>
-        <style>
-            #image {
-                max-width: 500px;
-                max-height: 500px;
-            }
-        </style>
+        
         <!-- Modal createWorkOrderModal -->
         <div class="modal fade" id="createWorkOrderReportModal" tabindex="-1" role="dialog" aria-labelledby="createWorkOrderReportModal" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary">
                         <h2 class="text-white">Create Work Report</h2>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">
+                        <button type="button" class="btn-close btn-close-white" id="tutupCWP" data-bs-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
                     <div class="modal-body">
@@ -141,14 +129,11 @@
                             <!-- Input Status -->
                             <div class="form-group">
                                 <label>Status</label><br>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="status" id="statusDone" value="true">
-                                    <label class="form-check-label" for="statusDone">Done</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="status" id="statusNotDone" value="false" checked>
-                                    <label class="form-check-label" for="statusNotDone">Not Done Yet</label>
-                                </div>
+                                <select id="statusSelect" class="form-select" aria-label="Default select example">
+                                    <option selected>Did the work finish?</option>
+                                    <option value="true">Done</option>
+                                    <option value="false">Not Done Yet</option>
+                                </select>
                             </div>
 
                             <!-- Input Foto -->
@@ -160,7 +145,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-secondary" id="tutupCWP" data-bs-dismiss="modal">Tutup</button>
                         <button type="button" class="btn btn-primary" id="submitWorkReport">Create Work Report</button>
                        
                     </div>

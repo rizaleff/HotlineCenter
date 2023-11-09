@@ -20,13 +20,16 @@ function getWorkReportByEmployeeGuid(employeeGuid) {
         url: URL_API
     }).done((res) => {
         // Menginisialisasi DataTable dengan data JSON yang diterima
+        res.reverse();
         $('#myWorkReportTable').DataTable({
             data: res,
+            order: [[0, 'asc']],
             columns: [
                 {
-                    "data": "id",
+                    data: null,
                     render: function (data, type, row, meta) {
-                        return meta.row + meta.settings._iDisplayStart + 1;
+                        // Menggunakan meta.row + 1 agar nomor urut dimulai dari 1
+                        return meta.row + 1;
                     }
                 },
                 { data: 'title' },
@@ -202,6 +205,16 @@ $("#takeWorkOrderButton").on("click", function () {
     });
 })
 
+document.addEventListener('DOMContentLoaded', function () {
+    var statusSelect = document.getElementById('statusSelect');
+
+    statusSelect.addEventListener('change', function () {
+        var selectedValue = statusSelect.value;
+        var booleanValue = (selectedValue === 'true'); // Konversi nilai menjadi boolean
+        console.log(booleanValue);  // Hasilnya adalah true atau false
+    });
+});
+
 
 $("#submitWorkReport").on("click", function () {
     const title = $("#newTitle").val();
@@ -209,6 +222,10 @@ $("#submitWorkReport").on("click", function () {
     const workOrderGuid = $("#workOrderGuid").val();
     const employeeGuid = thisEmpGuid;
     const photoInput = $("#photoFile")[0];
+    const isFinishString = $("#statusSelect").val(); // Ganti ID sesuai dengan elemen select Anda
+
+    // Konversi nilai string menjadi boolean
+    const isFinish = (isFinishString === 'true');
 
     const photoFile = photoInput.files[0];
     // Check if a file is selected
@@ -223,14 +240,15 @@ $("#submitWorkReport").on("click", function () {
             // Convert ArrayBuffer to base64
             //const photoBase64 = arrayBufferToBase64(photoArrayBuffer);
             var base64String = event.target.result.split(',')[1];
-            console.log(base64String);
+            
             // Buat objek data yang akan dikirim ke API
             const data = {
                 Title: title,
                 Description: description,
                 WorkOrderGuid: workOrderGuid,
                 EmployeeGuid: employeeGuid,
-                Photo: base64String
+                Photo: base64String,
+                IsFinish: isFinish
             };
 
             console.log(data)
@@ -322,3 +340,7 @@ $(document).on('click', 'button[data-action="detail"]', function () {
     fillModalWithWorkOrderData(data);
 });
 
+$(document).on('click', '#tutupCWP', function (e) {
+    $(".modal-fade").modal("hide");
+    $(".modal-backdrop").remove();
+});

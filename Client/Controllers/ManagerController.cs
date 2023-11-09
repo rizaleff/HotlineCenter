@@ -50,7 +50,7 @@ public class ManagerController : Controller
     public async Task<IActionResult> WorkOrder()
     {
         var result = await _workOrderDetailRepository.Get();
-        var listReport = new List<WorkReportDetailDto>();
+        var listReport = new List<WorkOrderDetailDto>();
         if (result != null)
         {
             listReport = result.Data.ToList();
