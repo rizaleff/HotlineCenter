@@ -1,5 +1,7 @@
 ﻿using API.DTOs.Reports;
 using Client.Contracts;
+using API.Dtos.WorkOrders;
+using API.Dtos.WorkReports;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +12,15 @@ public class ManagerController : Controller
 {
     private readonly IDetailReportRepository _detailReportepository;
     private readonly ICsEmployeeRepository _csEmployeeRepository;
+    private readonly IWorkOrderDetailRepository _workOrderDetailRepository;
+    private readonly IWorkReportRepository _workReportRepository;
 
-    public ManagerController(IDetailReportRepository detailReportepository, ICsEmployeeRepository csEmployeeRepository)
+    public ManagerController(IDetailReportRepository detailReportepository, ICsEmployeeRepository csEmployeeRepository, IWorkOrderDetailRepository workOrderDetailRepository, IWorkReportRepository workReportRepository)
     {
         _detailReportepository = detailReportepository;
         _csEmployeeRepository = csEmployeeRepository;
+        _workOrderDetailRepository = workOrderDetailRepository;
+        _workReportRepository = workReportRepository;
     }
 
     public async Task<IActionResult> Index()
@@ -29,9 +35,28 @@ public class ManagerController : Controller
         return View("Dashboard", listReport);
     }
 
-    [Route("Manager/ApproveProject")]
-    public IActionResult ApproveProject()
+    public async Task<IActionResult> WorkReport()
     {
-        return View("ApproveProject");
+        var result = await _workReportRepository.Get();
+        var workReport = new List<WorkReportDto>();
+        if (result != null)
+        {
+            workReport = result.Data.ToList();
+
+        }
+
+        return View("WorkReport", workReport);
+    }
+    public async Task<IActionResult> WorkOrder()
+    {
+        var result = await _workOrderDetailRepository.Get();
+        var listReport = new List<WorkReportDetailDto>();
+        if (result != null)
+        {
+            listReport = result.Data.ToList();
+
+        }
+
+        return View("WorkOrder", listReport);
     }
 }

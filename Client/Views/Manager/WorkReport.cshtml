@@ -1,0 +1,213 @@
+﻿@model IEnumerable<API.Dtos.WorkReports.WorkReportDto>;
+
+@{
+    Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+    var listCount = 1;
+}
+<div class="body-wrapper">
+    <!--  Header Start -->
+    <header class="app-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <ul class="navbar-nav">
+                <li class="nav-item d-block d-xl-none">
+                    <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+                        <i class='bx bx-menu'></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-icon-hover" href="javascript:void(0)">
+                        <i class='bx bx-bell'></i>
+                        <div class="notification bg-primary rounded-circle"></div>
+                    </a>
+                </li>
+            </ul>
+            <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+                <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <img src="~/lib/img/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                            <div class="message-body">
+                                <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                                    <i class="ti ti-user fs-6"></i>
+                                    <p class="mb-0 fs-3">My Profile</p>
+                                </a>
+                                <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                                    <i class="ti ti-mail fs-6"></i>
+                                    <p class="mb-0 fs-3">My Account</p>
+                                </a>
+                                <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                                    <i class="ti ti-list-check fs-6"></i>
+                                    <p class="mb-0 fs-3">My Task</p>
+                                </a>
+                                <a href="Logout" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!--  Header End -->
+    <div class="container-fluid">
+
+        <h1>Reports</h1>
+        <div class="container">
+            <div class="main-body p-0">
+                <div class="inner-wrapper">
+                    <!-- /Inner sidebar -->
+                    <!-- Inner main -->
+                    <div class="inner-main">
+                        <!-- Inner main header -->
+                        <div class="d-flex justify-content-between pt-3 mx-3">
+                            <div class="">
+                                <a href="Report/Create" class="btn btn-primary">Create Report</a>
+                            </div>
+                            <span class="input-icon input-icon-sm ml-auto w-auto">
+                                <input type="text" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none" placeholder="Search Reports" />
+                            </span>
+                        </div>
+                        <!-- /Inner main header -->
+                        <!-- Inner main body -->
+                        <!-- Forum List -->
+                        <div class="inner-main-body p-2 p-sm-3">
+
+                            <table class="table table-sm" id="workReportTable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Created</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Reverse())
+                                    {
+                                        var imgSrc = "";
+                                        @if (item.Photo != null && item.Photo.Length > 0)
+                                        {
+                                            var base64Image = Convert.ToBase64String(item.Photo);
+                                            imgSrc = $"data:image/jpeg;base64,{base64Image}";
+                                        }
+                                        string cssClass = "";
+                                        string cssBtnClass = "";
+                                        string btnText = "Detail";
+                                        string txtStatus = "Belum Disetujui";
+                                        if (item.IsFinish)
+                                        {
+                                            cssClass = "bg-light-success text-success";
+                                            cssBtnClass = "btn-success";
+                                            txtStatus = "Disetujui";
+                                        }
+                                        else
+                                        {
+                                            cssClass = "bg-light-info text-warning";
+                                            cssBtnClass = "btn-primary";
+                                           
+                                        }
+                                        <tr>
+                                            <td> @listCount </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Title)</td>
+                                            <td> @Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                                            <td>
+                                                <span class="mb-1 badge rounded-pill font-medium @cssClass">@txtStatus</span>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    @* <a href="/Report/Edit/?guid=@item.Guid" class="btn btn-primary"hidden">Edit</a> *@
+                                                    <button class="btn btn-primary btn-detail"
+                                                            data-bs-toggle="modal"
+                                                            data-action="detailWorkReport"
+                                                            data-bs-target="#detailsWorkReportModal"
+                                                            data-wo='{
+
+                                                                                        "woGuid":"@item.Guid",
+                                                                                        "title":"@item.Title",
+                                                                                        "description":"@item.Description,
+                                                                                        "createdDate":"@item.CreatedDate",
+                                                                                        "image":"@imgSrc"
+                                                                                    }'>
+                                                        Detail
+                                                    </button>
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        listCount++;
+                                    }
+                                </tbody>
+                            </table>
+                            <!-- /Forum List -->
+                            <!-- Forum Detail -->
+                            <!-- /Inner main body -->
+                        </div>
+                        <!-- /Inner main -->
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade " id="detailsWorkReportModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h2 class="text-white">Details</h2>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+
+
+            </div>
+            <div class="modal-body">
+
+
+                <div class="shadow-lg rounded m-2 card card-body">
+                    <span class="side-stick bg-success" style="width:3px;height:35px;position:absolute;left:0"></span>
+                    <div class="row">
+                        <div class="text-center m-2">
+                            <img id="image" src="" alt="Image" class="rounded">
+                        </div>
+                        <div class="col-3 ms-3 py-3">
+                            <h6>Title Work Order</h6>
+                        </div>
+
+                        <div class="col-md-8 ms-auto py-3 d-flex">
+                            <p class="me-2">: </p> <p class="" id="title" name="title"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3 ms-3 py-3">
+                            <h6>Deskripsi Work Order</h6>
+                        </div>
+                        <div class="col-md-8 ms-auto py-3 d-flex">
+                            <p class="me-2">: </p> <p id="description"></p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="modal-footer" id="detailWoModalFooter">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    #image {
+        max-width: 500px;
+        max-height: 500px;
+    }
+</style>
