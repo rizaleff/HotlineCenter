@@ -164,23 +164,4 @@ public class WorkReportController : ControllerBase
             });
         }
     }
-
-
-    [HttpGet("{guid}")]
-    public IActionResult GetByGuid(Guid guid)
-    {
-        var result = _workReportRepository.GetByGuid(guid);
-        if (result is null)
-        {
-            return NotFound(new ResponseErrorHandler
-            {
-                Code = StatusCodes.Status404NotFound,
-                Status = HttpStatusCode.NotFound.ToString(),
-                Message = "Data Not Found"
-            });
-        }
-        return Ok(new ResponseOKHandler<WorkReportDto>((WorkReportDto)result));
-    }
-
-
 }

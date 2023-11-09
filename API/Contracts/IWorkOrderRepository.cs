@@ -7,8 +7,8 @@ namespace API.Contracts;
 public interface IWorkOrderRepository : IGeneralRepository<WorkOrder>
 {
     IEnumerable<WorkOrder>? GetWorkOrderByEmployee(Guid employeeGuid);
-    IEnumerable<WorkReportDetailDto>? GetWoDetailByEmpGuid(Guid employeeGuid);
-    IEnumerable<WorkReportDetailDto>? GetAllWoDetail();
+    IEnumerable<WorkOrderDetailDto>? GetWoDetailByEmpGuid(Guid employeeGuid);
+    IEnumerable<WorkOrderDetailDto>? GetAllWoDetail();
 
     bool UpdateStatusWorkOrder(UpdateStatusWorkOrderDto workOrderDto);
 }

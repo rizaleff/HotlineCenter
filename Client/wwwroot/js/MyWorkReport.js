@@ -20,7 +20,7 @@ function getWorkReportByEmployeeGuid(employeeGuid) {
         url: URL_API
     }).done((res) => {
         // Menginisialisasi DataTable dengan data JSON yang diterima
-        $('#myWorkReportTable').DataTable({
+        $('#workReportTable').DataTable({
             data: res,
             columns: [
                 {
@@ -31,12 +31,7 @@ function getWorkReportByEmployeeGuid(employeeGuid) {
                 },
                 { data: 'title' },
                 { data: 'description' },
-                {
-                    data: null,
-                    render: function (data, type, row) {
-                        return '<button class="btn btn-primary btn-sm" data-action="detailWorkReport" data-id="' + data.id + '">Details</button> ';
-                    },
-                },
+
             ]
         });
 
@@ -56,7 +51,7 @@ function getWorkOrderByEmployeeGuid(employeeGuid) {
         url: URL_API
     }).done((res) => {
         // Menginisialisasi DataTable dengan data JSON yang diterima
-        $('#workOrderTable').DataTable({
+        $('#workReportTable').DataTable({
             data: res,
             columns: [
                 {
@@ -115,7 +110,31 @@ function fillModalWithWorkOrderData(workOrderData) {
             document.getElementById("createWorkOrderReportButton").style.display = "none";
         }
 
-      
+      /*  var modalFooter = $('#detailWoModalFooter');
+        modalFooter.empty();
+        if (workOrderData.status === 0) {
+            // Jika status adalah "sending", tambahkan tombol "Process" dan "Reject"
+            var createWorkOrderReportButton = $('<button>')
+
+                .addClass('btn btn-success')
+                .text('Create Work Order')
+
+                .attr('onclick', 'openCreateWoModal')
+                .attr('id', 'createWorkOrderReportButton')
+            modalFooter.append(createWorkOrderReportButton);
+
+
+
+        } else {
+            // Jika status bukan "sending", tambahkan tombol "Close"
+
+            var takeWorkOrderButton = $('<button>')
+                .addClass('btn btn-success')
+                .text('Take Work Order')
+                .attr('id', 'takeWorkOrderButton')
+
+            modalFooter.append(takeWorkOrderButton);
+        }*/
     }).fail((err) => {
         console.log(err);
     });
@@ -151,7 +170,6 @@ $("#takeWorkOrderButton").on("click", function () {
                 title: 'Success!',
                 text: "Sukses mengambil work order",
             });
-
         },
         error: function (error) {
             console.log(error);
@@ -244,43 +262,15 @@ $("#submitWorkReport").on("click", function () {
     }
 });
 
-function fillModalWithWorkReportData(workReportData) {
-    const URLWP = `/WorkReport/GetWorkReportDetails/?guid=${workReportData.guid}`;
-    console.log(URLWP);
-    console.log(workReportData);
-    // Mengisi setiap elemen formulir dengan data yang sesuai
-    $.ajax({
-        url: URLWP
-    }).done((workReportData) => {
-        // Menginisialisasi DataTable dengan data JSON yang diterima
-        $("#title").text(workReportData.title);
-        $("#description").text(workReportData.description);
-        $('#image').attr('src', `data:image/png;base64,${workReportData.photo}`);
-        $("#workOrderGuid").val(workReportData.workOrderGuid);
-        $("#createdDate").val(workReportData.createdDate);
-        $("#note").val(workReportData.note);
-    }).fail((err) => {
-        console.log(err);
-    });
-    var myModal = new bootstrap.Modal(document.getElementById('detailsWorkReportModal'));
-    myModal.show();
-}
 
-$("#createWorkOrderReportButton").on("click", function () {
-    // Munculkan modal createWorkOrderReportModal
-    $("#detailsModal").modal("hide");
 
-    var createWorkOrderReportModal = new bootstrap.Modal(document.getElementById('createWorkOrderReportModal'));
-    createWorkOrderReportModal.show();
 
-});
 
-$(document).on('click', 'button[data-action="detailWorkReport"]', function () {
-    var data = $('#myWorkReportTable').DataTable().row($(this).parents('tr')).data();
-    fillModalWithWorkReportData(data);
-});
+
+
 
 $(document).on('click', 'button[data-action="detail"]', function () {
-    var data = $('#workOrderTable').DataTable().row($(this).parents('tr')).data();
+    var data = $('#workReportTable').DataTable().row($(this).parents('tr')).data();
     fillModalWithWorkOrderData(data);
+
 });

@@ -111,8 +111,6 @@ $(document).on('click', 'button[data-action="detail"]', function () {
 
 
 
-
-
 function InsertWorkOrder() {
     var obj = new Object();
 
