@@ -50,7 +50,7 @@ public class GeneralAffairsController : Controller
     public async Task<IActionResult> WorkOrder()
     {
         var result = await _workOrderDetailRepository.Get();
-        var listReport = new List<WorkOrderDetailDto>();
+        var listReport = new List<WorkReportDetailDto>();
         if (result != null)
         {
             listReport = result.Data.ToList();

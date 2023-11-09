@@ -4,9 +4,9 @@ using API.Models;
 using API.Utilities.Handlers;
 
 namespace Client.Contracts;
-public interface IWorkOrderDetailRepository : IRepository<WorkOrderDetailDto, Guid>
+public interface IWorkOrderDetailRepository : IRepository<WorkReportDetailDto, Guid>
 {
 
 
-    Task<ResponseOKHandler<WorkOrderDetailDto>> GetWorkOrderDetails(Guid Guid);
+    Task<ResponseOKHandler<WorkReportDetailDto>> GetWorkOrderDetails(Guid Guid);
 }

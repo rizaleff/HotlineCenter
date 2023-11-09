@@ -11,7 +11,7 @@ using TokenHandler = API.Utilities.Handlers.TokenHandler;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("RizalConnection");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<HotlineCenterDbContext>(option => option.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
