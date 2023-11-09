@@ -124,14 +124,14 @@
                                                     <button class="btn btn-primary btn-detail"
                                                             data-bs-toggle="modal"
                                                             data-action="detailWorkReport"
-                                                            data-bs-target="#detailsModal"
+                                                            data-bs-target="#detailsWorkReportModal"
                                                             data-wo='{
 
                                                                                     "woGuid":"@item.Guid",
                                                                                     "title":"@item.Title",
                                                                                     "description":"@item.Description,
                                                                                     "createdDate":"@item.CreatedDate",
-                                                                                    "reportPhoto":"@imgSrc"
+                                                                                    "image":"@imgSrc"
                                                                                 }'>
                                                         Detail
                                                     </button>
@@ -156,3 +156,58 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade " id="detailsWorkReportModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h2 class="text-white">Details</h2>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+
+
+            </div>
+            <div class="modal-body">
+
+
+                <div class="shadow-lg rounded m-2 card card-body">
+                    <span class="side-stick bg-success" style="width:3px;height:35px;position:absolute;left:0"></span>
+                    <div class="row">
+                        <div class="text-center m-2">
+                            <img id="image" src="" alt="Image" class="rounded">
+                        </div>
+                        <div class="col-3 ms-3 py-3">
+                            <h6>Title Work Order</h6>
+                        </div>
+
+                        <div class="col-md-8 ms-auto py-3 d-flex">
+                            <p class="me-2">: </p> <p class="" id="title" name="title"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3 ms-3 py-3">
+                            <h6>Deskripsi Work Order</h6>
+                        </div>
+                        <div class="col-md-8 ms-auto py-3 d-flex">
+                            <p class="me-2">: </p> <p id="description"></p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="modal-footer" id="detailWoModalFooter">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    #image {
+        max-width: 500px;
+        max-height: 500px;
+    }
+</style>
