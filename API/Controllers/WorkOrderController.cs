@@ -55,7 +55,7 @@ public class WorkOrderController : ControllerBase
         var workOrder = _workOrderRepository.GetByGuid(guid);
         var report = _reportRepository.GetByGuid(workOrder.ReportGuid);
 
-        var result = new WorkOrderDetailDto
+        var result = new WorkReportDetailDto
         {
             Guid = workOrder.Guid,
             Title = workOrder.Title,
@@ -75,7 +75,7 @@ public class WorkOrderController : ControllerBase
                 Message = "Data Not Found"
             });
         }
-        return Ok(new ResponseOKHandler<WorkOrderDetailDto>(result));
+        return Ok(new ResponseOKHandler<WorkReportDetailDto>(result));
     }
     [HttpGet("MyWorkOrders/{empGuid}")]
     public IActionResult GetWorkOrderByEmpGuid(Guid empGuid)
@@ -91,7 +91,7 @@ public class WorkOrderController : ControllerBase
                 Message = "Data Not Found"
             });
         }
-        return Ok(new ResponseOKHandler<IEnumerable<WorkOrderDetailDto>>(result));
+        return Ok(new ResponseOKHandler<IEnumerable<WorkReportDetailDto>>(result));
     }
 
 
@@ -109,7 +109,7 @@ public class WorkOrderController : ControllerBase
                 Message = "Data Not Found"
             });
         }
-        return Ok(new ResponseOKHandler<IEnumerable<WorkOrderDetailDto>>(result));
+        return Ok(new ResponseOKHandler<IEnumerable<WorkReportDetailDto>>(result));
     }
     [HttpGet("{guid}")]
     public IActionResult GetByGuid(Guid guid)

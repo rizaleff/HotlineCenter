@@ -9,11 +9,11 @@ namespace Client.Controllers
 {
     public class WorkReportController : Controller
     {
-        private readonly IWorkReportRepository _workReportReportrepository;
+        private readonly IWorkReportRepository _workReportrepository;
         private readonly ICreateWorkReportRepository _createWorkReportRepository;
         public WorkReportController(IWorkReportRepository workReportRepository, ICreateWorkReportRepository createWorkReportReportRepository)
         {
-                _workReportReportrepository = workReportRepository;
+                _workReportrepository = workReportRepository;
                 _createWorkReportRepository = createWorkReportReportRepository;
 
 
@@ -27,7 +27,7 @@ namespace Client.Controllers
         public async Task<JsonResult> GetWorkReportByEmployeeGuid(Guid employeeGuid)
         
         {
-            var result = await _workReportReportrepository.GetWorkReportByEmployeeGuid(employeeGuid); // Mengambil data WorkReport berdasarkan EmployeeGuid
+            var result = await _workReportrepository.GetWorkReportByEmployeeGuid(employeeGuid); // Mengambil data WorkReport berdasarkan EmployeeGuid
             return Json(result.Data);
         }
 
@@ -39,6 +39,12 @@ namespace Client.Controllers
             return Json(result);
         }
 
+        public async Task<JsonResult> GetWorkReportDetails(Guid guid)
+
+        {
+            var result = await _workReportrepository.Get(guid);
+            return Json(result.Data);
+        }
 
     }
 }

@@ -3,7 +3,7 @@
 namespace API.Dtos.WorkOrders;
 
 
-public class WorkOrderDetailDto
+public class WorkReportDetailDto
 {
     public Guid Guid { get; set; }
     public string Title { get; set; }
