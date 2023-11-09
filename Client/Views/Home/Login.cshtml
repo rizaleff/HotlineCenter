@@ -18,8 +18,8 @@
 
                             <form action="Login" method="post">
                                 <div class="mb-3">
-                                    <label asp-for="Email" class="form-label">Username</label>
-                                    <input type="email" class="form-control @(ViewData["LoginStatus"].ToString() == "NotFound" ? "is-invalid" : "")" asp-for="Email" aria-describedby="emailHelp">
+                                    <label asp-for="Email" class="form-label">Email</label>
+                                    <input type="email" class="form-control @(ViewData["LoginStatus"].ToString() == "NotFound" ? "is-invalid" : "")" asp-for="Email" aria-describedby="emailHelp" required>
                                     @if (ViewData["LoginStatus"].ToString() == "NotFound")
                                     {
                                         <span class="invalid-feedback">Email Tidak Terdaftar</span>
@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="mb-4">
                                     <label asp-for="Password" class="form-label">Password</label>
-                                    <input type="password" class="form-control @(ViewData["LoginStatus"].ToString() == "BadRequest" ? "is-invalid" : "")" asp-for="Password">
+                                    <input type="password" class="form-control @(ViewData["LoginStatus"].ToString() == "BadRequest" ? "is-invalid" : "")" asp-for="Password" required>
                                     @if (ViewData["LoginStatus"].ToString() == "BadRequest")
                                     {
                                         <span class="invalid-feedback">Password salah.</span>

@@ -25,6 +25,22 @@ public class ReportController : ControllerBase
     }
 
 
+    [HttpGet("TotalReport")]
+    public IActionResult GetTotalReport()
+    {
+        var result = _reportRepository.GetTotalReport();
+        if (!result.Any())
+        {
+            return NotFound(new ResponseErrorHandler
+            {
+                Code = StatusCodes.Status404NotFound,
+                Status = HttpStatusCode.NotFound.ToString(),
+                Message = "Data Not Found"
+            });
+        }
+        return Ok(new ResponseOKHandler<IEnumerable<TotalReportDto>>(result));
+    }
+
     [HttpGet("details")]
     public IActionResult GetAllDetail()
     {

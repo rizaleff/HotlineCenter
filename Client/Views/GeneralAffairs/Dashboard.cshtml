@@ -5,7 +5,10 @@
     Layout = "~/Views/Shared/_GeneralAffairsLayout.cshtml";
 }
 @{
-
+    int reportProcessed = ViewBag.TotalReport[1].Count;
+    int reportRejected = ViewBag.TotalReport[2].Count;
+    int reportDone = ViewBag.TotalReport[3].Count;
+    int allReport = reportProcessed + reportRejected + reportDone;
     int listCount = 1;
 }
 
@@ -58,7 +61,46 @@
     </header>
     <!--  Header End -->
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 col-lg-3 col-xl-3">
+                <a href="./app-chat.html" class="p-4 text-center bg-success-subtle card shadow-none rounded-2">
+                    <span>
+                        <i class="ti text-success ti-flag-3 fs-8"></i>
+                    </span>
+                    <p class="fw-semibold text-success mb-1">Laporan Masuk</p>
+                    <h4 class="fw-semibold text-success mb-0">@allReport</h4>
+                </a>
+            </div>
+            <div class="col-sm-6 col-lg-3 col-xl-3">
+                <a href="javascript:void(0)" class="p-4 text-center bg-warning-subtle card shadow-none rounded-2">
+                    <span>
+                        <i class="ti text-warning ti-loader fs-8"></i>
+                    </span> 
+                    <p class="fw-semibold text-warning mb-1">Laporan Diproses</p>
+                    <h4 class="fw-semibold text-warning mb-0">@reportProcessed</h4>
+                </a>
+            </div>
+            <div class="col-sm-6 col-lg-3 col-xl-3">
+                <a href="./page-user-profile.html" class="p-4 text-center bg-primary-subtle card shadow-none rounded-2">
+                    <span>
+                        <i class="ti text-primary ti-circle-check fs-8"></i>
+                    </span>
+                    <p class="fw-semibold text-primary mb-1">Laporan Selesai</p>
+                    <h4 class="fw-semibold text-primary mb-0">@reportDone</h4>
+                </a>
+            </div>
 
+            <div class="col-sm-6 col-lg-3 col-xl-3">
+                <a href="./app-email.html" class="p-4 text-center bg-danger-subtle card shadow-none rounded-2">
+                    <span>
+                        <i class="ti text-danger ti-flag-off fs-8"></i>
+                    </span>
+                    <p class="fw-semibold text-danger mb-1">Laporan Ditolak</p>
+                    <h4 class="fw-semibold text-danger mb-0">@reportRejected</h4>
+                </a>
+            </div>
+
+        </div>
         <h1>Reports</h1>
         <div class="container">
             <div class="main-body p-0">
