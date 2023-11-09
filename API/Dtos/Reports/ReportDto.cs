@@ -8,6 +8,7 @@ public class ReportDto
     public string Title { get; set; }
     public string Description { get; set; }
     public StatusLevel Status { get; set; }
+    public DateTime CreatedDate { get; set; }
     //public string PhotoUrl { get; set; }
 
     public static implicit operator Report(ReportDto reportDto)
@@ -19,7 +20,7 @@ public class ReportDto
             Description = reportDto.Description,
             Status = reportDto.Status,
             //PhotoUrl = reportDto.PhotoUrl,
-            ModifiedDate = DateTime.Now
+            
         };
     }
     public static explicit operator ReportDto(Report report)
@@ -30,6 +31,7 @@ public class ReportDto
             Title = report.Title,
             Description = report.Description,
             Status = report.Status,
+            CreatedDate = report.CreatedDate,
             //PhotoUrl = report.PhotoUrl
         };
     }

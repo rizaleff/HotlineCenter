@@ -100,11 +100,11 @@
                                                             @:#eaeff4
                                                         };">
                                                             @Html.DisplayFor(modelItem => item.Status)
-                                                        @* <p class="text-gray-500 pr-2 p-1 rounded ">
-                                                            <time datetime="@item.ModifiedDate.ToString("yyyy-MM-ddTHH:mm:ss")">
-                                                                @item.ModifiedDate.ToString("dd MMMM yyyy HH:mm:ss")
+                                                        <p class="text-gray-500 pr-2 p-1 rounded ms-1">
+                                                            <time datetime="@item.CreatedDate.ToString("yyyy-MM-ddTHH:mm:ss")">
+                                                                    @item.CreatedDate.ToString("dd MMMM yyyy HH:mm:ss")
                                                             </time>
-                                                        </p> *@
+                                                        </p>
 
                                                     </div>
 
@@ -132,7 +132,7 @@
         </div>
     </div>
 
-@* <script>
+<script>
     function timeAgo(date) {
         const secondsAgo = Math.floor((new Date() - date) / 1000);
         if (secondsAgo < 60) {
@@ -153,4 +153,4 @@
         const dateTime = new Date(element.getAttribute("datetime"));
         element.innerText = timeAgo(dateTime);
     });
-</script> *@
+</script>
