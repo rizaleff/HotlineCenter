@@ -100,7 +100,6 @@ function fillModalWithWorkOrderData(workOrderData) {
         $('#image').attr('src', `data:image/png;base64,${workOrderData.reportPhoto}`);
         $("#workOrderGuid").val(workOrderData.guid);
         $("[name='employeeGuid']").val(workOrderData.employeeGuid);
-
         if (workOrderData.status == 0) {
             // Jika status work order adalah 0, tampilkan tombol "Take Work Order"
             document.getElementById("takeWorkOrderButton").style.display = "block";
@@ -114,6 +113,7 @@ function fillModalWithWorkOrderData(workOrderData) {
             document.getElementById("takeWorkOrderButton").style.display = "none";
             document.getElementById("createWorkOrderReportButton").style.display = "none";
         }
+
 
       
     }).fail((err) => {
