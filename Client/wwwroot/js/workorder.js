@@ -106,7 +106,7 @@ $(document).on('click', 'button[data-action="detail"]', function () {
         $('#status').text(status);
         $('#note').text(note);
         $('#modifiedDate').text(modifiedDate);
-        $('#reportPhoto').attr('src', reportPhoto);
+        $('#image').attr('src', reportPhoto);
     });
 
 
@@ -134,11 +134,15 @@ function InsertWorkOrder() {
                 title: 'Success!',
                 text: result.message,
 
-            })
-            $('#rejectWoModal').modal('hide');
+            });
+           /* $('#rejectWoModal').modal('hide');
             $('#detailModal').modal('hide');
             console.log("succes create Work order")
-            reportTable.ajax.reload();
+            reportTable.ajax.reload();*/
+
+            $('#createWorkOrderModal').modal('hide');
+            console.log("success create Work order");
+            location.reload();
         },
         error: function (error) {
             console.log(error);
@@ -206,3 +210,25 @@ function UpdateStatusReport() {
 }
 
 
+var statusElement = document.getElementById("status");
+
+// Ambil nilai status
+var statusValue = "NotStarted"; // Ganti dengan nilai status yang sesuai
+
+// Ganti teks dan latar belakang berdasarkan nilai status
+switch (statusValue) {
+    case "NotStarted":
+        statusElement.textContent = "Not Started";
+        statusElement.classList.add("bg-danger");
+    case "InProgress":
+        statusElement.textContent = "Not Started";
+        statusElement.classList.add("bg-warning");
+    case "Compl":eted
+        statusElement.textContent = "Not Started";
+        statusElement.classList.add("bg-success");
+        break;
+    // Tambahkan kasus lain jika diperlukan
+    default:
+        statusElement.textContent = statusValue;
+        break;
+}
