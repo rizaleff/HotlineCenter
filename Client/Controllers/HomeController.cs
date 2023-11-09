@@ -72,12 +72,21 @@ namespace Client.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto login)
         {
+            // Validasi username dan password
+            var isValidUser = await ValidateUserCredentials(login.Email, login.Password);
+
+            if (!isValidUser)
+            {
+                ModelState.AddModelError(string.Empty, "Username or password is incorrect.");
+                return View("Login");
+            }
+
+            // Username dan password valid, lanjutkan dengan autentikasi JWT
             var result = await _accountRepository.Login(login);
 
 
             if (result.Status == "OK")  
             {
-
                 HttpContext.Session.SetString("JWToken", result.Data.Token);
 
                 var jwtToken = HttpContext.Session.GetString("JWToken");
@@ -91,6 +100,7 @@ namespace Client.Controllers
                 var fullName = jsonToken.Claims.First(claim => claim.Type == "FullName").Value;
                 var profilePhoto = jsonToken.Claims.First(claim => claim.Type == "ProfilePhoto").Value;
                 var role = jsonToken.Claims.First(claim => claim.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role").Value;
+
                 HttpContext.Session.SetString("FullName", fullName);
                 HttpContext.Session.SetString("Guid", guid);
                 HttpContext.Session.SetString("Email", email);
@@ -120,6 +130,27 @@ namespace Client.Controllers
             }
             return View("Login");
         }
+
+        private async Task<bool> ValidateUserCredentials(string email, string password)
+        {
+            var login = new LoginDto
+            {
+                Email = email,
+                Password = password
+            };
+
+            var response = await _accountRepository.Login(login);
+
+            if (response.Status == "OK")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 
         public IActionResult Register()
         {
