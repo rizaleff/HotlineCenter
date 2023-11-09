@@ -6,14 +6,14 @@
     <title>@ViewData["Title"] Manager | Dashboard</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Client.styles.css" asp-append-version="true" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
     <link rel="shortcut icon" type="image/png" href="~/img/logos/favicon.png" />
     <link rel="stylesheet" href="~/css/styles.css" />
     <link rel="stylesheet" href="~/css/ga.css" />
 @*     <link rel="stylesheet" href="~/css/forum.css" /> *@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
+    <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/r-2.5.0/datatables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/select2/css/select2.min.css">
 
 </head>
 <body>
@@ -47,7 +47,22 @@
                                 <span class="hide-menu">Dashboard</span>
                             </a>
                         </li>
-                       
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/GeneralAffairs/WorkReport" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-alert-circle"></i>
+                                </span>
+                                <span class="hide-menu">Work Report</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/GeneralAffairs/WorkOrder" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-alert-circle"></i>
+                                </span>
+                                <span class="hide-menu">Work Order</span>
+                            </a>
+                        </li>
                         </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -63,27 +78,42 @@
         </div>
     </div>
 
-    
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/sidebarmenu.js"></script>
     <script src="~/js/app.min.js"></script>
+    <script src="~/lib/select2/js/select2.full.min.js"></script>
+    <script src="~/lib/select2/js/select2.min.js"></script>
+    <script src="~/lib/select2/js/select2.init.js"></script>
+    <script src="~/js/workorder.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.6/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/r-2.5.0/datatables.min.js"></script>
+
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var detailButtons = document.querySelectorAll(".btn-detail");
-
-            detailButtons.forEach(function (button) {
-                button.addEventListener("click", function () {
-                    var id = button.getAttribute("data-id");
-
-                    window.location.href = "/Manager/ApproveProject?id=" + id;
-                });
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2({
+                placeholder: 'Select an option'
             });
-        });
-    </script>
 
+
+
+            //Datatable
+            let reportTable = $("#tableReports").DataTable();
+            let workOrderTable = $("#workOrderTable").DataTable();
+            let workReportTable = $("#workReportTable").DataTable();
+
+        });
+
+        $('#createWorkOrderModal').on('shown.bs.modal', function () {
+            $('#inputCs').select2();
+        });
+
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

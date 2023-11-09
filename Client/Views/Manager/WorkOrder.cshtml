@@ -1,14 +1,9 @@
 ﻿@using API.Utilities.Enums;
-@model IEnumerable<API.DTOs.Reports.ReportDetailDto>
-
+@model IEnumerable<API.Dtos.WorkOrders.WorkOrderDetailDto>;
 @{
     Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+    var listCount = 1;
 }
-@{
-
-    int listCount = 1;
-}
-
 <div class="body-wrapper">
     <!--  Header Start -->
     <header class="app-header">
@@ -59,32 +54,32 @@
     <!--  Header End -->
     <div class="container-fluid">
 
-        <h1>Reports</h1>
+        <h1>Work Order</h1>
         <div class="container">
             <div class="main-body p-0">
                 <div class="inner-wrapper">
                     <!-- /Inner sidebar -->
                     <!-- Inner main -->
                     <div class="inner-main">
-
                         <!-- Inner main header -->
-                        @*                         <div class="d-flex justify-content-between pt-3 mx-3">
-                        <span class="input-icon input-icon-sm ml-auto w-auto">
-                        <input type="text" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none" placeholder="Search Reports" />
-                        </span>
-                        </div> *@
+                        <div class="d-flex justify-content-between pt-3 mx-3">
+                            <div class="">
+                                <a href="/WorkOrder/Create" class="btn btn-primary">Create Work Order</a>
+                            </div>
+                            <span class="input-icon input-icon-sm ml-auto w-auto">
+                                <input type="text" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none" placeholder="Search Reports" />
+                            </span>
+                        </div>
                         <!-- /Inner main header -->
                         <!-- Inner main body -->
                         <!-- Forum List -->
-
                         <div class="inner-main-body p-2 p-sm-3">
-                            <table class="table table-sm" id="tableReports">
+                            <table class="table table-sm" id="workOrderTable">
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col">Reported By</th>
                                         <th scope="col">Title</th>
-                                        <th scope="col">Report Date</th>
+                                        <th scope="col">Created</th>
                                         <th scope="col">Status</th>
 
                                         <th scope="col">Action</th>
@@ -99,38 +94,33 @@
                                         {
                                             var base64Image = Convert.ToBase64String(item.ReportPhoto);
                                             imgSrc = $"data:image/jpeg;base64,{base64Image}";
-
                                         }
                                         string cssClass = "";
                                         string cssBtnClass = "";
                                         string btnText = "Detail";
-                                        if (item.Status == StatusLevel.Sending)
+                                        if (item.Status == StatusWorkOrderLevel.NotStarted)
                                         {
-                                            cssClass = "bg-light-success text-success";
+                                            cssClass = "bg-light-success text-danger";
                                             cssBtnClass = "btn-success";
                                             btnText = "Process";
                                         }
-                                        else if (item.Status == StatusLevel.OnProcess)
+                                        else if (item.Status == StatusWorkOrderLevel.InProgress)
                                         {
                                             cssClass = "bg-light-warning text-warning";
                                             cssBtnClass = "btn-primary";
                                         }
-                                        else if (item.Status == StatusLevel.Reject)
+                                        else if (item.Status == StatusWorkOrderLevel.Completed)
                                         {
-                                            cssClass = "bg-light-danger text-danger";
+                                            cssClass = "bg-light-success text-success";
                                             cssBtnClass = "btn-primary";
                                         }
-
                                         else
                                         {
                                             cssClass = "bg-light-info text-info";
                                             cssBtnClass = "btn-primary";
                                         }
-
-
                                         <tr>
                                             <td> @listCount </td>
-                                            <td> @Html.DisplayFor(modelItem => item.EmployeeFullName)</td>
                                             <td> @Html.DisplayFor(modelItem => item.Title)</td>
                                             <td> @Html.DisplayFor(modelItem => item.CreatedDate)</td>
                                             <td>
@@ -139,22 +129,22 @@
                                             <td>
                                                 <div>
                                                     @* <a href="/Report/Edit/?guid=@item.Guid" class="btn btn-primary"hidden">Edit</a> *@
-                                                    <button class="btn @cssBtnClass btn-detail"
+                                                    <button class="btn btn-primary btn-detail"
                                                             data-bs-toggle="modal"
-                                                            data-action="detail"
-                                                            data-bs-target="#detailModal"
-                                                            data-report='{
-                                                                                "reportBy":"@item.EmployeeFullName",
-                                                                                "reportBy":"@item.EmployeeFullName",
-                                                                                "reportGuid":"@item.Guid",
+                                                            data-action="detailWorkOrder"
+                                                            data-bs-target="#detailsModal"
+                                                            data-wo='{
+                                                                                
+                                                                                "woGuid":"@item.Guid",
                                                                                 "title":"@item.Title",
-                                                                                "createdDate":"@item.CreatedDate",
+                                                                                "description":"@item.Description",
                                                                                 "status":"@item.Status",
-                                                                                "note":"@item.Note",
-                                                                                "modifiedDate":"@item.ModifiedDate",
+                                                                                "createdDate":"@item.CreatedDate",
+                                                                                "reportTitle":"@item.ReportTitle",
+                                                                                "reportDescription":"@item.ReportDescription",
                                                                                 "reportPhoto":"@imgSrc"
                                                                             }'>
-                                                        @btnText
+                                                        Detail
                                                     </button>
 
                                                 </div>
@@ -169,7 +159,6 @@
                             <!-- /Inner main body -->
                         </div>
                         <!-- /Inner main -->
-
                     </div>
                 </div>
             </div>
@@ -179,117 +168,47 @@
     </div>
 </div>
 
-<div class="modal fade" id="detailModal" aria-labelledby="detailModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+<div class="modal fade " id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="detailModalLabel">Detail Report</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3 text-center">
-                    <img id="reportPhoto" src="" alt="Report Photo" class="img-fluid rounded">
-                </div>
-                <div class="mb-3">
-                    <span>Reported By:</span> <strong id="reportBy"></strong>
-                </div>
-                <div class="mb-3">
-                    <strong>Title:</strong> <span id="title"></span>
-                </div>
-                <div class="mb-3">
-                    <strong>Created Date:</strong> <span id="createdDate"></span>
-                </div>
-                <div class="mb-3">
-                    <strong>Status:</strong> <span id="status"></span>
-                </div>
-                <div class="mb-3">
-                    <strong>Note:</strong> <span id="note"></span>
-                </div>
-                <div class="mb-3">
-                    <strong>Modified Date:</strong> <span id="modifiedDate"></span>
-                </div>
-
-            </div>
-            <div class="modal-footer" id="modalFooter">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<div id="rejectWoModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="reject-wo-modal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header modal-colored-header bg-danger text-white">
-                <h4 class="modal-title" id="danger-header-modalLabel">
-                    Reject Report
-                </h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="reportGuidInput" name="guid">
-                <div class="mb-3">
-                    <label for="noteTextArea" class="col-form-label">Note:</label>
-                    <textarea class="form-control" id="noteTextArea" placeholder="Berikan alasan penolakan"></textarea>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-                    Cancel
-                </button>
-                <button type="button" onclick="UpdateStatusReport()" class="btn bg-danger-subtle text-danger font-medium">
-                    Reject
-                </button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-
-
-
-<div class="modal fade" id="createWorkOrderModal" tabindex="-1" role="dialog" aria-labelledby="createWorkOrderModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-success">
-                <h2 class="text-white">Create Work Order</h2>
+            <div class="modal-header bg-primary">
+                <h2 class="text-white">Details</h2>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close">
                 </button>
+
+
             </div>
             <div class="modal-body">
-                <!-- Formulir untuk membuat Work Order -->
-                <form id="workOrderForm" enctype="multipart/form-data">
-                    <input type="hidden" id="reportGuidHidden" name="reportGuidHidden">
+                <div class="row border mt-3">
+                    <div class="col-md-3 ms-auto bg-light py-3">
+                        Title Work Order
+                    </div>
+                    <div class="col-md-9 ms-auto bg-light py-3 d-flex">
+                        <p class="me-2">: </p> <p class="" id="title"></p>
+                    </div>
+                </div>
+                <div class="row border mt-3">
+                    <div class="col-md-3 ms-auto bg-light py-3">
+                        Deskripsi Work Order
+                    </div>
+                    <div class="col-md-9 ms-auto bg-light py-3 d-flex">
+                        <p class="me-2">: </p> <p id="description"></p>
+                    </div>
+                </div>
+                <div class="m-2">
+                    <h2>Report Detail</h2>
+                    <p id="reportDescription"></p>
+                </div>
+                <div class="text-center m-2">
+                    <img id="reportPhoto" class="img-fluid" src="" alt="Image">
+                </div>
 
-                    <div class="form-group">
-                        <label for="inputWoTitle">Title</label>
-                        <input type="text" class="form-control" id="inputWoTitle" name="title">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputWoDesc">Description</label>
-                        <textarea class="form-control" id="inputWoDesc" name="description"></textarea>
-
-                    </div>
-                    <div class="form-group">
-                        <label for="csEmployee">Description</label>
-                        <select class="form-select" js-states form-control" id="inputCs">
-                            <option disabled>Please Select</option>
-                            @foreach (var cs in ViewBag.ListCs)
-                            {
-                                <option value="@cs.Guid">@cs.FullName</option>
-                            }
-                        </select>
-                    </div>
-                </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-close-white" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" onclick="InsertWorkOrder()" class="btn btn-success" id="createWorkOrderBtn">Create Work Order</button>
 
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button class="btn btn-success" id="createWorkOrderReportButton">Create Work Order</button>
+                <button class="btn btn-success" id="takeWorkOrderButton">Take Work Order</button>
             </div>
         </div>
     </div>
