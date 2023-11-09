@@ -137,12 +137,27 @@
                                 <label for="newDescription">Description</label>
                                 <textarea class="form-control" id="newDescription" name="description"></textarea>
                             </div>
+
+                            <!-- Input Status -->
+                            <div class="form-group">
+                                <label>Status</label><br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="status" id="statusDone" value="true">
+                                    <label class="form-check-label" for="statusDone">Done</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="status" id="statusNotDone" value="false" checked>
+                                    <label class="form-check-label" for="statusNotDone">Not Done Yet</label>
+                                </div>
+                            </div>
+
+                            <!-- Input Foto -->
                             <div class="input-group mt-3 mb-3">
                                 <label class="input-group-text" for="inputGroupFile01">Upload</label>
                                 <input type="file" class="form-control" id="photoFile">
                             </div>
-
                         </form>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -210,6 +225,7 @@
                                         <th class="col">No</th>
                                         <th class="col-3">Title</th>
                                         <th class="col-6">Deskripsi</th>
+                                        <th class="col-6">Status</th>
                                         <th class="col">Action</th>
 
                                     </tr>
