@@ -37,3 +37,17 @@
         </div>
     </div>
 </div>
+
+<script>
+    function validateForm() {
+        var emailInput = document.getElementById("emailInput");
+        var passwordInput = document.getElementById("passwordInput");
+
+        if (emailInput.value.trim() === "" || passwordInput.value.trim() === "") {
+            alert("Username and Password must not be empty.");
+            return false; // Prevent the form submission
+        }
+
+        return true;
+    }
+</script>
