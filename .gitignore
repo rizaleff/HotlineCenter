@@ -396,3 +396,8 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+API/Program.cs
+API/Migrations/HotlineCenterDbContextModelSnapshot.cs
+API/Migrations/20231109150045_change-cardinality.Designer.cs
+API/Migrations/20231109150045_change-cardinality.cs
+API/Migrations/HotlineCenterDbContextModelSnapshot.cs
