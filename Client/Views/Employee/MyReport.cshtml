@@ -66,6 +66,66 @@
                         <!-- Forum List -->
                         @foreach (var item in Model.Reverse())
                         {
+                            string cssClass = "";
+                            string cssBtnClass = "";
+                            string btnText = "Detail";
+                            if (item.Status == StatusLevel.Sending)
+                            {
+                                cssClass = "bg-light-success text-success";
+
+                            }
+                            else if (item.Status == StatusLevel.OnProcess)
+                            {
+                                cssClass = "bg-light-warning text-warning";
+
+                            }
+                            else if (item.Status == StatusLevel.Reject)
+                            {
+                                cssClass = "bg-light-danger text-danger";
+                            }
+                            else
+                            {
+                                cssClass = "bg-light-info text-info";
+                            }
+
+                            DateTime currentTime = DateTime.Now;
+                            DateTime yourDateTime = @item.CreatedDate; // Your specific date and time that you want to format
+
+                            TimeSpan timeDifference = currentTime - yourDateTime;
+                            string formattedTime = "";
+
+                            if (timeDifference.TotalMinutes <= 1)
+                            {
+                                // Less than a minute
+                                formattedTime = "Baru saja";
+                            }
+                            else if (timeDifference.TotalHours < 1)
+                            {
+                                // Less than an hour
+                                int minutesAgo = (int)timeDifference.TotalMinutes;
+                                formattedTime = $"{minutesAgo} menit yang lalu";
+                            }
+                            else if (timeDifference.TotalDays < 1)
+                            {
+                                // Less than a day
+                                int hoursAgo = (int)timeDifference.TotalHours;
+                                formattedTime = $"{hoursAgo} jam yang lalu";
+                            }
+                            else if (timeDifference.TotalDays
+
+                            < 7)
+                            {
+                                // Less than a week
+                                int daysAgo = (int)timeDifference.TotalDays;
+                                formattedTime = $"{daysAgo} hari yang lalu";
+                            }
+                            else
+                            {
+                                // More than a week, display the date
+                                formattedTime = yourDateTime.ToString("dd MMMM yyyy");
+                            }
+
+
                             <div class="inner-main-body p-2 p-sm-3">
                                 <div class="card mb-2" id="reportCard">
                                     <div class="card-body p-2 p-sm-3">
@@ -82,30 +142,13 @@
                                                         @Html.DisplayFor(modelItem => item.Description)
                                                     </p>
                                                     <div class="d-lg-flex justify-content-start ">
-                                                        <p class="text-gray-500 pr-2 p-1 rounded shadow-sm me-3" style="background-color:
-                                                        @if (item.Status == StatusLevel.Sending)
-                                                        {
-                                                            @:#a1f2e3
-                                                        }
-                                                        else if (item.Status == StatusLevel.Reject)
-                                                        {
-                                                            @:#fbf2ef
-                                                        }
-                                                    else if (item.Status == StatusLevel.OnProcess)
-                                                        {
-                                                            @:#fef5e5
-                                                        }
-                                                        else
-                                                        {
-                                                            @:#eaeff4
-                                                        };">
-                                                            @Html.DisplayFor(modelItem => item.Status)
-                                                        <p class="text-gray-500 pr-2 p-1 rounded ms-1">
-                                                            <time datetime="@item.CreatedDate.ToString("yyyy-MM-ddTHH:mm:ss")">
-                                                                    @item.CreatedDate.ToString("dd MMMM yyyy HH:mm:ss")
-                                                            </time>
+                                                        <p class="text-gray-600 pr-2 p-1 rounded">
+                                                            <span class="mb-1 mr-2 badge rounded-pill font-medium @cssClass">@Html.DisplayFor(modelItem => item.Status)</span
                                                         </p>
-
+                                                         <p class="text-gray-500 pr-2 p-1 rounded ms-1">
+                                                            @formattedTime
+                                                          
+                                                        </p>
                                                     </div>
 
                                                 </div>

@@ -2,6 +2,43 @@
 
 @{
     Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+    DateTime currentTime = DateTime.Now;
+    DateTime yourDateTime = Model.CreatedDate; // Your specific date and time that you want to format
+
+    TimeSpan timeDifference = currentTime - yourDateTime;
+    string formattedTime = "";
+
+    if (timeDifference.TotalMinutes <= 1)
+    {
+        // Less than a minute
+        formattedTime = "Baru saja";
+    }
+    else if (timeDifference.TotalHours < 1)
+    {
+        // Less than an hour
+        int minutesAgo = (int)timeDifference.TotalMinutes;
+        formattedTime = $"{minutesAgo} menit yang lalu";
+    }
+    else if (timeDifference.TotalDays < 1)
+    {
+        // Less than a day
+        int hoursAgo = (int)timeDifference.TotalHours;
+        formattedTime = $"{hoursAgo} jam yang lalu";
+    }
+    else if (timeDifference.TotalDays
+
+    < 7)
+    {
+        // Less than a week
+        int daysAgo = (int)timeDifference.TotalDays;
+        formattedTime = $"{daysAgo} hari yang lalu";
+    }
+    else
+    {
+        // More than a week, display the date
+        formattedTime = yourDateTime.ToString("dd MMMM yyyy");
+    }
+
 }
 <div class="body-wrapper">
     <!--  Header Start -->
@@ -94,9 +131,7 @@
                                     </p>
 
                                     <p class="text-gray-500 pr-2 p-1 rounded ms-1"> Dibuat 
-                                        <time datetime="@Model.CreatedDate.ToString("yyyy-MM-ddTHH:mm:ss")">
-                                            @Model.CreatedDate.ToString("dd MMMM yyyy HH:mm:ss")
-                                        </time>
+                                        @formattedTime
                                     </p>
                                 </div>
                                 <div class="">
