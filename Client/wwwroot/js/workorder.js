@@ -100,7 +100,7 @@ $(document).on('click', 'button[data-action="detail"]', function () {
     console.log(typeof status)
     switch (status) {
         case "Sending":
-            $('#statusReport').addClass("bg-light-success text-succes");
+            $('#statusReport').addClass("bg-light-success text-success");
             break;
         case "OnProcess":
             $('#statusReport').addClass("bg-light-warning text-warning");
