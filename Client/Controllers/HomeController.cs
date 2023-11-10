@@ -122,14 +122,6 @@ namespace Client.Controllers
                 }
             }
 
-            else if (result.Status == "BadRequest")
-            {
-                ModelState.AddModelError(string.Empty, result.Message);
-            }
-            else if (result.Status == "NotFound")
-            {
-                ModelState.AddModelError(string.Empty, result.Message);
-            }
             ViewData["LoginStatus"] = result.Status;
             return View();
         }

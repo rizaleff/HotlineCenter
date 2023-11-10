@@ -74,25 +74,45 @@ $(document).ready(function () {
 
     });
 
+
 });
 $(document).on('click', 'button[data-action="detail"]', function () {
 
         var reportData = $(this).data('report');
         var reportBy = reportData.reportBy;
         var title = reportData.title;
-        var createdDate = reportData.createdDate;
+    var createdDate = reportData.createdDate;
+    var description = reportData.description;
         var status = reportData.status;
         var note = reportData.note;
         var modifiedDate = reportData.modifiedDate;
-        var reportPhoto = reportData.reportPhoto;
-
+    var reportPhoto = reportData.reportPhoto;
+    console 
         $('#reportBy').text(reportBy);
         $('#title').text(title);
         $('#createdDate').text(createdDate);
-        $('#status').text(status);
+        $('#statusReport').text(status);
         $('#note').text(note);
         $('#modifiedDate').text(modifiedDate);
+        $('#description').text(description);
         $('#reportPhoto').attr('src', reportPhoto);
+
+    console.log(typeof status)
+    switch (status) {
+        case "Sending":
+            $('#statusReport').addClass("bg-light-success text-succes");
+            break;
+        case "OnProcess":
+            $('#statusReport').addClass("bg-light-warning text-warning");
+            break;
+        case "Reject":
+            $('#statusReport').addClass("bg-light-danger text-danger");
+            break;
+
+        default:
+            $('#statusReport').addClass("bg-light-info text-info");
+            break;
+    }
 
         console.log(status)
         var modalFooter = $('#modalFooter');
@@ -163,6 +183,7 @@ $(document).on('click', 'button[data-action="detail"]', function () {
         $('#description').text(description);
         $('#reportDescription').text(reportDescription);
         $('#status').text(status);
+        console.log(status);
         $('#note').text(note);
         $('#modifiedDate').text(modifiedDate);
         $('#image').attr('src', reportPhoto);
@@ -289,3 +310,5 @@ switch (statusValue) {
         statusElement.textContent = statusValue;
         break;
 }
+
+

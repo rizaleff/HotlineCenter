@@ -66,6 +66,28 @@
                         <!-- Forum List -->
                         @foreach (var item in Model.Reverse())
                         {
+                            string cssClass = "";
+                            string cssBtnClass = "";
+                            string btnText = "Detail";
+                            if (item.Status == StatusLevel.Sending)
+                            {
+                                cssClass = "bg-light-success text-success";
+
+                            }
+                            else if (item.Status == StatusLevel.OnProcess)
+                            {
+                                cssClass = "bg-light-warning text-warning";
+
+                            }
+                            else if (item.Status == StatusLevel.Reject)
+                            {
+                                cssClass = "bg-light-danger text-danger";
+                            }
+                            else
+                            {
+                                cssClass = "bg-light-info text-info";
+                            }
+
                             <div class="inner-main-body p-2 p-sm-3">
                                 <div class="card mb-2" id="reportCard">
                                     <div class="card-body p-2 p-sm-3">
@@ -81,27 +103,12 @@
                                                     <p class="fw-normal">
                                                         @Html.DisplayFor(modelItem => item.Description)
                                                     </p>
+
+
                                                     <div class="d-lg-flex justify-content-start">
-                                                        <p class="text-gray-500 pr-2 p-1 rounded shadow-sm me-3" style="background-color:
-                                                        @if (item.Status == StatusLevel.Sending)
-                                                        {
-                                                            @:#a1f2e3
-                                                        }
-                                                        else if (item.Status == StatusLevel.Reject)
-                                                        {
-                                                            @:#fbf2ef
-                                                        }
-                                                    else if (item.Status == StatusLevel.OnProcess)
-                                                        {
-                                                            @:#fef5e5
-                                                        }
-                                                        else
-                                                        {
-                                                            @:#eaeff4
-                                                        };">
-                                                            @Html.DisplayFor(modelItem => item.Status)
-                                                        </p>
+                                                        
                                                         <p class="text-gray-600 pr-2 p-1 rounded">
+                                                            <span class="mb-1 mr-2 badge rounded-pill font-medium @cssClass">@Html.DisplayFor(modelItem => item.Status)</span>
                                                             Dibuat oleh @Html.DisplayFor(modelItem => item.EmployeeFullName)
                                                         </p>
                                                         <p class="text-gray-500 pr-2 p-1 rounded ms-1">
