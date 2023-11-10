@@ -14,24 +14,24 @@
                             <a href="./index.html" class="text-nowrap logo-img text-center d-block py-3 w-100">
                                 <img src="~/lib/img/logos/dark-logo.svg" width="180" alt="">
                             </a>
-                            <p class="text-center">Your Social Campaigns</p>
+                            <p class="text-center">Report office facility problems quickly and easily</p>
 
+                            @if(ViewData["LoginStatus"].ToString() != "")
+                            {
+                            <div class="alert alert-danger">
+                                Email atau password salah.
+                            </div>
+                            }
                             <form action="Login" method="post">
                                 <div class="mb-3">
                                     <label asp-for="Email" class="form-label">Email</label>
-                                    <input type="email" class="form-control @(ViewData["LoginStatus"].ToString() == "NotFound" ? "is-invalid" : "")" asp-for="Email" aria-describedby="emailHelp" required>
-                                    @if (ViewData["LoginStatus"].ToString() == "NotFound")
-                                    {
-                                        <span class="invalid-feedback">Email Tidak Terdaftar</span>
-                                    }
+                                    <input type="email" class="form-control" asp-for="Email" aria-describedby="emailHelp" required>
+                                    
                                 </div>
                                 <div class="mb-4">
                                     <label asp-for="Password" class="form-label">Password</label>
-                                    <input type="password" class="form-control @(ViewData["LoginStatus"].ToString() == "BadRequest" ? "is-invalid" : "")" asp-for="Password" required>
-                                    @if (ViewData["LoginStatus"].ToString() == "BadRequest")
-                                    {
-                                        <span class="invalid-feedback">Password salah.</span>
-                                    }
+                                    <input type="password" class="form-control " asp-for="Password" required>
+                                    
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</button>
                                 <div class="d-flex align-items-center justify-content-center">

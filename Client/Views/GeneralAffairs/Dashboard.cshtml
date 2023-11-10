@@ -192,6 +192,7 @@
                                                                             "title":"@item.Title",
                                                                             "createdDate":"@item.CreatedDate",
                                                                             "status":"@item.Status",
+                                                                            "description":"@item.Description",
                                                                             "note":"@item.Note",
                                                                             "modifiedDate":"@item.ModifiedDate",
                                                                             "reportPhoto":"@imgSrc"
@@ -211,7 +212,52 @@
                             <!-- /Inner main body -->
                         </div>
                         <!-- /Inner main -->
+                        <!-- Button trigger modal -->
+                        <!-- Modal -->
+                        <div class="modal fade" id="detailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Report Detail</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="card rounded-2 overflow-hidden">
+                                            <div class="position-relative">
+                                               
+                                                <img id="reportPhoto" src=""  class="card-img-top rounded-0 object-fit-cover" alt="..." height="400">
+                                            </div>
+                                            <div class="card-body p-4">
+                                               
+                                                <div class="d-flex align-items-center gap-4">
+                                                <span class="badge fs-2 rounded-4 py-1 px-2 lh-sm" id="statusReport"></span>
+                                                <div class="d-flex align-items-center gap-2"><i class="ti ti-user text-dark fs-5"></i>Report By: <span id="reportBy"><strong>Nama</strong></span></div>
 
+                                                    <div class="d-flex align-items-center fs-2 ms-auto">
+                                                    <i class="ti ti-calendar text-dark"></i><span id="modifiedDate"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body border-top p-4">
+                                                <h4 class="fs-8 fw-semibold mb-3" id="title">Title of the paragraph</h4>
+                                                <p class="mb-3" id="description">
+                                                   
+                                                </p>
+                                                
+
+                                                <div class="border-top mt-7 pt-7">
+                                                    <h6 class="fw-semibold">Note From GA: </h6>
+                                                    <p class="mb-3" id="note">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer" id="modalFooter">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -221,7 +267,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="detailModal" aria-labelledby="detailModalLabel" aria-hidden="true">
+<div class="modal fade" id="detailModalaa" aria-labelledby="detailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -317,7 +363,7 @@
                         
                     </div>
                     <div class="form-group">
-                        <label for="csEmployee">Description</label>
+                        <label for="csEmployee">Choose Service Worker/CS</label>
                         <select class="form-select" js-states form-control" id="inputCs">
                             <option disabled>Please Select</option>
                             @foreach (var cs in ViewBag.ListCs)

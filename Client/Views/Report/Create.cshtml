@@ -3,6 +3,7 @@
 @{
     // Mengambil nilai dari sesi dengan tipe data tertentu
     var guidValue = Context.Request.HttpContext.Session.GetString("Guid");
+    var descriptionPlaceHolder = "Silakan jelaskan kendala yang Anda alami. Mohon cantumkan detail sejelas mungkin, termasuk lokasi, waktu kejadian, dan informasi lain yang relevan";
 }
 @{
     Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
@@ -86,7 +87,7 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="descrption" class="form-label">Description</label>
-                                        <textarea asp-for="Description" class="form-control" aria-label="With textarea" required></textarea>
+                                        <textarea asp-for="Description" class="form-control" placeholder="@descriptionPlaceHolder" aria-label="With textarea" style="height: 200px;" required></textarea>
                                     </div>
                                     <div class="form-group mb-3">
                                         <input asp-for="PhotoFile" type="file" class="form-control" id="foto" required>
